@@ -20,10 +20,10 @@ from login import views as login_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('check/', login_views.dashboard, name='check'),
-    path('update/', login_views.dashboard, name='update'),
+    path('check/', login_views.check, name='check'),
+    path('update/', login_views.update, name='update'),
     path('login/', login_views.login, name='login'),
     path('register/', login_views.register, name='register'),
-    path('logout/', login_views.register, name='logout'),
-    path('delete/', login_views.register, name='delete')
+    path('logout/', login_views.logout, name='logout'),
+    path('delete/', login_views.delete, name='delete')
 ]

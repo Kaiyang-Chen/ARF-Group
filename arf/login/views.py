@@ -1,7 +1,8 @@
 from django.http import HttpResponse, HttpRequest, JsonResponse
 from django.contrib.auth import login as _login, logout as _logout, authenticate
 import json
-from models import User, UserProfile
+from login.models import UserProfile
+from django.contrib.auth.models import User
 import re
 # Create your views here.
 
