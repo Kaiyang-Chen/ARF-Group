@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">kotlinChatter</string>
+    <string name="post">Post</string>
+    <string name="send">Send</string>
+    <string name="username">chenfred02</string>
+    <string name="message">Some short sample text.</string>
+    <string name="album">Album</string>
+    <string name="camera">Camera</string>
+    <string name="video">Video</string>
+    <string name="preview">Image</string>
+    <string name="chattImage">chattImage</string>
+    <string name="videoView">videoView</string>
+</resources>
