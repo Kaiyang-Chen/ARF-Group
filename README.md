@@ -130,3 +130,18 @@ SERVER_IP/update_product/
 Try to POST a new product with product UID. Fields to be updated and the new values should be provided. E.g., {"UID":"12345", "price":32}. Pictures of the product will be sent via url.
 Returns a HttpResponse indicating sucess or failure. An additional HttpRequest from Model Genetor will be sent when AR generation is required and finished. Subject to change.
 
+# View UI/UX
+
+# Team Roster
+
+Kaiyang Chen
+
+Fan Chen
+
+Xinmiao Yu
+
+Zhengyang Zhu
+
+Xingyuan Wang
+
+Weikai Zhou
