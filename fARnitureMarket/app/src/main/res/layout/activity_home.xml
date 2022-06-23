@@ -27,7 +27,7 @@
         <RadioButton
             android:id="@+id/NavigatorSearch"
             style="@style/NavigationButton"
-            android:checked="true"
+            android:checked="false"
             android:drawableTop="@drawable/ic_search_black"
             android:text="Search" />
 
@@ -36,12 +36,14 @@
         <RadioButton
             android:id="@+id/NavigatorCart"
             style="@style/NavigationButton"
+            android:checked="false"
             android:drawableTop="@drawable/ic_cart_black"
             android:text="Cart" />
 
         <RadioButton
             android:id="@+id/NavigatorMe"
             style="@style/NavigationButton"
+            android:checked="false"
             android:drawableTop="@drawable/ic_me_black"
             android:text="Me" />
 
@@ -50,7 +52,7 @@
     <ImageView
         android:id="@+id/sign_iv"
         android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_height="70dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:background="@android:color/transparent"
