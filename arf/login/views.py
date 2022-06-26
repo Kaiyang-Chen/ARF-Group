@@ -8,6 +8,34 @@ from django.views.decorators.csrf import csrf_exempt
 # Create your views here.
 
 
+def check_other(request: HttpRequest):
+    if request.method == 'GET':
+        user = request.user
+        try:
+            result = json.loads(request.body)
+        except:
+            return HttpResponse('failed: invalid text')
+        if not user.is_authenticated:
+            return HttpResponse('failed: login first')
+        if "username" not in result.keys():
+            return HttpResponse('failed: try api check')
+        username = result['username']
+        user = None
+        try:
+            user = User.objects.get(username=username)
+        except:
+            return HttpResponse('failed: no such username')
+        userprofile = UserProfile.objects.get(user=user)
+        for key in result.keys():
+            if key != 'password':
+                if hasattr(user, key):
+                    result[key] = getattr(user,key)
+                elif hasattr(userprofile,key):
+                    result[key] = getattr(userprofile,key)
+        return JsonResponse(result)
+    return HttpResponse('failed')
+
+
 def check(request: HttpRequest):
     '''
     Require information
@@ -17,16 +45,16 @@ def check(request: HttpRequest):
         try:
             result = json.loads(request.body)
         except:
-            HttpResponse('failed: invalid text')
+            return HttpResponse('failed: invalid text')
         if not user.is_authenticated:
             return HttpResponse('failed: login first')
         userprofile = UserProfile.objects.get(user=user)
         for key in result.keys():
             if key != 'password':
-                if key in user.__dict__.keys():
-                    result[key] = user.__dict__[key]
-                elif key in userprofile.__dict__.keys():
-                    result[key] = userprofile.__dict__[key]
+                if hasattr(user, key):
+                    result[key] = getattr(user,key)
+                elif hasattr(userprofile,key):
+                    result[key] = getattr(userprofile,key)
         return JsonResponse(result)
     return HttpResponse('failed')
 
@@ -119,7 +147,7 @@ def login(request: HttpRequest):
         user = authenticate(username=username, password=password)
         if user:
             _login(request, user)
-        return HttpResponse("successful")
+            return HttpResponse("successful")
     return HttpResponse("failed")
 
 
