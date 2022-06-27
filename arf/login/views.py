@@ -29,9 +29,9 @@ def check_other(request: HttpRequest):
         for key in result.keys():
             if key != 'password':
                 if hasattr(user, key):
-                    result[key] = getattr(user,key)
-                elif hasattr(userprofile,key):
-                    result[key] = getattr(userprofile,key)
+                    result[key] = getattr(user, key)
+                elif hasattr(userprofile, key):
+                    result[key] = getattr(userprofile, key)
         return JsonResponse(result)
     return HttpResponse('failed')
 
@@ -52,9 +52,9 @@ def check(request: HttpRequest):
         for key in result.keys():
             if key != 'password':
                 if hasattr(user, key):
-                    result[key] = getattr(user,key)
-                elif hasattr(userprofile,key):
-                    result[key] = getattr(userprofile,key)
+                    result[key] = getattr(user, key)
+                elif hasattr(userprofile, key):
+                    result[key] = getattr(userprofile, key)
         return JsonResponse(result)
     return HttpResponse('failed')
 
