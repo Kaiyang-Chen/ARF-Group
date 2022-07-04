@@ -77,4 +77,11 @@
         </Button>
     </LinearLayout>
 
+    <Button
+        android:id="@+id/Buttonenterhomepage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="enter"
+        android:text="Enter main page" />
+
 </LinearLayout>

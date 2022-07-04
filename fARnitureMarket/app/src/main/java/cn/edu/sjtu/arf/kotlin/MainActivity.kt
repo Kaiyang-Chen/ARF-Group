@@ -20,6 +20,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var RegUsername_main : EditText
     lateinit var RegPassword_main : EditText
     lateinit var Reglogin_main : Button
+    lateinit var enterhomepage : Button
     private var password_currect = true
     //private lateinit var view: ActivityMainBinding
 
@@ -32,6 +33,8 @@ class MainActivity : AppCompatActivity() {
     }
     fun SA(view: View?) = startActivity(Intent(this, HelloArActivity::class.java))
 
+    fun enter(view: View?) = startActivity(Intent(this, NavigateActivity::class.java))
+
     //fun SB(view: View?){
     //   startActivity(Intent(this, PostActivity::class.java))
     //    Toast.makeText(this, "Log In Successfully" , Toast.LENGTH_SHORT).show()
@@ -42,6 +45,7 @@ class MainActivity : AppCompatActivity() {
         RegUsername_main = findViewById<EditText>(R.id.et_account_main)
         RegPassword_main = findViewById<EditText>(R.id.et_password_main)
         Reglogin_main = findViewById<Button>(R.id.Button01_main)
+        enterhomepage = findViewById<Button>(R.id.Buttonenterhomepage)
     }
     fun maybeEnableArButton() {
         val availability = ArCoreApk.getInstance().checkAvailability(this)
