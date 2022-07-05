@@ -12,7 +12,7 @@ class SearchPage : Fragment() {
     lateinit var searchView : SearchView
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val layout: View = inflater.inflate(R.layout.search_page,container,false)
+        val layout: View = inflater.inflate(R.layout.page_search,container,false)
         searchView = layout.findViewById(R.id.search)
         return layout
     }

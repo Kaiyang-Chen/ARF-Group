@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 
 class HomePage : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.home_page,container,false)
+        return inflater.inflate(R.layout.page_home,container,false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
