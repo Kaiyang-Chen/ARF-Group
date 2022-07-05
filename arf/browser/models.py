@@ -1,28 +1,16 @@
 from django.db import models
 from login.models import User
+import uuid
 
 
 class ProductInfo(models.Model):
+    UID = models.UUIDField(
+        primary_key=True, auto_created=True, default=uuid.uuid1)
     name = models.CharField(max_length=128)
+    description = models.CharField(max_length=1024, default="")
     owner = models.OneToOneField(User, models.CASCADE, related_name='owner')
     primary_class = models.CharField(max_length=128, default='unknown')
     secondary_class = models.CharField(max_length=128, default='unknown')
     color_style = models.CharField(max_length=32, default='unknown')
-    price = models.IntegerField(default=-1)
+    price = models.FloatField(default=0)
     sold_state = models.BooleanField(default=False)
-
-
-class SearchingRecords(models.Model):
-    product = models.OneToOneField(
-        ProductInfo, models.CASCADE, related_name='popularity')
-    user = models.OneToOneField(
-        User, models.CASCADE, related_name='popularity')
-    access_date = models.DateField(auto_now_add=True)
-
-
-class ShoppingCartRecords(models.Model):
-    product = models.OneToOneField(
-        ProductInfo, models.CASCADE, related_name='popularity')
-    user = models.OneToOneField(
-        User, models.CASCADE, related_name='popularity')
-    access_date = models.DateField(auto_now_add=True)

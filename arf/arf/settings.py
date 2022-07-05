@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-z40(rnv9ha%@6o450s3r@*#i*bz28ka3h%akv)#-_er_mcze4m
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -37,7 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'login'
+    'login',
+    'browser',
+    'publisher'
 ]
 
 MIDDLEWARE = [
@@ -122,3 +124,8 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# media services
+MEDIA_URL = 'https://127.0.0.1:8000/static/'
+MEDIA_ROOT = BASE_DIR / 'static'
+DATA_UPLOAD_MAX_MEMORY_SIZE = 10485760

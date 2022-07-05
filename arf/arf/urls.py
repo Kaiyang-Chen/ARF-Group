@@ -15,16 +15,34 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-# from django.urls import re_path
 from login import views as login_views
+from browser import views as browser_views
+from publisher import views as publisher_views
 
 urlpatterns = [
+    # admin
     path('admin/', admin.site.urls),
+    # login
     path('check/', login_views.check, name='check'),
     path('update/', login_views.update, name='update'),
     path('login/', login_views.login, name='login'),
     path('register/', login_views.register, name='register'),
     path('logout/', login_views.logout, name='logout'),
     path('delete/', login_views.delete, name='delete'),
-    path('check_other/', login_views.check_other, name='check_other')
+    path('check_other/', login_views.check_other, name='check_other'),
+    # browser
+    path('fetch_home_products/', browser_views.fetch_home_products,
+         name='fetch_home_products'),
+    path('fetch_searched_products/', browser_views.fetch_searched_products,
+         name='fetch_searched_products'),
+    path('fetch_product_brief/', browser_views.fetch_product_brief,
+         name='fetch_product_brief'),
+    path('fetch_product_detailed/', browser_views.fetch_product_detailed,
+         name='fetch_product_detailed'),
+    # publisher
+    path('post_product/', publisher_views.post_product, name='post_product'),
+    path('post_picture/', publisher_views.post_picture, name='post_picture'),
+    path('delete_picture/', publisher_views.delete_picture, name='delete_picture'),
+    path('update_product/', publisher_views.update_product, name='update_product'),
+    path('delete_product/', publisher_views.delete_product, name='delete_product')
 ]

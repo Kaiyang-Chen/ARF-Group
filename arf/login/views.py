@@ -1,10 +1,17 @@
-from django.http import HttpResponse, HttpRequest, JsonResponse
-from django.contrib.auth import login as _login, logout as _logout, authenticate
 import json
-from login.models import UserProfile
-from django.contrib.auth.models import User
+import os
 import re
+import shutil
+
+from django.contrib.auth import authenticate
+from django.contrib.auth import login as _login
+from django.contrib.auth import logout as _logout
+from django.contrib.auth.models import User
+from django.http import HttpRequest, HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+
+from login.models import UserProfile
+
 # Create your views here.
 
 
@@ -170,7 +177,7 @@ def register(request: HttpRequest):
         if len(username) < 1:
             return HttpResponse('failed: username too short')
         for char in username:
-            if (not char.isalnum()) and (not char in "@/./+/-/_"):
+            if (not char.isalnum()) and (not char in " @.+-_"):
                 return HttpResponse('failed: username invalid')
         userinfo = User.objects.filter(username=username)
         if userinfo.exists():
@@ -233,6 +240,8 @@ def delete(request: HttpRequest):
     user = request.user
     if not user.is_authenticated:
         return HttpResponse('failed: login first')
+    if os.path.isdir(f"static/{user.username}"):
+        shutil.rmtree(f"static/{user.username}")
     user.delete()
     _logout(request)
     return HttpResponse('successful')

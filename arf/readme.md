@@ -46,6 +46,8 @@ SERVER_IP/check/
 Get the user's information. A GET request with a body containing the required fields. E.g., {"username":"", "gender":""}
 Returns a HttpResponse indicating sucess or failure.
 
+SERVER_IP/check_other/
+
 SERVER_IP/update/
 
 Update the user's information. A POST request with a body containing the required fields. E.g., {"username":"new_name", "gender":"male"}
@@ -69,23 +71,96 @@ SERVER_IP/delete/
 
 Delete the current user. The user must log in first.
 
-### Homepage product browsing
+! all returned values by the server are strings
+! all received by the server is assumed to be strings
+! do conversions first
+! you do not need arguments if you do not want to specify
 
-SERVER_IP/fetch_home_products/
+# browser
+path('fetch_home_products/', browser_views.fetch_home_products,
+     name='fetch_home_products')
 
-Fetch 5-10 products' information that is recommended for the user based on his browsing history. Sends a GET request with an empty body. Returns an HttpResponse containing products' name, price, photo and UID. E.g., {"UID1":{"name":"chair","price":32,"photo":"photo_url"...},"UID2":...} Returns a failure response if not logging in or internal error.
+get at most 64 UID for homepage
+GET method
+send: anything
+receive: {"0": "13233412-34xewrcr", "1": "7645ytewerg-vewegf"}
 
-### Searching page
+path('fetch_searched_products/', browser_views.fetch_searched_products,
+     name='fetch_searched_products')
 
-SERVER_IP/fetch_searched_products/
+get at most 64 uids
+GET method
+send: {"keywords": "sofa big", "owner": "xingyanwan", "primary_class": "living room", "secondary_class": "sofa", "color_style": "blue", "price_gt": "100", "price_lt": "500", "starts_from": "128"}
+! starts_from: for example, if you have checked 64 results and want to see more results, set starts_from = 64
 
-Fetch products' information that is satisfied by the searching condition. Sends a GET request with a body containing the conditions and wanted fields. E.g., {"condition":{"type":"chair","highest price":"32"...},"field":{"UID":"","owner":""...}} Returns an HttpResponse containing required products' information Returns a failure response if not logging in or internal error.
+receive: {"0": "13233412-34xewrcr", "1": "7645ytewerg-vewegf"}
 
-### Detailed product information
+path('fetch_product_brief/', browser_views.fetch_product_brief,
+     name='fetch_product_brief')
 
-SERVER_IP/fetch_product/
+get the brief info
+GET method
+send: {"UID": "afrtr-43gtwwf"}
+receive: {"name": "good sofa", "description": "this is a sofa", "price": 200, "picture": "some url"}
+! picture is the url of the title page, the name of this picture is title.jpg in FS
 
-Fetch all information about the product. Send a GET request with a body including its UID. E.g., {"UID":"12323"} Returns an HttpResponse containing all information Returns a failure response if not logging in or internal error.
+path('fetch_product_detailed/', browser_views.fetch_product_detailed,
+     name='fetch_product_detailed')
+
+get all the information except AR model
+GET method
+send: {"UID": "afrtr-43gtwwf"}
+receive: {"UID": prod.id, "name": prod.name, "description": prod.description,
+"owner": username, "primary_class": prod.primary_class,
+"secondary_class": prod.secondary_class, "color_style": prod.color_style,
+"price": prod.price, "sold_state": prod.sold_state,
+"picture_0": url0, "picture_1": url1}
+! all pictures will be sent, test.jpg on FS will result in "test": some_url
+! primary_class is level-1 classification like kitchen, living room, bathroom; for recommendation and searching
+! secondary_class is level-2 classfication like sofa, chair; for recommendation and searching
+
+# publisher
+path('post_product/', publisher_views.post_product, name='post_product')
+
+post a product, without picture
+must login first with cookie in the request
+POST method
+send: {"name": prod.name, "description": prod.description, "primary_class": prod.primary_class,
+"secondary_class": prod.secondary_class, "color_style": prod.color_style, "price": prod.price}
+receive: HttpResponse starts with failed or {"UID": "tw5y65we3t4sdv"}
+
+path('post_picture/', publisher_views.post_picture, name='post_picture')
+
+post a picture
+must login first with cookie in the request, you must be the owner
+POST method
+send: {"UID": "wdefargstrdtyu", "picture": "pic_name"}
+! like lab2 request.FILES["image"] has the file
+receive: HttpResponse starts with successful or failed
+! on FS, the new picture will be named as "pic_name.jpg"
+! name it "title" if you want it as the result picture in fetch_product_brief
+! if "pic_name.jpg" exists, it will be overwritten
+
+path('delete_picture/', publisher_views.delete_picture, name='delete_picture')
+
+delete a picture
+must login first with cookie in the request, you must be the owner
+POST method
+send: {"UID": "wdefargstrdtyu", "picture": "pic_name"}
+receive: HttpResponse starts with successful or failed
+
+path('update_product/', publisher_views.update_product, name='update_product')
+
+refer to post_product
+except UID must be provided
+
+path('delete_product/', publisher_views.delete_product, name='delete_product')
+
+delete a product
+must login first with cookie in the request, you must be the owner
+POST method
+send: {"UID": "wdefargstrdtyu"}
+receive: HttpResponse starts with successful or failed
 
 ### Purchase
 
@@ -116,16 +191,3 @@ Delete the chatting session on the back-end server. Send an empty DELETE request
 SERVER_IP/get_ar_model/
 
 Get the AR model of the product. Refer to SERVER_IP/fetch_product/. Returns the AR model is possible. Returns a failure response if not finding the product or no available AR model.
-
-### Products management
-
-SERVER_IP/post_product/
-
-Try to POST a new product with product name. Additional fields may be provided. Otherwise, these fields will be default values. E.g., {"name":"nice chair", "price":32}. Pictures of the product will be sent via url.
-Returns a HttpResponse indicating sucess (if so, its UID will be returned) or failure. An additional HttpRequest from Model Genetor will be sent when AR generation is finished. Subject to change.
-
-
-SERVER_IP/update_product/
-
-Try to POST a new product with product UID. Fields to be updated and the new values should be provided. E.g., {"UID":"12345", "price":32}. Pictures of the product will be sent via url.
-Returns a HttpResponse indicating sucess or failure. An additional HttpRequest from Model Genetor will be sent when AR generation is required and finished. Subject to change.
