@@ -14,6 +14,7 @@ import android.widget.Toast
 import com.google.ar.core.ArCoreApk
 import cn.edu.sjtu.arf.R
 import cn.edu.sjtu.arf.kotlin.ar.HelloArActivity
+import cn.edu.sjtu.arf.kotlin.loginhelper.RegisterActivity
 
 
 class MainActivity : AppCompatActivity() {
@@ -32,7 +33,9 @@ class MainActivity : AppCompatActivity() {
 
     }
     fun SA(view: View?) = startActivity(Intent(this, HelloArActivity::class.java))
-
+    fun Reg(view: View?) {
+        startActivity(Intent(this, RegisterActivity::class.java))
+    }
     fun enter(view: View?) = startActivity(Intent(this, NavigateActivity::class.java))
 
     //fun SB(view: View?){
