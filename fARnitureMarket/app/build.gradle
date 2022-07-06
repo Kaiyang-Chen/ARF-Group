@@ -1,12 +1,13 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-kapt'
 
 android {
     compileSdk 30
     buildFeatures {
-        viewBinding true
         dataBinding true
+    }
+    viewBinding {
+        enabled = true
     }
     defaultConfig {
         applicationId "cn.edu.sjtu.arf"
@@ -35,16 +36,16 @@ android {
 
 dependencies {
     // ARCore (Google Play Services for AR) library.
-    implementation 'com.google.ar:core:1.32.0'
+    implementation 'com.google.ar:core:1.31.0'
 
     // Obj - a simple Wavefront OBJ file loader
     // https://github.com/javagl/Obj
-    implementation 'de.javagl:obj:0.3.0'
+    implementation 'de.javagl:obj:0.2.1'
 
-    implementation 'androidx.appcompat:appcompat:1.4.2'
-    implementation 'androidx.lifecycle:lifecycle-common-java8:2.5.0'
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.lifecycle:lifecycle-common-java8:2.2.0'
 
-    implementation 'com.google.android.material:material:1.6.1'
+    implementation 'com.google.android.material:material:1.1.0'
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
@@ -52,9 +53,5 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
     implementation 'com.android.volley:volley:1.2.1'
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
-
-    implementation 'androidx.activity:activity-ktx:1.5.0'
-    implementation 'io.coil-kt:coil:2.1.0'
-    implementation 'com.squareup.okhttp3:okhttp:5.0.0-alpha.2'
 
 }
