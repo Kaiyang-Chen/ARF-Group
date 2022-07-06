@@ -143,6 +143,8 @@ def login(request: HttpRequest):
     '''
     Log in
     '''
+    m1 = {"code": 1, "msg": "failed"}
+    m3 = {"code": 3, "msg": "failed"}
     if request.method == 'POST':
         json_data = None
         try:
@@ -150,12 +152,12 @@ def login(request: HttpRequest):
             username = json_data['username']
             password = json_data['password']
         except:
-            return HttpResponse("failed")
+            return JsonResponse(m1, safe=False)
         user = authenticate(username=username, password=password)
         if user:
             _login(request, user)
-            return HttpResponse("successful")
-    return HttpResponse("failed")
+            return JsonResponse({}, safe=False)
+    return JsonResponse(m3, safe=False)
 
 
 @csrf_exempt
@@ -219,8 +221,8 @@ def register(request: HttpRequest):
             userprofile.address = json_data['address']
         user.save()
         userprofile.save()
-        return HttpResponse('successful')
-    return HttpResponse('failed')
+        return JsonResponse({}, safe=False)
+    return JsonResponse({"msg": "failed"})
 
 
 def logout(request: HttpRequest):

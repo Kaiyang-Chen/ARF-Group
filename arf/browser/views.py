@@ -9,13 +9,11 @@ from django.http import HttpRequest, JsonResponse
 
 from browser.models import ProductInfo
 
-# from django.views.decorators.csrf import csrf_exempt
-
 
 def fetch_home_products(request: HttpRequest):
-    # get at most 64 uids
-    # example:
-    # {"0": "13233412-34xewrcr", "1": "7645ytewerg-vewegf"}
+    '''
+    get at most 64 uids
+    '''
     def get_random(how_many=64):
         count = ProductInfo.objects.filter(sold_state=False).count()
         result = {}
@@ -112,8 +110,9 @@ def fetch_home_products(request: HttpRequest):
 
 
 def fetch_searched_products(request: HttpRequest):
-    # get at most 64 uids
-    # example: {"keywords": "sofa big", "owner": "xingyanwan", "primary_class": "living room", "secondary_class": "sofa", "color_style": "blue", "price_gt": "100", "price_lt": "500", starts_from: "128"}
+    '''
+    get at most 64 uids
+    '''
     if request.method == 'GET':
         try:
             conditions = json.loads(request.body)
@@ -158,9 +157,11 @@ def fetch_searched_products(request: HttpRequest):
 
 
 def fetch_product_brief(request: HttpRequest):
-    # get the brief info
-    # {"UID": "afrtr-43gtwwf"}
-    # {"name": "good sofa", "description": "this is a sofa", "price": 200, "picture": "some url"}
+    '''
+    get the brief info
+    send: {"UID": "afrtr-43gtwwf"}
+    receive: {"name": "good sofa", "description": "this is a sofa", "price": 200, "picture": "some url"}
+    '''
     if request.method == "GET":
         try:
             req = json.loads(request.body)
@@ -182,13 +183,15 @@ def fetch_product_brief(request: HttpRequest):
     return JsonResponse({})
 
 def fetch_product_detailed(request:HttpRequest):
-    # literately get every bit of information except ar model
-    # send: {"UID": "er43t5y6juyki"}
-    # receive: {"UID":prod.id,"name": prod.name, "description": prod.description,
-    # "owner":username, "primary_class": prod.primary_class,
-    # "secondary_class": prod.secondary_class, "color_style": prod.color_style,
-    # "price": prod.price, "sold_state": prod.sold_state,
-    # "picture_0": url0, "picture_1": url1}
+    '''
+    literately get every bit of information except ar model
+    send: {"UID": "er43t5y6juyki"}
+    receive: {"UID":prod.id,"name": prod.name, "description": prod.description,
+    "owner":username, "primary_class": prod.primary_class,
+    "secondary_class": prod.secondary_class, "color_style": prod.color_style,
+    "price": prod.price, "sold_state": prod.sold_state,
+    "picture_0": url0, "picture_1": url1}
+    '''
     if request.method == "GET":
         try:
             req = json.loads(request.body)

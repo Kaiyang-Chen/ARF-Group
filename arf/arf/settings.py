@@ -126,6 +126,6 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # media services
-MEDIA_URL = 'https://127.0.0.1:8000/static/'
+MEDIA_URL = 'http://127.0.0.1:8000/static/'
 MEDIA_ROOT = BASE_DIR / 'static'
 DATA_UPLOAD_MAX_MEMORY_SIZE = 10485760
