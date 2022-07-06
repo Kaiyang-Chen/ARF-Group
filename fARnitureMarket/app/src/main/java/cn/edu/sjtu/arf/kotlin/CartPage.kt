@@ -9,7 +9,7 @@ import cn.edu.sjtu.arf.R
 
 class CartPage : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.cart_page,container,false)
+        return inflater.inflate(R.layout.page_cart,container,false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
