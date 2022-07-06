@@ -16,6 +16,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from usersystem import views as user_views
+from browser import views as browser_views
+
 
 urlpatterns = [
     # admin
@@ -28,4 +30,13 @@ urlpatterns = [
     path('logout/', user_views.logout, name='logout'),
     path('delete/', user_views.delete, name='delete'),
     path('check_other/', user_views.check_other, name='check_other'),
+    # browser
+    path('fetch_home_products/', browser_views.fetch_home_products,
+         name='fetch_home_products'),
+    path('fetch_searched_products/', browser_views.fetch_searched_products,
+         name='fetch_searched_products'),
+    path('fetch_product_brief/', browser_views.fetch_product_brief,
+         name='fetch_product_brief'),
+    path('fetch_product_detailed/', browser_views.fetch_product_detailed,
+         name='fetch_product_detailed')
 ]
