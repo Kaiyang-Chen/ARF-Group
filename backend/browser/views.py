@@ -198,8 +198,8 @@ def fetch_product_detailed(request:HttpRequest):
             req = json.loads(request.body)
             id = req["UID"]
             id = uuid.UUID(id)
-        except:
-            return JsonResponse({})
+        except Exception as e:
+            return JsonResponse("%s"%e)
         prod = ProductInfo.objects.filter(UID=id)
         if prod.exists():
             prod = prod[0]
@@ -210,7 +210,7 @@ def fetch_product_detailed(request:HttpRequest):
                 fs = FileSystemStorage()
                 pics = os.listdir(f"static/{username}/{prod.name}/picture")
                 for pic in pics: 
-                    url= fs.url(f"{username}/{prod.name}/picture/{pic}")
+                    url= fs.url(f"static/{username}/{prod.name}/picture/{pic}")
                     res[pic.strip(".jpg")] = str(url)
             if request.user.is_authenticated:
                 hist = {"UID":res["UID"],"primary_class":res["primary_class"],

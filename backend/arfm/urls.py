@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path
 from usersystem import views as user_views
 from browser import views as browser_views
+from publisher import views as publisher_views
 
 
 urlpatterns = [
@@ -38,5 +39,11 @@ urlpatterns = [
     path('fetch_product_brief/', browser_views.fetch_product_brief,
          name='fetch_product_brief'),
     path('fetch_product_detailed/', browser_views.fetch_product_detailed,
-         name='fetch_product_detailed')
+         name='fetch_product_detailed'),
+    # publisher
+    path('post_product/', publisher_views.post_product, name='post_product'),
+    path('post_picture/', publisher_views.post_picture, name='post_picture'),
+    path('delete_picture/', publisher_views.delete_picture, name='delete_picture'),
+    path('update_product/', publisher_views.update_product, name='update_product'),
+    path('delete_product/', publisher_views.delete_product, name='delete_product')
 ]
