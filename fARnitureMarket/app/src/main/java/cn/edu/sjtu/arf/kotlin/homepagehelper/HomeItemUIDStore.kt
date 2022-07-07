@@ -33,7 +33,7 @@ object HomeItemUIDStore {
             }
 
             override fun onResponse(call: Call, response: Response) {
-                //Log.e("getHomeItemUIDs", "GET response")
+                Log.e("getHomeItemUIDs", "GET response")
                 if (response.isSuccessful) {
                     val homeItemUIDReceived = try { JSONObject(response.body?.string() ?: "")} catch (e: JSONException) {JSONObject()}
                     val fullKey = homeItemUIDReceived.keys()
