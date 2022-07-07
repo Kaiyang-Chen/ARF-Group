@@ -25,9 +25,6 @@
         android:usesCleartextTraffic="false"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
-            android:name=".HomeActivity"
-            android:exported="false" />
-        <activity
             android:name=".kotlin.NavigateActivity"
             android:exported="false" />
         <activity
