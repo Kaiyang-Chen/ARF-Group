@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'channels',
+    'chat',
     'usersystem',
     'browser',
     'publisher'
@@ -72,7 +74,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'arfm.wsgi.application'
-
+ASGI_APPLICATION = 'arfm.asgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
@@ -130,3 +132,8 @@ STATIC_ROOT = BASE_DIR / 'static'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# media service
+MEDIA_URL = 'https://101.132.97.115/'
+MEDIA_ROOT = BASE_DIR
+DATA_UPLOAD_MAX_MEMORY_SIZE = 10485760

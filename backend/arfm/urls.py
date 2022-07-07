@@ -18,6 +18,7 @@ from django.urls import path
 from usersystem import views as user_views
 from browser import views as browser_views
 from publisher import views as publisher_views
+from chat import views as chat_views
 
 
 urlpatterns = [
@@ -45,5 +46,7 @@ urlpatterns = [
     path('post_picture/', publisher_views.post_picture, name='post_picture'),
     path('delete_picture/', publisher_views.delete_picture, name='delete_picture'),
     path('update_product/', publisher_views.update_product, name='update_product'),
-    path('delete_product/', publisher_views.delete_product, name='delete_product')
+    path('delete_product/', publisher_views.delete_product, name='delete_product'),
+    # chat
+    path('chat/', chat_views.chat, name='chat')
 ]

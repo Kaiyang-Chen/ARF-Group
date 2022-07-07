@@ -18,6 +18,11 @@ server {
     include proxy_params;
     proxy_pass http://unix:/run/gunicorn.sock;
   }
+
+  client_max_body_size 10M;
+  location ^~ /static {
+    alias /root/ARF-Group/backend/static;
+  }
 }
 server {
   listen 80;

@@ -11,7 +11,7 @@ class ProductInfo(models.Model):
         primary_key=True, auto_created=True, default=uuid.uuid1)
     name = models.CharField(max_length=128)
     description = models.CharField(max_length=1024, default="")
-    owner = models.OneToOneField(User, models.CASCADE, related_name='owner')
+    owner = models.ForeignKey(User, models.CASCADE, related_name='owner')
     primary_class = models.CharField(max_length=128, default='unknown')
     secondary_class = models.CharField(max_length=128, default='unknown')
     color_style = models.CharField(max_length=32, default='unknown')
