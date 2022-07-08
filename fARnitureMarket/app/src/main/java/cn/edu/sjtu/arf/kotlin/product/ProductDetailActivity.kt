@@ -45,8 +45,8 @@ class ProductDetailActivity:  AppCompatActivity() {
             if (BuildConfig.DEBUG){
                 err.printStackTrace()
             }
+            String(err.networkResponse.data)
             ToastUtil.show(this@ProductDetailActivity, err.message ?: "网络异常")
-            Log.e("zhozicho",String(err.networkResponse.data))
         }){ pro ->
             titleTV.text = pro.name
             contentTV.text = pro.description

@@ -238,7 +238,7 @@ public class MyStack extends BaseHttpStack {
                 // Not necessary to set the request method because connection defaults to GET but
                 // being explicit here.
                 connection.setRequestMethod("GET");
-//                addBodyIfExists(connection, request);
+                addBodyIfExists(connection, request);
                 break;
             case Method.DELETE:
                 connection.setRequestMethod("DELETE");

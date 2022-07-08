@@ -62,7 +62,7 @@ internal class FakeX509TrustManager : X509TrustManager {
         fun buildSSLSocketFactory(
             context: Context,
             certRawResId: Int
-        ): SSLSocketFactory? {
+        ): SSLSocketFactory {
             var keyStore: KeyStore? = null
             try {
                 keyStore = buildKeyStore(context, certRawResId)

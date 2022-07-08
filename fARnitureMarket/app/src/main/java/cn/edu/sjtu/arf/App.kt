@@ -1,9 +1,22 @@
 package cn.edu.sjtu.arf
 
 import android.app.Application
+import android.util.Log
 import cn.edu.sjtu.arf.utils.FakeX509TrustManager
-import cn.edu.sjtu.arf.utils.MyStack
+import cn.edu.sjtu.arf.utils.OkHttpStack
+import com.android.volley.RequestQueue
 import com.android.volley.toolbox.Volley
+import com.franmontiel.persistentcookiejar.ClearableCookieJar
+import com.franmontiel.persistentcookiejar.PersistentCookieJar
+import com.franmontiel.persistentcookiejar.cache.SetCookieCache
+import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
+import java.util.concurrent.TimeUnit
+import javax.net.ssl.HostnameVerifier
+import javax.net.ssl.SSLSession
+
+
 /**
   *
   * @Author:   zhozicho
@@ -17,15 +30,19 @@ class App : Application() {
             mInstance = this
         }
 
-        Constants.VolleyQueue = Volley.newRequestQueue(instance, MyStack(null,FakeX509TrustManager.buildSSLSocketFactory(
-            mInstance!!,R.raw.selfsigned)))
+        Constants.initVolleyQueue()
+    }
+
+    fun getDefaultQueue():RequestQueue{
+        return Constants.VolleyQueue
     }
 
     companion object{
         var loginHeader: MutableMap<String, String>? = null
 
         private var mInstance: App? = null
-        val instance: App
-            get() = mInstance!!
+        fun get(): App{
+            return mInstance!!
+        }
     }
 }

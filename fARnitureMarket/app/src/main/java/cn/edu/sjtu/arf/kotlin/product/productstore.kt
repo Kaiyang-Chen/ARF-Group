@@ -25,17 +25,14 @@ object productstore {
         strs = strs?.get(0)?.split("=")
         val csrftoken = strs?.get(strs.size - 1);
         val params = mapOf(
-            "UID" to uid
+            "UID" to uid,
         )
-
-        App.loginHeader?.put("csrftoken",csrftoken?:"")
-        App.loginHeader?.put("csrftoken",csrftoken?:"")
-
+        csrftoken?.let { App.loginHeader?.put("X-CSRFToken", it)}
         val postRequest = GsonRequest(
             method = Request.Method.GET,
             url = serverUrl + "fetch_product_detailed/",
             requestBody = params,
-            headers = App.loginHeader,
+//            headers = App.loginHeader,
             clazz = Product::class.java,
             listener = { res ->
                 scope.launch(Dispatchers.Main) {

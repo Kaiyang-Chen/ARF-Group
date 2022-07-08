@@ -20,8 +20,6 @@ object loginstore {
     private val _chatts = arrayListOf<Chatt>()
     val chatts: List<Chatt> = _chatts
     private val nFields = Chatt::class.declaredMemberProperties.size
-
-    private lateinit var queue: RequestQueue
     private const val serverUrl = Constants.serverUrl
 
     fun strtest(ku: String): String {
@@ -51,13 +49,7 @@ object loginstore {
         )
         //println(postRequest)
         //Thread.sleep(10000)
-        if (!this::queue.isInitialized) {
-            queue = newRequestQueue(context)
-            //println("yes, there is a problem")
-        }
-        println(postRequest)
-        //println(postRequest.toString())
-        queue.add(postRequest)
+        Constants.VolleyQueue.add(postRequest)
     }
 
     fun postregister(context: Context, chatt: Chatt) {
@@ -104,19 +96,17 @@ object loginstore {
                          str +="; "
                      }
                  }
-                App.loginHeader?.put("Cookie",str.substring(0,str.length-2))
-                App.loginHeader?.put("Host",Constants.Host)
 //                App.loginHeader?.put("Referer","same-origin")
 //                response.headers?.filterKeys { it != "Content-Length" }
 //                    ?.let { App.loginHeader?.putAll(it) }
+//                App.loginHeader?.put("Cookie",str.substring(0,str.length-2))
+//                App.loginHeader?.put("Host",Constants.Host)
+//                App.loginHeader?.put("Cache-Control","no-cache")
                 return super.parseNetworkResponse(response)
             }
         }
 
-        if (!this::queue.isInitialized) {
-            queue = newRequestQueue(context)
-        }
-        queue.add(postRequest)
+        Constants.VolleyQueue.add(postRequest)
 
     }
 
@@ -150,9 +140,6 @@ object loginstore {
             }, { completion() }
         )
 
-        if (!this::queue.isInitialized) {
-            queue = newRequestQueue(context)
-        }
-        queue.add(getRequest)
+        App.get().getDefaultQueue().add(getRequest)
     }
 }

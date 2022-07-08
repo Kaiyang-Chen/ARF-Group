@@ -1,6 +1,7 @@
 import com.android.volley.*
 import com.android.volley.toolbox.HttpHeaderParser
 import com.google.gson.Gson
+import org.json.JSONObject
 import java.io.UnsupportedEncodingException
 import java.nio.charset.Charset
 
@@ -42,6 +43,10 @@ class GsonRequest<T>(
         } catch (e: Exception) {
             Response.error(ParseError(e))
         }
+    }
+
+    override fun getBodyContentType(): String {
+        return "text/plain"
     }
 
     override fun getParams(): MutableMap<String, String>? {
