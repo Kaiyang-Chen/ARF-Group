@@ -3,16 +3,16 @@ package cn.edu.sjtu.arf.kotlin.product
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
-/**
- *
- * @Author:         zhozicho
- * @Date:     2022/7/6 13:42
- * @Desc:
- */
+
 @Parcelize
-data class Product (
+data class Product(
+    var uID: String? = null,
     var name: String? = null,
     var description: String? = null,
-    var price: Float? = null,
-    var picture: String? = null,
-): Parcelable
+    var owner: String? = null,
+    var primary_class: String? = null,
+    var secondary_class: String? = null,
+    var color_style: String? = null,
+    var price: String? = null,
+    var sold_state: String? = null
+    ):Parcelable
