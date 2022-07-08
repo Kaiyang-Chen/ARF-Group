@@ -56,11 +56,11 @@ class RegisterActivity : AppCompatActivity(){
         }
     }
 
-    fun submitChatt(username:String, password:String) {
-        val chatt = Chatt(username = username,
-            password = password)
-
-        loginstore.postlogin(chatt)
-        println("success")
-    }
+//    fun submitChatt(username:String, password:String) {
+//        val chatt = Chatt(username = username,
+//            password = password)
+//
+//        loginstore.postlogin(this@RegisterActivity,chatt)
+//        println("success")
+//    }
 }
