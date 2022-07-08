@@ -1,5 +1,6 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
+
     ext.versions = [
             'findbugs': '3.0.2',
             'animalSniffer': '1.18',
@@ -20,6 +21,7 @@ buildscript {
             'conscrypt': "org.conscrypt:conscrypt-openjdk-uber:${versions.conscrypt}",
             'openjsse': "org.openjsse:openjsse:${versions.openjsse}"
     ]
+
     repositories {
         mavenLocal()
         mavenCentral()

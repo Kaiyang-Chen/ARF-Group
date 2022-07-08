@@ -12,9 +12,11 @@ import cn.edu.sjtu.arf.kotlin.product.ProductDetailActivity
 
 class HomePage : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+
         val view = inflater.inflate(R.layout.home_page,container,false)
         view.findViewById<ImageView>(R.id.icon).setOnClickListener {view-> goProductDetail()  }
         return view
+
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
