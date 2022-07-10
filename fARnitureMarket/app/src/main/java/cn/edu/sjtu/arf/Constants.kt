@@ -13,12 +13,6 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import java.util.concurrent.TimeUnit
 
-/**
- *
- * @Author:         zhozicho
- * @Date:     2022/7/6 13:37
- * @Desc:
- */
 object Constants {
 
     private const val Host = "101.132.97.115"

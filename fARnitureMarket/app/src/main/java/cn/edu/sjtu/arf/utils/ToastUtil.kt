@@ -7,12 +7,6 @@ import kotlin.jvm.JvmOverloads
 import com.chuangsheng.face.utils.ToastUtil
 import java.lang.ref.WeakReference
 
-/**
-  *
-  * @Author:   zhozicho
-  * @Date:     2022/7/6 16:12
-  * @Desc:
- */
 object ToastUtil {
     private var sRef: WeakReference<Toast?>? = null
     @JvmOverloads

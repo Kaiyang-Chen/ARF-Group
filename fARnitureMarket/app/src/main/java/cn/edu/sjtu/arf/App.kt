@@ -17,12 +17,6 @@ import javax.net.ssl.HostnameVerifier
 import javax.net.ssl.SSLSession
 
 
-/**
-  *
-  * @Author:   zhozicho
-  * @Date:     2022/7/6 15:15
-  * @Desc:
- */
 class App : Application() {
     override fun onCreate() {
         super.onCreate()

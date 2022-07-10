@@ -13,6 +13,6 @@ data class Product(
     var primary_class: String? = null,
     var secondary_class: String? = null,
     var color_style: String? = null,
-    var price: String? = null,
+    var price: Float? = null,
     var sold_state: String? = null
     ):Parcelable
