@@ -14,7 +14,7 @@ class HomePage : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         val view = inflater.inflate(R.layout.home_page,container,false)
-        view.findViewById<ImageView>(R.id.icon).setOnClickListener {view-> goProductDetail()  }
+        view.findViewById<ImageView>(R.id.icon).setOnClickListener {view-> goProductDetail("81a5f3aa-fd9e-11ec-9629-4b19c64262c0")  }
         return view
 
     }
@@ -26,7 +26,7 @@ class HomePage : Fragment() {
 
     }
 
-    fun goProductDetail() {
-        startActivity(Intent(requireContext(),ProductDetailActivity::class.java))
+    private fun goProductDetail(uid: String) {
+        ProductDetailActivity.start(requireContext(),uid)
     }
 }

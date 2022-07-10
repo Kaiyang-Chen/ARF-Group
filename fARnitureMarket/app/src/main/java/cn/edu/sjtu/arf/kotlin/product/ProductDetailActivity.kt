@@ -1,5 +1,7 @@
 package cn.edu.sjtu.arf.kotlin.product
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
@@ -37,7 +39,8 @@ class ProductDetailActivity:  AppCompatActivity() {
 
         initView()
 
-        productstore.getProductDetail(uid = "81a5f3aa-fd9e-11ec-9629-4b19c64262c0", scope = lifecycleScope,errorListener = { err ->
+        val uid = intent.getStringExtra(UID)?:""
+        productstore.getProductDetail(uid = uid, scope = lifecycleScope,errorListener = { err ->
             if (BuildConfig.DEBUG){
                 err.printStackTrace()
             }
@@ -90,4 +93,13 @@ class ProductDetailActivity:  AppCompatActivity() {
 
         return super.onOptionsItemSelected(item)
     }
+
+    companion object{
+        const val UID:String = "uid"
+
+        fun start(context: Context, uid: String){
+            context.startActivity(Intent(context,ProductDetailActivity::class.java).putExtra(UID,uid))
+        }
+    }
+
 }

@@ -39,6 +39,7 @@ public class OkHttpStack extends BaseHttpStack {
 
     public HttpResponse executeRequest(Request<?> request, Map<String, String> additionalHeaders) throws IOException, AuthFailureError {
 
+
         OkHttpClient.Builder builder = mClient.newBuilder();
         OkHttpClient client = builder.build();
 
