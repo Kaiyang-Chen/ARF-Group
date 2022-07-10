@@ -39,7 +39,6 @@ public class OkHttpStack extends BaseHttpStack {
 
     public HttpResponse executeRequest(Request<?> request, Map<String, String> additionalHeaders) throws IOException, AuthFailureError {
 
-        // okhttp 3.0以后的版本构建OkHttpClient使用Builder
         OkHttpClient.Builder builder = mClient.newBuilder();
         OkHttpClient client = builder.build();
 
@@ -51,14 +50,12 @@ public class OkHttpStack extends BaseHttpStack {
             okHttpRequestBuilder.addHeader(name, headers.get(name));
         }
         for (final String name : additionalHeaders.keySet()) {
-            // 这里用header方法，如果有重复的name，会覆盖，否则某些请求会被判定为非法
             okHttpRequestBuilder.header(name, additionalHeaders.get(name));
         }
 
         List<Cookie> cookies = mClient.cookieJar().loadForRequest(HttpUrl.get(request.getUrl()));
         StringBuilder sb = new StringBuilder();
         for (final Cookie cookie : cookies) {
-            // 这里用header方法，如果有重复的name，会覆盖，否则某些请求会被判定为非法
             okHttpRequestBuilder.header(cookie.name(), cookie.value());
             sb.append(cookie.name());
             sb.append("=");
@@ -144,7 +141,6 @@ public class OkHttpStack extends BaseHttpStack {
     private static RequestBody createRequestBody(Request r) throws AuthFailureError {
         byte[] body = r.getBody();
         if (body == null) {
-            // OkHttp内部默认的的判断逻辑是POST 不能为空，这里做了规避
             if (r.getMethod() == Request.Method.POST) {
                 body = "".getBytes();
             } else {
