@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.databinding.ObservableArrayList
 import androidx.databinding.ObservableList
 import androidx.fragment.app.Fragment
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import cn.edu.sjtu.arf.R
 import cn.edu.sjtu.arf.kotlin.homepagehelper.HomeItemAdapter
 import cn.edu.sjtu.arf.kotlin.homepagehelper.HomeItemDisplayStore.homeitemdisplays
@@ -20,11 +21,14 @@ import cn.edu.sjtu.arf.kotlin.homepagehelper.HomeItemUIDStore.getHomeItemUIDs
 class HomePage : Fragment() {
     private lateinit var homeItemListView: ListView
     private lateinit var homeItemAdapter: HomeItemAdapter
+    private lateinit var refresher: SwipeRefreshLayout
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val layout: View = inflater.inflate(R.layout.page_home,container,false)
 
         homeItemListView = layout.findViewById(R.id.homeItemListView)
+        refresher = layout.findViewById(R.id.refreshContainer)
 
         return layout
     }
@@ -54,6 +58,10 @@ class HomePage : Fragment() {
                 intent.putExtras(bundle)
                 startActivity(intent)
             }
+
+        refresher.setOnRefreshListener {
+            refreshTimeline()
+        }
     }
 
     private val propertyObserver = object: ObservableList.OnListChangedCallback<ObservableArrayList<Int>>() {
@@ -72,6 +80,12 @@ class HomePage : Fragment() {
         override fun onItemRangeMoved(sender: ObservableArrayList<Int>?, fromPosition: Int, toPosition: Int,
                                       itemCount: Int) { }
         override fun onItemRangeRemoved(sender: ObservableArrayList<Int>?, positionStart: Int, itemCount: Int) { }
+    }
+
+    private fun refreshTimeline() {
+        homeitemdisplays.clear()
+        getHomeItemUIDs()
+        refresher.isRefreshing = false
     }
 
 
