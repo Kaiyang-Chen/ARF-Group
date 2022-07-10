@@ -15,12 +15,6 @@ import cn.edu.sjtu.arf.R
 import cn.edu.sjtu.arf.networkUrl
 import com.chuangsheng.face.utils.ToastUtil
 
-/**
- *
- * @Author:         zhozicho
- * @Date:     2022/7/6 10:45
- * @Desc:
- */
 class ProductDetailActivity:  AppCompatActivity() {
     private lateinit var topIV: ImageView
     private lateinit var arIV: ImageView
@@ -30,6 +24,8 @@ class ProductDetailActivity:  AppCompatActivity() {
 
     private lateinit var sellerBtn: LinearLayout
     private lateinit var addCartBtn: LinearLayout
+
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,7 +48,7 @@ class ProductDetailActivity:  AppCompatActivity() {
             contentTV.text = pro.description
 
             pro.price?.also { priceTV.text = String.format("%.3f",it) }
-            pro.picture?.also { topIV.networkUrl(pro.picture!!) }
+            pro.color_style?.also { topIV.networkUrl(pro.color_style!!) }
         }
     }
 

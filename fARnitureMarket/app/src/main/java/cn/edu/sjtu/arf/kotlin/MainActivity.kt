@@ -13,7 +13,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 
-import com.google.ar.core.ArCoreApk
+//import com.google.ar.core.ArCoreApk
 import cn.edu.sjtu.arf.R
 import cn.edu.sjtu.arf.kotlin.ar.HelloArActivity
 import cn.edu.sjtu.arf.kotlin.loginhelper.Chatt
@@ -59,24 +59,24 @@ class MainActivity : AppCompatActivity() {
         enterhomepage = findViewById<Button>(R.id.Buttonenterhomepage)
         loginBtn = findViewById<Button>(R.id.Button03)
     }
-    fun maybeEnableArButton() {
-        val availability = ArCoreApk.getInstance().checkAvailability(this)
-        if (availability.isTransient) {
-            // Continue to query availability at 5Hz while compatibility is checked in the background.
-            Handler(Looper.getMainLooper()).postDelayed({
-                maybeEnableArButton()
-            }, 200)
-        }
-        if (availability.isSupported) {
-            Reglogin_main.visibility = View.VISIBLE
-            Reglogin_main.isEnabled = true
-            val toast = Toast.makeText(applicationContext, "AR available", Toast.LENGTH_SHORT)
-            toast.show()
-        } else { // The device is unsupported or unknown.
-            Reglogin_main.visibility = View.INVISIBLE
-            Reglogin_main.isEnabled = false
-        }
-    }
+//    fun maybeEnableArButton() {
+//        val availability = ArCoreApk.getInstance().checkAvailability(this)
+//        if (availability.isTransient) {
+//            // Continue to query availability at 5Hz while compatibility is checked in the background.
+//            Handler(Looper.getMainLooper()).postDelayed({
+//                maybeEnableArButton()
+//            }, 200)
+//        }
+//        if (availability.isSupported) {
+//            Reglogin_main.visibility = View.VISIBLE
+//            Reglogin_main.isEnabled = true
+//            val toast = Toast.makeText(applicationContext, "AR available", Toast.LENGTH_SHORT)
+//            toast.show()
+//        } else { // The device is unsupported or unknown.
+//            Reglogin_main.visibility = View.INVISIBLE
+//            Reglogin_main.isEnabled = false
+//        }
+//    }
 
     fun onClick(view: View) {
         when(view){

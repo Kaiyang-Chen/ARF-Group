@@ -9,9 +9,6 @@ import java.security.cert.CertificateFactory
 import java.security.cert.X509Certificate
 import javax.net.ssl.*
 
-/**
- * Created by LiangCai on 2017/8/3 0003 11:38 .
- */
 internal class FakeX509TrustManager : X509TrustManager {
     @Throws(CertificateException::class)
     override fun checkClientTrusted(x509Certificates: Array<X509Certificate>, s: String) {
