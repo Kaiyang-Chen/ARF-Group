@@ -35,6 +35,7 @@ object HomeItemUIDStore {
             override fun onResponse(call: Call, response: Response) {
                 Log.e("getHomeItemUIDs", "GET response")
                 if (response.isSuccessful) {
+                    _homeitemUIDs.clear()
                     val homeItemUIDReceived = try { JSONObject(response.body?.string() ?: "")} catch (e: JSONException) {JSONObject()}
                     val fullKey = homeItemUIDReceived.keys()
                     while (fullKey.hasNext()) {
@@ -43,7 +44,8 @@ object HomeItemUIDStore {
                         if (homeItemUIDReceived.getString(idx).isNotEmpty()) {
                             _homeitemUIDs.add(
                                 HomeItemUID(UID = homeItemUIDReceived.getString(idx)))
-                            Log.e("getHomeItemUIDs", "Received UID")
+                            HomeItemDisplayStore.getHomeItemDisplays(homeItemUIDReceived.getString(idx))
+                            Log.e("getHomeItemUIDs", "Add Successfully")
                         } else {
                             Log.e("getHomeItemUIDs", "Received empty UID")
                         }

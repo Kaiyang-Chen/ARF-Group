@@ -1,20 +1,21 @@
 package cn.edu.sjtu.arf.kotlin
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView.OnItemClickListener
 import android.widget.ListView
 import android.widget.Toast
 import androidx.databinding.ObservableArrayList
 import androidx.databinding.ObservableList
-import cn.edu.sjtu.arf.R
 import androidx.fragment.app.Fragment
+import cn.edu.sjtu.arf.R
 import cn.edu.sjtu.arf.kotlin.homepagehelper.HomeItemAdapter
-import cn.edu.sjtu.arf.kotlin.homepagehelper.HomeItemDisplayStore.getHomeItemDisplays
 import cn.edu.sjtu.arf.kotlin.homepagehelper.HomeItemDisplayStore.homeitemdisplays
 import cn.edu.sjtu.arf.kotlin.homepagehelper.HomeItemUIDStore.getHomeItemUIDs
-import cn.edu.sjtu.arf.kotlin.homepagehelper.HomeItemUIDStore.homeitemUIDs
+
 
 class HomePage : Fragment() {
     private lateinit var homeItemListView: ListView
@@ -38,14 +39,22 @@ class HomePage : Fragment() {
         homeItemListView.setAdapter(homeItemAdapter)
         homeitemdisplays.addOnListChangedCallback(propertyObserver)
 
+        homeitemdisplays.clear()
         getHomeItemUIDs()
 
-        Toast.makeText(activity, homeitemUIDs.size.toString(), Toast.LENGTH_SHORT).show()
+        homeItemListView.onItemClickListener =
+            OnItemClickListener { parent, view, position, id ->
+                // Intent jump to DetailActivity and pass UID to DetailActivity
+                val item = homeItemAdapter.getItem(position)
+                val intent = Intent(activity, DetailActivity::class.java)
+                val bundle = Bundle()
+                if (item != null) {
+                    bundle.putString("UID", item.UID.toString())
+                }
+                intent.putExtras(bundle)
+                startActivity(intent)
+            }
     }
-
-    //override fun onActivityCreated(savedInstanceState: Bundle?) {
-    //    super.onActivityCreated(savedInstanceState)
-    //}
 
     private val propertyObserver = object: ObservableList.OnListChangedCallback<ObservableArrayList<Int>>() {
         override fun onChanged(sender: ObservableArrayList<Int>?) { }
@@ -64,4 +73,6 @@ class HomePage : Fragment() {
                                       itemCount: Int) { }
         override fun onItemRangeRemoved(sender: ObservableArrayList<Int>?, positionStart: Int, itemCount: Int) { }
     }
+
+
 }
