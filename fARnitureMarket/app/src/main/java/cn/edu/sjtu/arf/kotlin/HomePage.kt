@@ -35,7 +35,6 @@ class HomePage : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //var idx = 0
 
         val context = context as NavigateActivity
         homeItemAdapter = HomeItemAdapter(context, homeitemdisplays)
