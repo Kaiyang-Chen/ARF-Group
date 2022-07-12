@@ -35,7 +35,6 @@ class HomePage : Fragment() {
 
         homeItemListView = layout.findViewById(R.id.homeItemListView)
         refresher = layout.findViewById(R.id.refreshContainer)
-        layout.setOnClickListener {view-> goProductDetail("81a5f3aa-fd9e-11ec-9629-4b19c64262c0")  }
         return layout
 
     }
@@ -56,13 +55,9 @@ class HomePage : Fragment() {
             OnItemClickListener { parent, view, position, id ->
                 // Intent jump to DetailActivity and pass UID to DetailActivity
                 val item = homeItemAdapter.getItem(position)
-                val intent = Intent(activity, ProductDetailActivity::class.java)
-                val bundle = Bundle()
                 if (item != null) {
-                    bundle.putString("UID", item.UID.toString())
+                    goProductDetail(item.UID.toString())
                 }
-                intent.putExtras(bundle)
-                startActivity(intent)
             }
 
         refresher.setOnRefreshListener {

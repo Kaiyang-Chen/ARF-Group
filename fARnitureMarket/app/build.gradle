@@ -3,6 +3,7 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
     id 'kotlin-android'
+    id 'kotlin-android-extensions'
 }
 android {
     compileSdk 30
@@ -28,6 +29,9 @@ android {
     }
     kotlinOptions {
         jvmTarget = '1.8'
+        freeCompilerArgs += [
+                "-Xjvm-default=all",
+        ]
     }
 
     buildFeatures {
@@ -75,7 +79,11 @@ dependencies {
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
 
 ///lab2
-    implementation 'io.coil-kt:coil:1.1.0'
+    implementation('io.coil-kt:coil:1.1.0',{
+        exclude group: 'com.squareup.okhttp3', module: 'okhttp'
+    })
+
+
     implementation 'androidx.activity:activity-ktx:1.3.0'
     implementation 'com.eclipsesource.minimal-json:minimal-json:0.9.5'
     def coroutines_version = '1.6.3'

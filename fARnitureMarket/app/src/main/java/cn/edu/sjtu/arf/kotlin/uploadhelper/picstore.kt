@@ -4,9 +4,7 @@ import android.content.Context
 import android.net.Uri
 import android.util.Log
 import cn.edu.sjtu.arf.kotlin.loginhelper.Chatt
-import cn.edu.sjtu.arf.kotlin.loginhelper.MyInterface
 import cn.edu.sjtu.arf.kotlin.loginhelper.loginstore
-import cn.edu.sjtu.arf.kotlin.loginhelper.loginstore.myInterface
 import cn.edu.sjtu.arf.kotlin.loginhelper.loginstore.strtest
 import com.android.volley.Request
 import com.android.volley.RequestQueue
@@ -24,7 +22,7 @@ import java.io.IOException
 import kotlin.reflect.full.declaredMemberProperties
 
 object picstore {
-    private var cook = loginstore.cook
+//    private var cook = loginstore.cook
     private const val serverUrl = "https://101.132.97.115/"
     //private const val serverUrl = "http://10.0.2.2/"
     private val client = OkHttpClient()
@@ -49,7 +47,7 @@ object picstore {
         println(mpFD)
         //println(mpFD.build())
         val request = okhttp3.Request.Builder()
-            .addHeader("Cookie",loginstore.cook)
+//            .addHeader("Cookie",loginstore.cook)
             .url(serverUrl + "post_picture/")
             .post(mpFD.build())
             .build()

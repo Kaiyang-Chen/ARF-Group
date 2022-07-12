@@ -49,17 +49,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         initViews()
-        initListener()
-
-
         // maybeEnableArButton() Check whether this device could support AR, need to use https or add android:usesCleartextTraffic="true"
-
-    }
-    fun initListener() {
-        var Login_main = findViewById<Button>(R.id.Button03)
-        Login_main.setOnClickListener {
-            submitlogin(findViewById<EditText>(R.id.et_account_main).text.toString(),findViewById<EditText>(R.id.et_password_main).text.toString())
-        }
     }
 
     fun SA(view: View?) = startActivity(Intent(this, HelloArActivity::class.java))
@@ -73,17 +63,7 @@ class MainActivity : AppCompatActivity() {
     //    Toast.makeText(this, "Log In Successfully" , Toast.LENGTH_SHORT).show()
     //}
 
-    fun submitlogin(username:String, password:String) {
-        val chatt = Chatt(username = username,
-            password = password)
-        if (loginstore.postlog(applicationContext, chatt)){
-            startActivity(Intent(this, NavigateActivity::class.java))
-        }else{
-            Toast.makeText(this, "Wrong password or username", Toast.LENGTH_SHORT).show()
-        }
-        //finish()
-        //loginstore.postregister(chatt)
-    }
+
     private fun initViews() {
         RegUsername_main = findViewById<EditText>(R.id.et_account_main)
         RegPassword_main = findViewById<EditText>(R.id.et_password_main)

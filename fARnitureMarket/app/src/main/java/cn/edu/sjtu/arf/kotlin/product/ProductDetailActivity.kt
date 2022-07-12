@@ -51,7 +51,7 @@ class ProductDetailActivity:  AppCompatActivity() {
             contentTV.text = pro.description
 
             pro.price?.also { priceTV.text = String.format("%.3f",it) }
-            pro.color_style?.also { topIV.networkUrl(pro.color_style!!) }
+            pro.ic0?.also { topIV.networkUrl(it) }
         }
     }
 

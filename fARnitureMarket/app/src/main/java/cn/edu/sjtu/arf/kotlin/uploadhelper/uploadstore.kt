@@ -3,9 +3,7 @@ package cn.edu.sjtu.arf.kotlin.uploadhelper
 import android.content.Context
 import android.util.Log
 import cn.edu.sjtu.arf.kotlin.loginhelper.Chatt
-import cn.edu.sjtu.arf.kotlin.loginhelper.MyInterface
 import cn.edu.sjtu.arf.kotlin.loginhelper.loginstore
-import cn.edu.sjtu.arf.kotlin.loginhelper.loginstore.myInterface
 import cn.edu.sjtu.arf.kotlin.loginhelper.loginstore.strtest
 import com.android.volley.Request
 import com.android.volley.RequestQueue
@@ -51,7 +49,7 @@ object prodstore {
         println(JSONObject(jsonObj))
         var jsonobj = JSONObject(jsonObj)
         val req = okhttp3.Request.Builder()
-            .addHeader("Cookie",loginstore.cook)
+//            .addHeader("Cookie",loginstore.cook)
             .url(serverUrl + "post_product/")
             .post(
                 RequestBody.create(

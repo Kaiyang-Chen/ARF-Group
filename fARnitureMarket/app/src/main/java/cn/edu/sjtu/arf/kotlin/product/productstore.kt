@@ -29,7 +29,7 @@ object productstore {
         )
         csrftoken?.let { App.loginHeader?.put("X-CSRFToken", it)}
         val postRequest = GsonRequest(
-            method = Request.Method.GET,
+            method = Request.Method.POST,
             url = serverUrl + "fetch_product_detailed/",
             requestBody = params,
 //            headers = App.loginHeader,

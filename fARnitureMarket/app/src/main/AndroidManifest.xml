@@ -52,13 +52,9 @@
             android:name=".kotlin.NavigateActivity"
             android:exported="false"
             android:parentActivityName=".kotlin.MainActivity" />
+
         <activity
             android:name=".kotlin.loginhelper.RegisterActivity"
-
-            android:name=".kotlin.product.ProductDetailActivity"
-            android:exported="false" />
-        <activity
-            android:name="cn.edu.sjtu.arf.kotlin.loginhelper.RegisterActivity"
 
             android:label="RegisterActivity"
             android:parentActivityName=".kotlin.MainActivity" />
