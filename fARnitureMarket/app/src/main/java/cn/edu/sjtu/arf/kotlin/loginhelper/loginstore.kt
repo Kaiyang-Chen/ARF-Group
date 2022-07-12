@@ -38,7 +38,7 @@ object loginstore : MyInterface{
     private val nFields = Chatt::class.declaredMemberProperties.size
     private val client = OkHttpClient()
     private lateinit var queue: RequestQueue
-    private const val serverUrl = "http://10.0.2.2:8000/"
+    private const val serverUrl = "https://101.132.97.115/"
 
     fun strtest(ku: String): String {
         return if (ku != null && ku.startsWith("\ufeff")) ku.substring(1) else ku
@@ -134,7 +134,6 @@ object loginstore : MyInterface{
                             JSONObject()
                         }
                     prodstore.str = responseReceived.toString()
-                    println(prodstore.str)
                     val cookie = response.headers.values("Set-Cookie").toString()
                         //.split(";")[0]
                     if (prodstore.str.isNotBlank()) {

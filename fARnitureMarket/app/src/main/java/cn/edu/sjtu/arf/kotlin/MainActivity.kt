@@ -47,8 +47,16 @@ class MainActivity : AppCompatActivity() {
     }
     fun initListener() {
         var Login_main = findViewById<Button>(R.id.Button03)
+
         Login_main.setOnClickListener {
-            submitlogin(findViewById<EditText>(R.id.et_account_main).text.toString(),findViewById<EditText>(R.id.et_password_main).text.toString())
+            var acc = findViewById<EditText>(R.id.et_account_main).text.toString()
+            var pas = findViewById<EditText>(R.id.et_password_main).text.toString()
+            if (acc.isNotBlank() and pas.isNotBlank()) {
+                submitlogin(acc, pas)
+            }else{
+                Toast.makeText(this, "Please enter the account and the password and try again", Toast.LENGTH_SHORT).show()
+
+            }
         }
     }
 
