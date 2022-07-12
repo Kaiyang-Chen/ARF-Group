@@ -56,5 +56,6 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:background="@android:color/transparent"
+        android:onClick="toupload"
         android:src="@drawable/ic_upload" />
 </RelativeLayout>

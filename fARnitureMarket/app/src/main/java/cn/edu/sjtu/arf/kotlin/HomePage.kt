@@ -16,6 +16,7 @@ import cn.edu.sjtu.arf.R
 import cn.edu.sjtu.arf.kotlin.homepagehelper.HomeItemAdapter
 import cn.edu.sjtu.arf.kotlin.homepagehelper.HomeItemDisplayStore.homeitemdisplays
 import cn.edu.sjtu.arf.kotlin.homepagehelper.HomeItemUIDStore.getHomeItemUIDs
+import cn.edu.sjtu.arf.kotlin.product.ProductDetailActivity
 
 
 class HomePage : Fragment() {
@@ -49,7 +50,7 @@ class HomePage : Fragment() {
             OnItemClickListener { parent, view, position, id ->
                 // Intent jump to DetailActivity and pass UID to DetailActivity
                 val item = homeItemAdapter.getItem(position)
-                val intent = Intent(activity, DetailActivity::class.java)
+                val intent = Intent(activity, ProductDetailActivity::class.java)
                 val bundle = Bundle()
                 if (item != null) {
                     bundle.putString("UID", item.UID.toString())

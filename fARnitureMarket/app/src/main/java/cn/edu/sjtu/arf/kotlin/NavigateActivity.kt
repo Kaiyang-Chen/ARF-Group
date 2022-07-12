@@ -4,12 +4,11 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.SparseArray
-import android.widget.AdapterView
+import android.view.View
 import android.widget.RadioGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import cn.edu.sjtu.arf.R
-import java.security.AccessController.getContext
+import cn.edu.sjtu.arf.kotlin.uploadhelper.UploadPage
 
 class NavigateActivity : AppCompatActivity() {
     lateinit var mNavigation : RadioGroup
@@ -21,7 +20,7 @@ class NavigateActivity : AppCompatActivity() {
         initView()
         initListener()
     }
-
+    fun toupload(view: View?) = startActivity(Intent(this, UploadPage::class.java))
     private fun initView() {
         mNavigation = findViewById(R.id.NavigatorTabs)
         mFragments = SparseArray<Fragment>()
@@ -37,7 +36,5 @@ class NavigateActivity : AppCompatActivity() {
         mNavigation.setOnCheckedChangeListener { _, checkedId ->
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, mFragments.get(checkedId)).commit()
         }
-
-
     }
 }

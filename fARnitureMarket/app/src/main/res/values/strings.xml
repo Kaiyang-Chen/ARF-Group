@@ -33,4 +33,8 @@
     <string name="searching_planes" translatable="false">Searching for surfaces...</string>
     <string name="waiting_taps" translatable="false">Tap on a surface to place an object.</string>
 
+    <string name="album">Album</string>
+    <string name="camera">Camera</string>
+    <string name="preview">Image</string>
+    <string name="send">Send</string>
 </resources>

@@ -6,18 +6,28 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.core.content.ContextCompat.startActivity
 
 import com.google.ar.core.ArCoreApk
 import cn.edu.sjtu.arf.R
+import cn.edu.sjtu.arf.databinding.ActivityMainBinding
 import cn.edu.sjtu.arf.kotlin.ar.HelloArActivity
+import cn.edu.sjtu.arf.kotlin.loginhelper.Chatt
 import cn.edu.sjtu.arf.kotlin.loginhelper.RegisterActivity
+import cn.edu.sjtu.arf.kotlin.loginhelper.loginstore
+//import cn.edu.sjtu.arf.kotlin.loginhelper.loginstore.httpGET1
+import com.google.ar.core.dependencies.e
+import org.json.JSONException
+import org.json.JSONObject
 
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var view: ActivityMainBinding
     lateinit var RegUsername_main : EditText
     lateinit var RegPassword_main : EditText
     lateinit var Reglogin_main : Button
@@ -29,9 +39,19 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         initViews()
+        initListener()
+
+
         // maybeEnableArButton() Check whether this device could support AR, need to use https or add android:usesCleartextTraffic="true"
 
     }
+    fun initListener() {
+        var Login_main = findViewById<Button>(R.id.Button03)
+        Login_main.setOnClickListener {
+            submitlogin(findViewById<EditText>(R.id.et_account_main).text.toString(),findViewById<EditText>(R.id.et_password_main).text.toString())
+        }
+    }
+
     fun SA(view: View?) = startActivity(Intent(this, HelloArActivity::class.java))
     fun Reg(view: View?) {
         startActivity(Intent(this, RegisterActivity::class.java))
@@ -43,7 +63,17 @@ class MainActivity : AppCompatActivity() {
     //    Toast.makeText(this, "Log In Successfully" , Toast.LENGTH_SHORT).show()
     //}
 
-
+    fun submitlogin(username:String, password:String) {
+        val chatt = Chatt(username = username,
+            password = password)
+        if (loginstore.postlog(applicationContext, chatt)){
+            startActivity(Intent(this, NavigateActivity::class.java))
+        }else{
+            Toast.makeText(this, "Wrong password or username", Toast.LENGTH_SHORT).show()
+        }
+        //finish()
+        //loginstore.postregister(chatt)
+    }
     private fun initViews() {
         RegUsername_main = findViewById<EditText>(R.id.et_account_main)
         RegPassword_main = findViewById<EditText>(R.id.et_password_main)
