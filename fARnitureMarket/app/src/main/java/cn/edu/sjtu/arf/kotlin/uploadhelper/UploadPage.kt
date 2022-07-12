@@ -27,16 +27,20 @@ class UploadPage : AppCompatActivity() {
     fun initListener() {
         var Login_main = findViewById<Button>(R.id.publish)
         Login_main.setOnClickListener {
-            submitprod(
-                findViewById<EditText>(R.id.product_name).text.toString(),
-                findViewById<EditText>(R.id.primary_class).text.toString(),
-                findViewById<EditText>(R.id.secondary_class).text.toString(),
-                findViewById<EditText>(R.id.description).text.toString(),
-                findViewById<EditText>(R.id.color_style).text.toString(),
-                findViewById<EditText>(R.id.price).text.toString().toInt(),
-            )
-            startActivity(Intent(this, postpicActivity::class.java))
-
+            var a = findViewById<EditText>(R.id.product_name).text.toString()
+            var b = findViewById<EditText>(R.id.primary_class).text.toString()
+            var c = findViewById<EditText>(R.id.secondary_class).text.toString()
+            var d = findViewById<EditText>(R.id.description).text.toString()
+            var e = findViewById<EditText>(R.id.color_style).text.toString()
+            var f = findViewById<EditText>(R.id.price).text.toString()
+            if (a.isNotBlank() and a.isNotBlank() and a.isNotBlank() and c.isNotBlank() and d.isNotBlank() and e.isNotBlank() and f.isNotBlank()) {
+                submitprod(
+                    a, b, c, d, e, f.toInt()
+                )
+                startActivity(Intent(this, postpicActivity::class.java))
+            }else{
+                Toast.makeText(this, "Please fill in the information of your product", Toast.LENGTH_SHORT).show()
+            }
         }
     }
     fun Pic(view: View?) = startActivity(Intent(this, postpicActivity::class.java))
