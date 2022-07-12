@@ -70,6 +70,7 @@ class RegisterActivity : AppCompatActivity(){
             //startActivity(Intent(this, ARTest::class.java))
         }
     }
+
     fun capcheck(pw:String): Boolean {
         val cap = Regex("""[A-Z]""")
         if (cap.containsMatchIn(input = pw)){
@@ -91,5 +92,15 @@ class RegisterActivity : AppCompatActivity(){
         }
         return false
     }
+
+
+
+//    fun submitChatt(username:String, password:String) {
+//        val chatt = Chatt(username = username,
+//            password = password)
+//
+//        loginstore.postlogin(this@RegisterActivity,chatt)
+//        println("success")
+//    }
 
 }

@@ -28,6 +28,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/et_account_main"
+            android:text="skeleton"
             android:hint = "Account"/>
 
     </LinearLayout>
@@ -44,6 +45,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/et_password_main"
+            android:text="12A4@dsvfdb@3243"
             android:hint = "Password"/>
 
     </LinearLayout>
@@ -64,7 +66,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_weight="1"
-
+            android:onClick="onClick"
             android:text="Login">
 
         </Button>
