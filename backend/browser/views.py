@@ -6,6 +6,7 @@ import uuid
 from django.contrib.auth.models import User
 from django.core.files.storage import FileSystemStorage
 from django.http import HttpRequest, JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 
 from browser.models import ProductInfo
 # Create your views here.
@@ -111,11 +112,12 @@ def fetch_home_products(request: HttpRequest):
     return JsonResponse({})
 
 
+@csrf_exempt
 def fetch_searched_products(request: HttpRequest):
     '''
     get at most 64 uids
     '''
-    if request.method == 'GET':
+    if request.method == 'POST':
         try:
             conditions = json.loads(request.body)
             assert type(conditions) == dict and conditions != {}
@@ -158,13 +160,14 @@ def fetch_searched_products(request: HttpRequest):
     return JsonResponse({})
 
 
+@csrf_exempt
 def fetch_product_brief(request: HttpRequest):
     '''
     get the brief info
     send: {"UID": "afrtr-43gtwwf"}
     receive: {"name": "good sofa", "description": "this is a sofa", "price": 200, "picture": "some url"}
     '''
-    if request.method == "GET":
+    if request.method == "POST":
         try:
             req = json.loads(request.body)
             id = req["UID"]
@@ -186,6 +189,7 @@ def fetch_product_brief(request: HttpRequest):
     return JsonResponse({})
 
 
+@csrf_exempt
 def fetch_product_detailed(request: HttpRequest):
     '''
     literately get every bit of information except ar model
@@ -196,7 +200,7 @@ def fetch_product_detailed(request: HttpRequest):
     "price": prod.price, "sold_state": prod.sold_state,
     "picture_0": url0, "picture_1": url1}
     '''
-    if request.method == "GET":
+    if request.method == "POST":
         try:
             req = json.loads(request.body)
             id = req["UID"]

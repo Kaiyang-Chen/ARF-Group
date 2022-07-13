@@ -48,5 +48,8 @@ urlpatterns = [
     path('update_product/', publisher_views.update_product, name='update_product'),
     path('delete_product/', publisher_views.delete_product, name='delete_product'),
     # chat
-    path('chat/', chat_views.chat, name='chat')
+    path('post_chat/', chat_views.post_chat, name='post_chat'),
+    path('post_chat_picture/', chat_views.post_chat_picture,
+         name='post_chat_picture'),
+    path('get_message/', chat_views.get_message, name='get_message')
 ]

@@ -13,6 +13,8 @@ from django.views.decorators.csrf import csrf_exempt
 from usersystem.models import UserProfile
 
 # Create your views here.
+
+
 @csrf_exempt
 def login(request: HttpRequest):
     '''
@@ -56,6 +58,7 @@ def check(request: HttpRequest):
                     result[key] = getattr(userprofile, key)
         return JsonResponse(result)
     return HttpResponse('failed')
+
 
 @csrf_exempt
 def update(request: HttpRequest):
@@ -203,6 +206,8 @@ def logout(request: HttpRequest):
         return HttpResponse("successful")
     return HttpResponse("failed")
 
+
+@csrf_exempt
 def delete(request: HttpRequest):
     '''
     Delete the current user
@@ -215,6 +220,7 @@ def delete(request: HttpRequest):
     user.delete()
     _logout(request)
     return HttpResponse('successful')
+
 
 def check_other(request: HttpRequest):
     if request.method == 'GET':
