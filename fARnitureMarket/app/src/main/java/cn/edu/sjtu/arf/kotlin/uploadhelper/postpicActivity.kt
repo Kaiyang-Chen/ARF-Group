@@ -26,6 +26,7 @@ import androidx.activity.viewModels
 import androidx.lifecycle.ViewModel
 import cn.edu.sjtu.arf.R
 import cn.edu.sjtu.arf.databinding.ActivityArBinding.inflate
+import cn.edu.sjtu.arf.databinding.ActivityPostpicBinding
 import cn.edu.sjtu.arf.kotlin.loginhelper.loginstore
 import cn.edu.sjtu.arf.kotlin.uploadhelper.picstore.postpic
 //import cn.edu.sjtu.arf.kotlin.databinding.ActivityPostBinding
@@ -36,7 +37,7 @@ class PostViewState: ViewModel() {
 }
 
 class postpicActivity : AppCompatActivity() {
-    //private lateinit var view: ActivityPostBinding
+    private lateinit var view: ActivityPostpicBinding
     private var enableSend = true
     private val viewState: PostViewState by viewModels()
     private lateinit var forCropResult: ActivityResultLauncher<Intent>
@@ -44,7 +45,9 @@ class postpicActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_postpic)
+        view = ActivityPostpicBinding.inflate(layoutInflater)
+        setContentView(view.root)
+        viewState.imageUri?.let { view.previewImage.display(it) }
 
         registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { results ->
             results.forEach {
@@ -93,7 +96,7 @@ class postpicActivity : AppCompatActivity() {
                         }
                     }
                     viewState.imageUri = it
-                    //viewState.imageUri?.let { view.previewImage.display(it) }
+                    viewState.imageUri?.let { view.previewImage.display(it) }
                 }
             } else {
                 Log.d("Crop", result.resultCode.toString())
@@ -149,7 +152,7 @@ class postpicActivity : AppCompatActivity() {
 
     private fun doCrop(intent: Intent?) {
         intent ?: run {
-            //viewState.imageUri?.let { view.previewImage.display(it) }
+            viewState.imageUri?.let { view.previewImage.display(it) }
             return
         }
 

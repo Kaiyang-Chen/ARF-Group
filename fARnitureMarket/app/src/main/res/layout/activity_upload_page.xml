@@ -201,16 +201,4 @@
 
     </Button>
 
-    <Button
-        android:layout_marginTop="50dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="30dp"
-        android:layout_marginLeft="30dp"
-        android:text="Post picture test"
-        android:onClick="Pic"
-        android:layout_gravity="center"
-        android:layout_marginEnd="10dp">
-
-    </Button>
 </LinearLayout>
