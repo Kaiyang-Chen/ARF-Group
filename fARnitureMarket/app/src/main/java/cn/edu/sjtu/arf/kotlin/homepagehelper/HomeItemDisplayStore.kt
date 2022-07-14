@@ -40,9 +40,20 @@ object HomeItemDisplayStore {
                 if (response.isSuccessful) {
                     Log.e("getHomeItemDisplays", "Successfully GET brief information")
                     val homeItemDisplayReceived = try { JSONObject(response.body?.string() ?: "") } catch (e: JSONException) { JSONObject() }
-                    homeitemdisplays.add(HomeItemDisplay(UID = UID,
-                        name = homeItemDisplayReceived.getString("name"),
-                        price = homeItemDisplayReceived.getString("price")))
+                    if (homeItemDisplayReceived.toString().contains("picture")) {
+                        homeitemdisplays.add(HomeItemDisplay(UID = UID,
+                                name = homeItemDisplayReceived.getString("name"),
+                                price = homeItemDisplayReceived.getString("price"),
+                                imageUrl = homeItemDisplayReceived.getString("picture")))
+                    } else {
+                        homeitemdisplays.add(
+                                HomeItemDisplay(
+                                        UID = UID,
+                                        name = homeItemDisplayReceived.getString("name"),
+                                        price = homeItemDisplayReceived.getString("price")
+                                )
+                        )
+                    }
                 }
             }
         })
