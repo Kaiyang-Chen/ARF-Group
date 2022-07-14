@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="cn.edu.sjtu.arf">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <queries>
+        <intent>
+            <action android:name="com.android.camera.action.CROP" />
+
+            <data android:mimeType="image/*" />
+        </intent>
+    </queries>
+    <!--
+ Limits app visibility in the Google Play Store to ARCore supported devices
+       (https://developers.google.com/ar/devices).
+    -->
+    <uses-feature
+        android:name="android.hardware.camera.ar"
+        android:required="true" />
+    <uses-feature
+        android:glEsVersion="0x00020000"
+        android:required="true" />
+
+    <application
+        android:networkSecurityConfig="@xml/network_security_config"
+        android:allowBackup="false"
+        android:name=".App"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:requestLegacyExternalStorage="true"
+        android:theme="@style/Theme.BlankMain"
+        android:usesCleartextTraffic="false"
+        tools:ignore="GoogleAppIndexingWarning" >
+        <activity
+            android:name=".kotlin.product.ProductDetailActivity"
+            android:exported="false" />
+        <activity
+
+            android:name=".kotlin.uploadhelper.postpicActivity"
+            android:exported="false"
+            android:parentActivityName=".kotlin.uploadhelper.UploadPage" />
+        <activity
+            android:name=".kotlin.uploadhelper.UploadPage"
+            android:exported="false"
+            android:parentActivityName=".kotlin.NavigateActivity" />
+        <activity
+            android:name=".kotlin.NavigateActivity"
+            android:exported="false"
+            android:parentActivityName=".kotlin.MainActivity" />
+
+        <activity
+            android:name=".kotlin.loginhelper.RegisterActivity"
+
+            android:label="RegisterActivity"
+            android:parentActivityName=".kotlin.MainActivity" />
+        <activity
+            android:name=".kotlin.MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".kotlin.ar.HelloArActivity"
+            android:configChanges="orientation|screenSize"
+            android:exported="true"
+            android:parentActivityName=".kotlin.MainActivity"
+            android:screenOrientation="locked"
+            android:theme="@style/Theme.AppCompat.NoActionBar" /> <!-- Indicates whether "Google Play Services for AR" (ARCore) is "required" or "optional". -->
+        <meta-data
+            android:name="com.google.ar.core"
+            android:value="required" />
+    </application>
+
+</manifest>
