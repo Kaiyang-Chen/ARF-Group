@@ -51,9 +51,9 @@ class ProductDetailActivity:  AppCompatActivity() {
         }){ pro ->
             titleTV.text = pro.name
             contentTV.text = pro.description
-
+            println(pro.ic0)
             pro.price?.also { priceTV.text = String.format("%.3f",it) }
-            pro.ic0?.also { topIV.networkUrl(it) }
+            pro.title?.also { topIV.networkUrl(it) }
             pro.phone?.also { contactPhoneTV.text = it }
             pro.email?.also { contactEmailTV.text = it }
         }

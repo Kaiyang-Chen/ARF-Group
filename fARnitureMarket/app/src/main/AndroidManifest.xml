@@ -40,6 +40,15 @@
             android:name=".kotlin.product.ProductDetailActivity"
             android:exported="false" />
         <activity
+            android:name=".kotlin.mehelper.MePage"
+            android:exported="false"
+            android:parentActivityName=".kotlin.mehelper.meorig" />
+        <activity
+            android:name=".kotlin.mehelper.meorig"
+            android:exported="false"
+            android:parentActivityName=".kotlin.NavigateActivity" />
+
+        <activity
 
             android:name=".kotlin.uploadhelper.postpicActivity"
             android:exported="false"
