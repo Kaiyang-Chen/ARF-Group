@@ -86,7 +86,6 @@ object loginstore {
             errorListener
         ) {
             override fun parseNetworkResponse(response: NetworkResponse): Response<JSONObject> {
-//                App.loginHeader = response.headers?.filterKeys { it != "Content-Length" }
                 App.loginHeader = mutableMapOf()
                 var str = "";
                  response.allHeaders?.filter { it.name == "Set-Cookie"}?.forEach { header ->
@@ -96,12 +95,7 @@ object loginstore {
                          str +="; "
                      }
                  }
-//                App.loginHeader?.put("Referer","same-origin")
-//                response.headers?.filterKeys { it != "Content-Length" }
-//                    ?.let { App.loginHeader?.putAll(it) }
-//                App.loginHeader?.put("Cookie",str.substring(0,str.length-2))
-//                App.loginHeader?.put("Host",Constants.Host)
-//                App.loginHeader?.put("Cache-Control","no-cache")
+                App.loginHeader?.put("Cookie",str.substring(0,str.length-2))
                 return super.parseNetworkResponse(response)
             }
         }
