@@ -46,7 +46,9 @@
             android:checked="false"
             android:onClick="tome"
             android:drawableTop="@drawable/ic_me"
-            android:text="Me" />
+            android:text="Me"
+            android:stateListAnimator="@null"
+            android:backgroundTint="#EFEFEF" />
 
     </RadioGroup>
 
