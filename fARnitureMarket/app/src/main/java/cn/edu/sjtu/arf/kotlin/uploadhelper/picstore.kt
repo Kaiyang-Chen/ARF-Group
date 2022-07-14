@@ -3,6 +3,7 @@ package cn.edu.sjtu.arf.kotlin.uploadhelper
 import android.content.Context
 import android.net.Uri
 import android.util.Log
+import cn.edu.sjtu.arf.App
 import cn.edu.sjtu.arf.kotlin.loginhelper.Chatt
 import cn.edu.sjtu.arf.kotlin.loginhelper.loginstore
 import cn.edu.sjtu.arf.kotlin.loginhelper.loginstore.strtest
@@ -47,7 +48,7 @@ object picstore {
         println(mpFD)
         //println(mpFD.build())
         val request = okhttp3.Request.Builder()
-//            .addHeader("Cookie",loginstore.cook)
+            .addHeader("Cookie", App.loginHeader?.get("Cookie")?:"")
             .url(serverUrl + "post_picture/")
             .post(mpFD.build())
             .build()
@@ -67,7 +68,7 @@ object picstore {
                     .addFormDataPart("picture", "wxy" ?: "")*/
 
         val request = okhttp3.Request.Builder()
-            .addHeader("Cookie",loginstore.cook)
+              .addHeader("Cookie", App.loginHeader?.get("Cookie")?:"")
             .url(serverUrl + "post_picture/")
             .post(RequestBody.create(
                 "application/json".toMediaType(),

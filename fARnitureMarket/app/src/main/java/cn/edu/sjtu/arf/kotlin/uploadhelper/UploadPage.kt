@@ -27,18 +27,29 @@ class UploadPage : AppCompatActivity() {
     fun initListener() {
         var Login_main = findViewById<Button>(R.id.publish)
         Login_main.setOnClickListener {
-            submitprod(
-                findViewById<EditText>(R.id.product_name).text.toString(),
-                findViewById<EditText>(R.id.primary_class).text.toString(),
-                findViewById<EditText>(R.id.secondary_class).text.toString(),
-                findViewById<EditText>(R.id.description).text.toString(),
-                findViewById<EditText>(R.id.color_style).text.toString(),
-                findViewById<EditText>(R.id.price).text.toString().toInt(),
-            )
-            startActivity(Intent(this, postpicActivity::class.java))
+            try {
+                var a = findViewById<EditText>(R.id.product_name).text.toString()
+                var b = findViewById<EditText>(R.id.primary_class).text.toString()
+                var c = findViewById<EditText>(R.id.secondary_class).text.toString()
+                var d = findViewById<EditText>(R.id.description).text.toString()
+                var e = findViewById<EditText>(R.id.color_style).text.toString()
+                var f = findViewById<EditText>(R.id.price).text.toString()
+
+                if (a.isNotBlank() and a.isNotBlank() and a.isNotBlank() and c.isNotBlank() and d.isNotBlank() and e.isNotBlank() and f.isNotBlank()) {
+                    submitprod(
+                        a, b, c, d, e, f.toInt()
+                    )
+                    startActivity(Intent(this, postpicActivity::class.java))
+                }else{
+                    Toast.makeText(this, "Please fill in the information of your product", Toast.LENGTH_SHORT).show()
+                }
+            }catch (e:Exception){
+                Toast.makeText(this, "Please fill in the information of your product correctly", Toast.LENGTH_SHORT).show()
+            }
 
         }
     }
+
     fun Pic(view: View?) = startActivity(Intent(this, postpicActivity::class.java))
     fun submitprod(product_name:String, primary_class:String,
                    secondary_class:String, description:String,
@@ -51,12 +62,8 @@ class UploadPage : AppCompatActivity() {
             color_style = color_style,
             price = price
         )
-        if (postprod(applicationContext, prod) != "initstr"){
-            Toast.makeText(this, "Publish Successfully", Toast.LENGTH_SHORT).show()
-            finish()
-        }else{
-            Toast.makeText(this, "Failed, please check again", Toast.LENGTH_SHORT).show()
-        }
+        postprod(applicationContext, prod)
+        finish()
         //finish()
         //loginstore.postregister(chatt)
     }
