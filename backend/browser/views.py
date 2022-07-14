@@ -12,6 +12,7 @@ from browser.models import ProductInfo
 # Create your views here.
 
 
+@csrf_exempt
 def fetch_home_products(request: HttpRequest):
     '''
     get at most 64 uids
