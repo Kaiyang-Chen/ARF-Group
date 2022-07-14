@@ -1,0 +1,41 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+
+
+android {
+  compileSdk 30
+  defaultConfig {
+    minSdkVersion 9
+    targetSdkVersion 30
+    versionCode 1
+    versionName '4.10.0'
+  }
+  compileOptions {
+    sourceCompatibility JavaVersion.VERSION_1_8
+    targetCompatibility JavaVersion.VERSION_1_8
+  }
+  buildTypes {
+    release {
+      minifyEnabled false
+      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+    }
+  }
+  kotlinOptions {
+    jvmTarget = '1.8'
+    freeCompilerArgs += [
+            "-Xjvm-default=all",
+    ]
+  }
+}
+
+dependencies {
+  api deps.okio
+  api deps.kotlinStdlib
+  compileOnly deps.bouncycastle
+  compileOnly deps.bouncycastletls
+  compileOnly deps.conscrypt
+  compileOnly deps.openjsse
+  compileOnly deps.jsr305
+  compileOnly deps.animalSniffer
+}
+
