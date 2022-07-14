@@ -23,6 +23,7 @@ class ProductDetailActivity:  AppCompatActivity() {
     private lateinit var titleTV: TextView
     private lateinit var priceTV: TextView
     private lateinit var contentTV: TextView
+    private lateinit var contactTV: TextView
 
     private lateinit var sellerBtn: LinearLayout
     private lateinit var addCartBtn: LinearLayout
@@ -52,6 +53,7 @@ class ProductDetailActivity:  AppCompatActivity() {
 
             pro.price?.also { priceTV.text = String.format("%.3f",it) }
             pro.ic0?.also { topIV.networkUrl(it) }
+            pro.owner?.also { contactTV.text = it }
         }
     }
 
@@ -64,6 +66,7 @@ class ProductDetailActivity:  AppCompatActivity() {
 
         sellerBtn = findViewById(R.id.seller_btn)
         addCartBtn = findViewById(R.id.cart_btn)
+        contactTV = findViewById(R.id.contact_type)
 
         arIV.setOnClickListener(::onClick)
         sellerBtn.setOnClickListener(::onClick)
