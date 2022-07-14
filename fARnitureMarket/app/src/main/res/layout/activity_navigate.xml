@@ -40,10 +40,11 @@
             android:drawableTop="@drawable/ic_cart"
             android:text="Cart" />
 
-        <RadioButton
+        <Button
             android:id="@+id/NavigatorMe"
             style="@style/NavigationButton"
             android:checked="false"
+            android:onClick="tome"
             android:drawableTop="@drawable/ic_me"
             android:text="Me" />
 

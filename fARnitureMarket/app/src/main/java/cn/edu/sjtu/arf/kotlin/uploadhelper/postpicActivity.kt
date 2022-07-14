@@ -181,7 +181,7 @@ class postpicActivity : AppCompatActivity() {
         //println(init_str)
         Login_main.setOnClickListener {
             postpic(
-                applicationContext, prodstore.str, "wxy pic",viewState.imageUri
+                applicationContext, prodstore.str, "title",viewState.imageUri
             ){
                     msg ->
                 runOnUiThread {

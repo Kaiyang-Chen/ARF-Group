@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.RadioGroup
 import androidx.fragment.app.Fragment
 import cn.edu.sjtu.arf.R
+import cn.edu.sjtu.arf.kotlin.mehelper.meorig
 import cn.edu.sjtu.arf.kotlin.uploadhelper.UploadPage
 
 class NavigateActivity : AppCompatActivity() {
@@ -21,13 +22,14 @@ class NavigateActivity : AppCompatActivity() {
         initListener()
     }
     fun toupload(view: View?) = startActivity(Intent(this, UploadPage::class.java))
+    fun tome(view: View?) = startActivity(Intent(this, meorig::class.java))
     private fun initView() {
         mNavigation = findViewById(R.id.NavigatorTabs)
         mFragments = SparseArray<Fragment>()
         mFragments.append(R.id.NavigatorHome, HomePage())
         mFragments.append(R.id.NavigatorSearch, SearchPage())
         mFragments.append(R.id.NavigatorCart, CartPage())
-        mFragments.append(R.id.NavigatorMe, MePage())
+        //mFragments.append(R.id.NavigatorMe, MePage())
 
         getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, mFragments.get(R.id.NavigatorHome)).commit()
     }
