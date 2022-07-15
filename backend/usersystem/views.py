@@ -35,11 +35,12 @@ def login(request: HttpRequest):
     return JsonResponse(m3, safe=False)
 
 
+@csrf_exempt
 def check(request: HttpRequest):
     '''
     Require information
     '''
-    if request.method == 'GET':
+    if request.method == 'POST':
         user = request.user
         try:
             result = json.loads(request.body)
@@ -65,48 +66,48 @@ def update(request: HttpRequest):
     if request.method == 'POST':
         user = request.user
         if not user.is_authenticated:
-            return HttpResponse('failed: login first')
+            return JsonResponse({'msg': 'failed: login first'})
         try:
             result = json.loads(request.body)
         except:
-            return HttpResponse('failed: invalid text')
+            return JsonResponse({'msg': 'failed: invalid text'})
         userprofile = UserProfile.objects.get(user=user)
         # password
         password = None
         if 'password' in result.keys():
             password = result['password'].strip()
             if (len(password) < 8 or len(password) > 20):
-                return HttpResponse('failed: illegal password length: 8-20 required')
+                return JsonResponse({'msg': 'failed: illegal password length: 8-20 required'})
             if (not re.search("[a-z]", password)) or (not re.search("[A-Z]", password)):
-                return HttpResponse('failed: a-z and A-Z characters required')
+                return JsonResponse({'msg': 'failed: a-z and A-Z characters required'})
             if not re.search("[0-9]", password):
-                return HttpResponse('failed: numbers required')
+                return JsonResponse({'msg': 'failed: numbers required'})
         # username
         username = None
         if 'username' in result.keys():
             username = result['username']
             username = username.strip()
             if len(username) >= 100:
-                return HttpResponse('failed: username too long')
+                return JsonResponse({'msg': 'failed: username too long'})
             if len(username) < 1:
-                return HttpResponse('failed: username too short')
+                return JsonResponse({'msg': 'failed: username too short'})
             for char in username:
                 if (not char.isalnum()) and (not char in "@/./+/-/_"):
-                    return HttpResponse('failed: username invalid')
+                    return JsonResponse({'msg': 'failed: username invalid'})
             userinfo = User.objects.filter(username=username)
             if userinfo.exists():
-                return HttpResponse('failed: username exists')
+                return JsonResponse({'msg': 'failed: username exists'})
         # email
         email = None
         if 'email' in result.keys() and result['email'] != '':
             email = result['email'].strip()
             if len(email) > 100:
-                return HttpResponse('failed: email too long')
+                return JsonResponse({'msg': 'failed: email too long'})
             if '@' not in email:
-                return HttpResponse('failed: email invalid')
+                return JsonResponse({'msg': 'failed: email invalid'})
             userinfo = User.objects.filter(email=email)
             if userinfo.exists():
-                return HttpResponse('failed: email exists')
+                return JsonResponse({'msg': 'failed: email exists'})
         if 'password' in result.keys():
             user.set_password(password)
         if 'username' in result.keys():
@@ -125,8 +126,8 @@ def update(request: HttpRequest):
             userprofile.address = result['address']
         user.save()
         userprofile.save()
-        return HttpResponse('successful')
-    return HttpResponse('failed')
+        return JsonResponse({'msg': 'successful'})
+    return JsonResponse({'msg': 'failed'})
 
 
 @csrf_exempt

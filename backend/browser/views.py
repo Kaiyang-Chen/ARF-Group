@@ -4,6 +4,7 @@ import random
 import uuid
 
 from django.contrib.auth.models import User
+from usersystem.models import UserProfile
 from django.core.files.storage import FileSystemStorage
 from django.http import HttpRequest, JsonResponse
 
@@ -204,8 +205,11 @@ def fetch_product_detailed(request:HttpRequest):
         if prod.exists():
             prod = prod[0]
             username = prod.owner.username
-            res = {"UID":str(id),"name": prod.name, "description": prod.description,
-                   "owner":username,"primary_class":prod.primary_class,"secondary_class":prod.secondary_class,"color_style":prod.color_style,"price": f"{prod.price}","sold_state":str(prod.sold_state)}
+            res = {"UID": str(id), "name": prod.name, "description": prod.description,
+                   "owner": username, "primary_class": prod.primary_class, "secondary_class": prod.secondary_class, "color_style": prod.color_style, "price": f"{prod.price}", "sold_state": str(prod.sold_state)}
+            userprofile = UserProfile.objects.get(user=prod.owner)
+            res["phone"] = str(userprofile.phone)
+            res["email"] = str(prod.owner.email)
             if os.path.isdir(f"static/{username}/{prod.name}/picture"):
                 fs = FileSystemStorage()
                 pics = os.listdir(f"static/{username}/{prod.name}/picture")
