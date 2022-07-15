@@ -221,15 +221,19 @@ Weikai Zhou
 
 # Individual Contributions
 
-Kaiyang Chen
+### Kaiyang Chen
 
-Fan Chen
 
-Xinmiao Yu
+### Fan Chen
 
-Zhengyang Zhu
 
-Xingyuan Wang
+### Xinmiao Yu
+
+
+### Zhengyang Zhu
+
+
+### Xingyuan Wang
 
 Developed the backend parts for the following features:
 
@@ -243,4 +247,5 @@ Chatting system (only available in the backend for now): post text chats, post p
 
 Helped with frontend debugging.
 
-Weikai Zhou
+
+### Weikai Zhou
