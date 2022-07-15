@@ -157,11 +157,17 @@ Xinmiao Yu
 Zhengyang Zhu
 
 Xingyuan Wang
+
 Developed the backend parts for the following features:
+
 User system: register, login/logout, update user profile, check user profiles, delete user
+
 Browse furniture: search for furniture, get homepage recommendation, get the breif infomation of products, get the detailed information of products
+
 Publish furniture: post products, post pictures of the product, delete the product, update the product information, get the product picture
+
 Chatting system (only available in the backend for now): post text chats, post pictures, get messages
+
 Helped with frontend debugging.
 
 Weikai Zhou
