@@ -18,13 +18,13 @@ Frontend
 ### Storymap
 
 #### Buyers
-![graph](/readme_graphs/buyers.png "Buyers")
+![graph](readme_graphs/buyers.png "Buyers")
 
 #### Sellers
-![graph](/readme_graphs/sellers.png "Sellers")
+![graph](readme_graphs/sellers.png "Sellers")
 
 ### Data and Control Blocks
-![graph](/readme_graphs/block.png "Sellers")
+![graph](readme_graphs/block.png "Sellers")
 
 The primary functional blocks of the app include Dashboard, Product Publisher (and Model Generator), Product Browser and Chatting Manager. Payment module will be likely to be done with AliPay or Wechat Pay api.
 
@@ -205,6 +205,30 @@ SERVER_IP/buy_product/
 Try to buy the product. Send a GET request with a body including its UID. E.g., {"UID":"12323"} Returns an HttpResponse indicating success or failure.
 
 # View UI/UX
+
+The picture below shows our static flow of UIUX.
+
+![staticflow](readme_graphs/staticflow.png)
+
+For User System, user should be able to click "Me" and check their basic infromation on the Me page. They can also update their information as needed. All the personal information gathered together can make it easier for users to check and update.
+
+![Usersystem](readme_graphs/Usersystem.png)
+
+For Publish System, the user can click on the "+" button and add basic information, upload pictures. With the pictures uploaded, our app will generated 3D model and the user can preview the model in AR view before publish.
+
+![publish](readme_graphs/publish.png)
+
+For Product Detail, the users can click on the furniture shown on the homepage or search page to find the details. The contact information of the seller is provided for them to communication. We may even provide built-in chatting function for them to communicate. Buyers can also view the 3D model of the furniture to get a better understanding of it.
+
+![detail](readme_graphs/detail.png)
+
+For Searching Product, the users can click on the search icon and enter the keywords to search and view related furniture. This function can make it easier for users to find the furniture they want.
+
+![search](readme_graphs/search.png)
+
+For Shopping Cart, this the page where users can check out. It shows the furniture users want to buy and provide the payment function to pay the bill.
+
+![shop](readme_graphs/shop.png)
 
 # Team Roster
 
