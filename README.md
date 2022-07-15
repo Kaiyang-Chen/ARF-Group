@@ -11,7 +11,7 @@ Frontend
 - Android API level 30
 - Andriod Studio
 - ARCore SDK for Android 1.31.0
-- Android Emulator Pixel 4 API 29
+- Android Emulator Pixel 4 API 29 (The app may not work on other emulators)
 
 ## Model and Engine
 
