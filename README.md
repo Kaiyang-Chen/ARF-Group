@@ -8,9 +8,10 @@ Backend
 - PostgreSQL 14.3
 
 Frontend
-- Android API level 31
+- Android API level 30
 - Andriod Studio
 - ARCore SDK for Android 1.31.0
+- Android Emulator Pixel 4 API 29
 
 ## Model and Engine
 
