@@ -265,3 +265,9 @@ Helped with frontend debugging.
 
 
 #### Weikai Zhou
+
+Developed the frontend parts for the following features:
+
+Home, Search, Publish, Cart and Me nevigation structure of the APP
+
+Implementation of HomePage and connection between HomePage and DetailPage
