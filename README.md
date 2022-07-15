@@ -221,10 +221,12 @@ Weikai Zhou
 
 # Individual Contributions
 
-### Kaiyang Chen
+#### Kaiyang Chen
 
 
-### Fan Chen
+
+
+#### Fan Chen
 
 Developed the frontend parts for the following features:
 
@@ -232,13 +234,20 @@ User system: register, part of login, update user profile, check user profiles
 
 Publish furniture: post products, post pictures of the product
 
-### Xinmiao Yu
 
 
-### Zhengyang Zhu
+#### Xinmiao Yu
 
 
-### Xingyuan Wang
+
+#### Zhengyang Zhu
+
+Developed the frontend product detail page.
+
+
+
+
+#### Xingyuan Wang
 
 Developed the backend parts for the following features:
 
@@ -253,4 +262,6 @@ Chatting system (only available in the backend for now): post text chats, post p
 Helped with frontend debugging.
 
 
-### Weikai Zhou
+
+
+#### Weikai Zhou
