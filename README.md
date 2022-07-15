@@ -239,6 +239,7 @@ Publish furniture: post products, post pictures of the product
 
 #### Xinmiao Yu
 
+Developed the AR view part. User could enter AR view and virtually put one default model in the environment.
 
 
 #### Zhengyang Zhu
