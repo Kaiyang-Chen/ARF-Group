@@ -248,7 +248,11 @@ Weikai Zhou
 
 #### Kaiyang Chen
 
+Backend server maintainess and service configuration
 
+Developed the AR-related backend including 3d-model generation
+
+Assisted in other backend features.
 
 
 #### Fan Chen
