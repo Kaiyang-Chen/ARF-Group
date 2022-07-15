@@ -44,72 +44,152 @@ The display of the AR model is done through ARCore SDK for Android which is hand
 SERVER_IP/check/
 
 Get the user's information. A GET request with a body containing the required fields. E.g., {"username":"", "gender":""}
-Returns a HttpResponse indicating sucess or failure.
 
 SERVER_IP/update/
 
 Update the user's information. A POST request with a body containing the required fields. E.g., {"username":"new_name", "gender":"male"}
-Returns a HttpResponse indicating sucess or failure.
 
 SERVER_IP/login/
 
 Try to log in a session with user name and password. E.g., {"username":"cky", "password":"1234567"}
-Returns a HttpResponse indicating sucess or failure.
 
 SERVER_IP/register/
 
 Try register a new user with user name and password. Additional fields may be provided. Otherwise, these fields will be default values. E.g., {"username":"cky", "password":"1234567", "address":"xxx"}
-Returns a HttpResponse indicating sucess or failure.
 
 SERVER_IP/logout/
 
-Log out the session.
+Log out.
 
 SERVER_IP/delete/
 
-Delete the current user. The user must log in first.
+Delete the current user.
 
-### Homepage product browsing
+### Browser
 
 SERVER_IP/fetch_home_products/
 
-Fetch 5-10 products' information that is recommended for the user based on his browsing history. Sends a GET request with an empty body. Returns an HttpResponse containing products' name, price, photo and UID. E.g., {"UID1":{"name":"chair","price":32,"photo":"photo_url"...},"UID2":...} Returns a failure response if not logging in or internal error.
+Get at most 64 UID for homepage.
 
-### Searching page
+send: anything
+
+receive: {"0": "13233412-34xewrcr", "1": "7645ytewerg-vewegf"}
 
 SERVER_IP/fetch_searched_products/
 
-Fetch products' information that is satisfied by the searching condition. Sends a GET request with a body containing the conditions and wanted fields. E.g., {"condition":{"type":"chair","highest price":"32"...},"field":{"UID":"","owner":""...}} Returns an HttpResponse containing required products' information Returns a failure response if not logging in or internal error.
+Get at most 64 uids by searching.
 
-### Detailed product information
+send: {"keywords": "sofa big", "owner": "xingyanwan", "primary_class": "living room", "secondary_class": "sofa", "color_style": "blue", "price_gt": "100", "price_lt": "500", "starts_from": "128"}
 
-SERVER_IP/fetch_product/
+starts_from: for example, if you have checked 64 results and want to see more results, set starts_from = 64
 
-Fetch all information about the product. Send a GET request with a body including its UID. E.g., {"UID":"12323"} Returns an HttpResponse containing all information Returns a failure response if not logging in or internal error.
+receive: {"0": "13233412-34xewrcr", "1": "7645ytewerg-vewegf"}
 
-### Purchase
+SERVER_IP/fetch_product_brief/
 
-SERVER_IP/buy_product/
+Get the brief info by UID.
 
-Try to buy the product. Send a GET request with a body including its UID. E.g., {"UID":"12323"} Returns an HttpResponse indicating success or failure.
+send: {"UID": "afrtr-43gtwwf"}
+
+receive: {"name": "good sofa", "description": "this is a sofa", "price": 200, "picture": "some url"}
+
+picture is the url of the title page, the name of this picture is title.jpg in FS
+
+SERVER_IP/fetch_product_detailed/
+
+Get all the information except AR model, plus user contact information (added).
+
+send: {"UID": "afrtr-43gtwwf"}
+
+receive: {"UID": prod.id, "name": prod.name, "description": prod.description,
+"owner": username, "primary_class": prod.primary_class,
+"secondary_class": prod.secondary_class, "color_style": prod.color_style,
+"price": prod.price, "sold_state": prod.sold_state,
+"picture_0": url0, "picture_1": url1}
+
+all pictures will be sent, test.jpg on FS will result in "test": some_url
+
+primary_class is level-1 classification like kitchen, living room, bathroom; for recommendation and searching
+
+secondary_class is level-2 classfication like sofa, chair; for recommendation and searching
+
+### Publisher
+
+SERVER_IP/post_product/
+
+Post a product, without picture.
+
+must login first with cookie in the request
+
+send: {"name": prod.name, "description": prod.description, "primary_class": prod.primary_class,
+"secondary_class": prod.secondary_class, "color_style": prod.color_style, "price": prod.price}
+
+receive: HttpResponse starts with failed or {"UID": "tw5y65we3t4sdv"}
+
+SERVER_IP/post_picture/
+
+Post a picture.
+
+must login first with cookie in the request, you must be the owner
+
+send: {"UID": "wdefargstrdtyu", "picture": "pic_name", "image": img_file}
+
+like lab2 request.FILES["image"] has the file
+
+on FS, the new picture will be named as "pic_name.jpg"
+
+name it "title" if you want it as the result picture in fetch_product_brief
+
+if "pic_name.jpg" exists, it will be overwritten
+
+SERVER_IP/delete_picture/
+
+Delete a picture.
+
+must login first with cookie in the request, you must be the owner
+POST method
+
+send: {"UID": "wdefargstrdtyu", "picture": "pic_name"}
+
+SERVER_IP/update_product/
+
+Refer to post_product, except UID must be provided.
+
+SERVER_IP/delete_product/
+
+Delete a product.
+
+must login first with cookie in the request, you must be the owner
+
+send: {"UID": "wdefargstrdtyu"}
 
 ### Chat
 
-SERVER_IP/start_session/
+SERVER_IP/post_chat/
 
-Create a chatting session. Send a POST request with a body including target username. E.g., {"username":"cky"} Returns an HttpResponse indicating success or failure.
+Post a chatting message.
 
-SERVER_IP/post_chatt/
+Indicate "seller" or "buyer" in the sending message, and the other field will be your username.
 
-Post a chatting message. Send a POST request with a body such as {"message":"hello"}. Returns an empty HttpResponse.
+send: {"seller":"wxy", "content":"hello"}
 
-SERVER_IP/get_chatt/
+SERVER_IP/post_chat_picture/
 
-Get chatting messages. Send an empty GET request. Returns an HttpResponse such as {"message":{"cky":"hello","cky2":"hi"...}}.
+Post a chatting picture.
 
-SERVER_IP/delete_session/
+send: {"buyer":"wxy"} and some picture
 
-Delete the chatting session on the back-end server. Send an empty DELETE request. Returns an HttpResponse indicating success or failure.
+SERVER_IP/get_message/
+
+Get chatting messages.
+
+send: (optional body) {"last_idx":9}
+
+"last_idx" means you do not want to fetch information from the beginning
+
+receives: {"as_seller":{{"0":{"seller":wxy,"buyer":"cf","content":"hello","is_picture":"False"}}},as_buyer:{{"0":{"seller":cf,"buyer":"wxy","content":"hello2","is_picture":"False"}}}}
+
+if is_picture, content will be picture url
 
 ### AR
 
@@ -117,18 +197,11 @@ SERVER_IP/get_ar_model/
 
 Get the AR model of the product. Refer to SERVER_IP/fetch_product/. Returns the AR model is possible. Returns a failure response if not finding the product or no available AR model.
 
-### Products management
+### Purchase
 
-SERVER_IP/post_product/
+SERVER_IP/buy_product/
 
-Try to POST a new product with product name. Additional fields may be provided. Otherwise, these fields will be default values. E.g., {"name":"nice chair", "price":32}. Pictures of the product will be sent via url.
-Returns a HttpResponse indicating sucess (if so, its UID will be returned) or failure. An additional HttpRequest from Model Genetor will be sent when AR generation is finished. Subject to change.
-
-
-SERVER_IP/update_product/
-
-Try to POST a new product with product UID. Fields to be updated and the new values should be provided. E.g., {"UID":"12345", "price":32}. Pictures of the product will be sent via url.
-Returns a HttpResponse indicating sucess or failure. An additional HttpRequest from Model Genetor will be sent when AR generation is required and finished. Subject to change.
+Try to buy the product. Send a GET request with a body including its UID. E.g., {"UID":"12323"} Returns an HttpResponse indicating success or failure.
 
 # View UI/UX
 
