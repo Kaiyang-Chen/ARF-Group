@@ -272,7 +272,7 @@ Developed the AR view part. User could enter AR view and virtually put one defau
 
 #### Zhengyang Zhu
 
-Developed the frontend product detail page.
+Developed the frontend ProductDetail page.
 
 
 
