@@ -35,7 +35,7 @@
                 app:layout_constraintEnd_toEndOf="@id/top_pic"
                 app:layout_constraintBottom_toBottomOf="@id/top_pic"
                 android:scaleType="fitCenter"
-                android:src="@drawable/ic_home"/>
+                android:src="@drawable/ic_launcher"/>
 
             <LinearLayout
                 android:id="@+id/title_ll"
@@ -98,18 +98,41 @@
             android:padding="12dp"
             android:orientation="horizontal">
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:text="Contact info:"
+                android:gravity="end"
+                android:text="Phone:"
                 android:textColor="@android:color/darker_gray"
                 android:textSize="14dp"/>
             <TextView
-                android:id="@+id/contact_type"
+                android:id="@+id/contact_phone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:text="Contact Type"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:textSize="18dp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="12dp"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:gravity="end"
+                android:text="E-mail:"
+                android:textColor="@android:color/darker_gray"
+                android:textSize="14dp"/>
+            <TextView
+                android:id="@+id/contact_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
                 android:textColor="@color/black"
                 android:textStyle="bold"
                 android:textSize="18dp"/>

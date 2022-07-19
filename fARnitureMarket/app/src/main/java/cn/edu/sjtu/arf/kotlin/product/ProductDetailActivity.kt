@@ -23,7 +23,8 @@ class ProductDetailActivity:  AppCompatActivity() {
     private lateinit var titleTV: TextView
     private lateinit var priceTV: TextView
     private lateinit var contentTV: TextView
-    private lateinit var contactTV: TextView
+    private lateinit var contactPhoneTV: TextView
+    private lateinit var contactEmailTV: TextView
 
     private lateinit var sellerBtn: LinearLayout
     private lateinit var addCartBtn: LinearLayout
@@ -50,10 +51,11 @@ class ProductDetailActivity:  AppCompatActivity() {
         }){ pro ->
             titleTV.text = pro.name
             contentTV.text = pro.description
-
+            println(pro.ic0)
             pro.price?.also { priceTV.text = String.format("%.3f",it) }
-            pro.ic0?.also { topIV.networkUrl(it) }
-            pro.owner?.also { contactTV.text = it }
+            pro.title?.also { topIV.networkUrl(it) }
+            pro.phone?.also { contactPhoneTV.text = it }
+            pro.email?.also { contactEmailTV.text = it }
         }
     }
 
@@ -66,7 +68,8 @@ class ProductDetailActivity:  AppCompatActivity() {
 
         sellerBtn = findViewById(R.id.seller_btn)
         addCartBtn = findViewById(R.id.cart_btn)
-        contactTV = findViewById(R.id.contact_type)
+        contactPhoneTV = findViewById(R.id.contact_phone)
+        contactEmailTV = findViewById(R.id.contact_email)
 
         arIV.setOnClickListener(::onClick)
         sellerBtn.setOnClickListener(::onClick)
