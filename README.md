@@ -248,7 +248,11 @@ Weikai Zhou
 
 #### Kaiyang Chen
 
+Backend server maintainess and service configuration
 
+Developed the AR-related backend including 3d-model generation
+
+Assisted in other backend features.
 
 
 #### Fan Chen
@@ -268,7 +272,7 @@ Developed the AR view part. User could enter AR view and virtually put one defau
 
 #### Zhengyang Zhu
 
-Developed the frontend product detail page.
+Developed the frontend ProductDetail page.
 
 
 
