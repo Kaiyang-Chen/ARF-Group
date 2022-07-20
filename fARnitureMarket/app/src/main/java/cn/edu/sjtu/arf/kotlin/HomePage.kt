@@ -20,8 +20,6 @@ import cn.edu.sjtu.arf.kotlin.homepagehelper.HomeItemUIDStore.getHomeItemUIDs
 import cn.edu.sjtu.arf.kotlin.product.ProductDetailActivity
 
 
-import android.widget.ImageView
-
 
 class HomePage : Fragment() {
     private lateinit var homeItemListView: ListView
@@ -34,7 +32,7 @@ class HomePage : Fragment() {
         val layout: View = inflater.inflate(R.layout.page_home,container,false)
 
         homeItemListView = layout.findViewById(R.id.homeItemListView)
-        refresher = layout.findViewById(R.id.refreshContainer)
+        refresher = layout.findViewById(R.id.homeRefreshContainer)
         return layout
 
     }
