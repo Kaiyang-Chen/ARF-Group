@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'chat',
     'usersystem',
     'browser',
-    'publisher'
+    'publisher',
+    'cart'
 ]
 
 MIDDLEWARE = [

@@ -19,6 +19,7 @@ from usersystem import views as user_views
 from browser import views as browser_views
 from publisher import views as publisher_views
 from chat import views as chat_views
+from cart import views as cart_views
 
 
 urlpatterns = [
@@ -51,5 +52,10 @@ urlpatterns = [
     path('post_chat/', chat_views.post_chat, name='post_chat'),
     path('post_chat_picture/', chat_views.post_chat_picture,
          name='post_chat_picture'),
-    path('get_message/', chat_views.get_message, name='get_message')
+    path('get_message/', chat_views.get_message, name='get_message'),
+    # cart
+    path('add_to_cart/', cart_views.add_to_cart, name='add_to_cart'),
+    path('delete_from_cart/', cart_views.delete_from_cart,
+         name='delete_from_cart'),
+    path('get_cart/', cart_views.get_cart, name='get_cart')
 ]
