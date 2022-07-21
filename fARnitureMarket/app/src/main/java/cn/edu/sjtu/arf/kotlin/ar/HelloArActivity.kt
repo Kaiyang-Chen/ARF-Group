@@ -22,11 +22,11 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.ar.core.Config
 import com.google.ar.core.Config.InstantPlacementMode
 import com.google.ar.core.Session
-import cn.edu.sjtu.arf.common.helpers.CameraPermissionHelper
-import cn.edu.sjtu.arf.common.helpers.DepthSettings
-import cn.edu.sjtu.arf.common.helpers.FullScreenHelper
-import cn.edu.sjtu.arf.common.helpers.InstantPlacementSettings
-import cn.edu.sjtu.arf.common.samplerender.SampleRender
+import cn.edu.sjtu.arf.kotlin.common.helpers.CameraPermissionHelper
+import cn.edu.sjtu.arf.kotlin.common.helpers.DepthSettings
+import cn.edu.sjtu.arf.kotlin.common.helpers.FullScreenHelper
+import cn.edu.sjtu.arf.kotlin.common.helpers.InstantPlacementSettings
+import cn.edu.sjtu.arf.kotlin.common.helpers.samplerender.SampleRender
 import cn.edu.sjtu.arf.kotlin.common.helpers.ARCoreSessionLifecycleHelper
 import com.google.ar.core.exceptions.CameraNotAvailableException
 import com.google.ar.core.exceptions.UnavailableApkTooOldException

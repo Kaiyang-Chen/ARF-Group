@@ -25,8 +25,8 @@ import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import cn.edu.sjtu.arf.R
 import com.google.ar.core.Config
-import cn.edu.sjtu.arf.common.helpers.SnackbarHelper
-import cn.edu.sjtu.arf.common.helpers.TapHelper
+import cn.edu.sjtu.arf.kotlin.common.helpers.SnackbarHelper
+import cn.edu.sjtu.arf.kotlin.common.helpers.TapHelper
 
 /** Contains UI elements for Hello AR. */
 class HelloArView(val activity: HelloArActivity) : DefaultLifecycleObserver {

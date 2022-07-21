@@ -13,18 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package cn.edu.sjtu.arf.common.samplerender.arcore;
+package cn.edu.sjtu.arf.kotlin.common.helpers.samplerender.arcore;
 
 import android.media.Image;
 import android.opengl.GLES30;
 import com.google.ar.core.Coordinates2d;
 import com.google.ar.core.Frame;
-import cn.edu.sjtu.arf.common.samplerender.Framebuffer;
-import cn.edu.sjtu.arf.common.samplerender.Mesh;
-import cn.edu.sjtu.arf.common.samplerender.SampleRender;
-import cn.edu.sjtu.arf.common.samplerender.Shader;
-import cn.edu.sjtu.arf.common.samplerender.Texture;
-import cn.edu.sjtu.arf.common.samplerender.VertexBuffer;
+import cn.edu.sjtu.arf.kotlin.common.helpers.samplerender.Framebuffer;
+import cn.edu.sjtu.arf.kotlin.common.helpers.samplerender.Mesh;
+import cn.edu.sjtu.arf.kotlin.common.helpers.samplerender.SampleRender;
+import cn.edu.sjtu.arf.kotlin.common.helpers.samplerender.Shader;
+import cn.edu.sjtu.arf.kotlin.common.helpers.samplerender.Texture;
+import cn.edu.sjtu.arf.kotlin.common.helpers.samplerender.VertexBuffer;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;

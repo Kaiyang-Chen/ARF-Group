@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package cn.edu.sjtu.arf.common.samplerender;
+package cn.edu.sjtu.arf.kotlin.common.helpers.samplerender;
 
 import android.opengl.GLES30;
 import java.io.Closeable;

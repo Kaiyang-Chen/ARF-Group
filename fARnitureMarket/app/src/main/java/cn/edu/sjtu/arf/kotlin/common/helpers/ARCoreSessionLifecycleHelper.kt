@@ -21,7 +21,7 @@ import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import com.google.ar.core.ArCoreApk
 import com.google.ar.core.Session
-import cn.edu.sjtu.arf.common.helpers.CameraPermissionHelper
+import cn.edu.sjtu.arf.kotlin.common.helpers.CameraPermissionHelper
 import com.google.ar.core.exceptions.CameraNotAvailableException
 
 /**
