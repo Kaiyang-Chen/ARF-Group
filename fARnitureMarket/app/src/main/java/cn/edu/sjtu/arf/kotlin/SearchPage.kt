@@ -44,7 +44,6 @@ class SearchPage : Fragment() {
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
                 searchitemdisplays.clear()
-                Toast.makeText(activity, query, Toast.LENGTH_SHORT).show()
                 getSearchItemUIDs(query)
                 return false
             }
