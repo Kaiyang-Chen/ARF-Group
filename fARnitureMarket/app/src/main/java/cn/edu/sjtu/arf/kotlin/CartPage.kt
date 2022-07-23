@@ -1,6 +1,6 @@
 package cn.edu.sjtu.arf.kotlin
 
-import android.R.attr.button
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -17,6 +17,7 @@ import cn.edu.sjtu.arf.R
 import cn.edu.sjtu.arf.kotlin.carthelper.CartItemAdapter
 import cn.edu.sjtu.arf.kotlin.carthelper.CartItemDisplayStore.cartitemdisplays
 import cn.edu.sjtu.arf.kotlin.carthelper.CartItemUIDStore.getCartItemUIDs
+import cn.edu.sjtu.arf.kotlin.checkouthelper.CheckoutActivity
 import cn.edu.sjtu.arf.kotlin.product.ProductDetailActivity
 
 
@@ -65,7 +66,8 @@ class CartPage : Fragment() {
         checkoutButton.setOnClickListener(View.OnClickListener {
             // Code here executes on main thread after user presses button
             if (checkoutButton.text.equals("Check Out")) {
-
+                val intent = Intent(activity, CheckoutActivity::class.java)
+                startActivity(intent)
             } else {
                 Toast.makeText(activity, "No Furniture To Check Out", Toast.LENGTH_SHORT).show()
             }
