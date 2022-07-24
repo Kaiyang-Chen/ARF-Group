@@ -15,7 +15,10 @@ import androidx.fragment.app.Fragment
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import cn.edu.sjtu.arf.R
 import cn.edu.sjtu.arf.kotlin.carthelper.CartItemAdapter
+import cn.edu.sjtu.arf.kotlin.carthelper.CartItemDisplayStore
 import cn.edu.sjtu.arf.kotlin.carthelper.CartItemDisplayStore.cartitemdisplays
+import cn.edu.sjtu.arf.kotlin.carthelper.CartItemDisplayStore.totalPrice
+import cn.edu.sjtu.arf.kotlin.carthelper.CartItemUIDStore.cartitemUIDs
 import cn.edu.sjtu.arf.kotlin.carthelper.CartItemUIDStore.getCartItemUIDs
 import cn.edu.sjtu.arf.kotlin.checkouthelper.CheckoutActivity
 import cn.edu.sjtu.arf.kotlin.product.ProductDetailActivity
@@ -48,6 +51,7 @@ class CartPage : Fragment() {
         cartitemdisplays.addOnListChangedCallback(propertyObserver)
 
         cartitemdisplays.clear()
+        totalPrice = 0.0
         getCartItemUIDs()
 
         cartItemListView.onItemClickListener =
@@ -101,6 +105,7 @@ class CartPage : Fragment() {
     private fun refreshTimeline() {
         checkoutButton.text = "No Furniture To Check Out"
         cartitemdisplays.clear()
+        totalPrice = 0.0
         getCartItemUIDs()
         refresher.isRefreshing = false
     }

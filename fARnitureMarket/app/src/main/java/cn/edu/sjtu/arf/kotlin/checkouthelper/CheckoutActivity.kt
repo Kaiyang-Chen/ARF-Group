@@ -10,7 +10,9 @@ import android.widget.LinearLayout
 import android.widget.Toast
 import cn.edu.sjtu.arf.R
 import cn.edu.sjtu.arf.kotlin.carthelper.CartItemDisplayStore
+import cn.edu.sjtu.arf.kotlin.carthelper.CartItemDisplayStore.totalPrice
 import cn.edu.sjtu.arf.kotlin.carthelper.CartItemUIDStore
+import cn.edu.sjtu.arf.kotlin.carthelper.CartItemUIDStore.cartitemUIDs
 
 class CheckoutActivity : AppCompatActivity() {
     lateinit var address: EditText
@@ -38,6 +40,7 @@ class CheckoutActivity : AppCompatActivity() {
         year = findViewById<EditText>(R.id.pay_year)
         cvc = findViewById<EditText>(R.id.pay_cvc)
         checkoutButton = findViewById<Button>(R.id.pay)
+        checkoutButton.text = "Confirm and Pay ¥ " + totalPrice.toString().format("%.1f")
     }
 
     private fun listener() {
@@ -58,12 +61,13 @@ class CheckoutActivity : AppCompatActivity() {
                 Toast.makeText(this, "Wrong CVC/CVV2", Toast.LENGTH_SHORT).show()
             }
             else {
-
+                //cartitemUIDs
+                //
                 Toast.makeText(this, "Paied Successfully!", Toast.LENGTH_SHORT).show()
-                finish()
                 checkoutButton.text = "No Furniture To Check Out"
                 CartItemDisplayStore.cartitemdisplays.clear()
                 CartItemUIDStore.getCartItemUIDs()
+                finish()
             }
         })
     }

@@ -12,6 +12,7 @@ import java.io.IOException
 
 object CartItemDisplayStore {
     val cartitemdisplays = ObservableArrayList<CartItemDisplay>()
+    var totalPrice = 0.0
 
     private const val serverUrl = "https://101.132.97.115/"
 
@@ -38,6 +39,7 @@ object CartItemDisplayStore {
                                 name = cartItemDisplayReceived.getString("name"),
                                 price = cartItemDisplayReceived.getString("price"),
                                 imageUrl = cartItemDisplayReceived.getString("picture")))
+                        totalPrice += cartItemDisplayReceived.getString("price").toDouble()
                     } else {
                         cartitemdisplays.add(
                             CartItemDisplay(
@@ -46,6 +48,7 @@ object CartItemDisplayStore {
                                 price = cartItemDisplayReceived.getString("price")
                             )
                         )
+                        totalPrice += cartItemDisplayReceived.getString("price").toDouble()
                     }
                 }
             }

@@ -10,6 +10,7 @@ import android.widget.Toast
 import cn.edu.sjtu.arf.App
 import cn.edu.sjtu.arf.R
 import cn.edu.sjtu.arf.databinding.ItemlistCartBinding
+import cn.edu.sjtu.arf.kotlin.carthelper.CartItemDisplayStore.totalPrice
 import coil.load
 import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaType
@@ -63,6 +64,7 @@ class CartItemAdapter(context: Context, homeItem: List<CartItemDisplay>) :
                     Log.e("DeleteCartItemUIDs", "GET response")
                     if (response.isSuccessful) {
                         CartItemDisplayStore.cartitemdisplays.clear()
+                        totalPrice = 0.0
                         CartItemUIDStore.getCartItemUIDs()
                     }
                 }
