@@ -1,3 +1,3 @@
 package cn.edu.sjtu.arf.kotlin.carthelper
 
-class CartItemUID(var UID: String? = null)
+class CartItemUID (var UID: String? = null)
