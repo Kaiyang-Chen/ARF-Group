@@ -12,10 +12,15 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import cn.edu.sjtu.arf.App
 import cn.edu.sjtu.arf.BuildConfig
 import cn.edu.sjtu.arf.R
 import cn.edu.sjtu.arf.networkUrl
 import com.chuangsheng.face.utils.ToastUtil
+import okhttp3.*
+import okhttp3.MediaType.Companion.toMediaType
+import org.json.JSONObject
+import java.io.IOException
 
 class ProductDetailActivity:  AppCompatActivity() {
     private lateinit var topIV: ImageView
@@ -28,6 +33,7 @@ class ProductDetailActivity:  AppCompatActivity() {
 
     private lateinit var sellerBtn: LinearLayout
     private lateinit var addCartBtn: LinearLayout
+    private lateinit var uid: String
 
 
 
@@ -41,7 +47,7 @@ class ProductDetailActivity:  AppCompatActivity() {
 
         initView()
 
-        val uid = intent.getStringExtra(UID)?:""
+        uid = intent.getStringExtra(UID)?:""
         productstore.getProductDetail(uid = uid, scope = lifecycleScope,errorListener = { err ->
             if (BuildConfig.DEBUG){
                 err.printStackTrace()
@@ -84,7 +90,8 @@ class ProductDetailActivity:  AppCompatActivity() {
                 Toast.makeText(this@ProductDetailActivity,"Contact Seller",Toast.LENGTH_SHORT).show()
             }
             addCartBtn ->{
-                Toast.makeText(this@ProductDetailActivity,"Add to Cart",Toast.LENGTH_SHORT).show()
+                addToCart()
+                Toast.makeText(this@ProductDetailActivity,"Add to Cart Successfully",Toast.LENGTH_SHORT).show()
             }
             arIV ->{
                 Toast.makeText(this@ProductDetailActivity,"AR icon click",Toast.LENGTH_SHORT).show()
@@ -106,5 +113,27 @@ class ProductDetailActivity:  AppCompatActivity() {
         fun start(context: Context, uid: String){
             context.startActivity(Intent(context,ProductDetailActivity::class.java).putExtra(UID,uid))
         }
+    }
+
+    private fun addToCart() {
+        val client = OkHttpClient()
+        val jsonObj = JSONObject(mapOf("UID" to uid))
+        val request = Request.Builder()
+                .addHeader("Cookie", App.loginHeader?.get("Cookie")?:"")
+                .url("https://101.132.97.115/"+"add_to_cart/")
+                .post(RequestBody.create("application/json".toMediaType(), jsonObj.toString()))
+                .build()
+
+        client.newCall(request).enqueue(object: Callback {
+            override fun onFailure(call: Call, e: IOException) {
+                Log.e("addCart", "Failed")
+            }
+
+            override fun onResponse(call: Call, response: Response) {
+                if (response.isSuccessful) {
+                    Log.e("addCart", "Successfully")
+                }
+            }
+        })
     }
 }
