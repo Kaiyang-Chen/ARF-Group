@@ -80,8 +80,16 @@ class CartPage : Fragment() {
 
 
     private val propertyObserver = object: ObservableList.OnListChangedCallback<ObservableArrayList<Int>>() {
-        override fun onChanged(sender: ObservableArrayList<Int>?) { }
-        override fun onItemRangeChanged(sender: ObservableArrayList<Int>?, positionStart: Int, itemCount: Int) { }
+        override fun onChanged(sender: ObservableArrayList<Int>?) {
+            getActivity()?.runOnUiThread {
+                cartItemAdapter.notifyDataSetChanged()
+            }
+        }
+        override fun onItemRangeChanged(sender: ObservableArrayList<Int>?, positionStart: Int, itemCount: Int) {
+            getActivity()?.runOnUiThread {
+                cartItemAdapter.notifyDataSetChanged()
+            }
+        }
         override fun onItemRangeInserted(
                 sender: ObservableArrayList<Int>?,
                 positionStart: Int,
@@ -94,8 +102,19 @@ class CartPage : Fragment() {
             checkoutButton.text = "Check Out"
         }
         override fun onItemRangeMoved(sender: ObservableArrayList<Int>?, fromPosition: Int, toPosition: Int,
-                                      itemCount: Int) { }
-        override fun onItemRangeRemoved(sender: ObservableArrayList<Int>?, positionStart: Int, itemCount: Int) { }
+                                      itemCount: Int) {
+            getActivity()?.runOnUiThread {
+                cartItemAdapter.notifyDataSetChanged()
+            }
+        }
+        override fun onItemRangeRemoved(sender: ObservableArrayList<Int>?, positionStart: Int, itemCount: Int) {
+            if (itemCount == 1) {
+                checkoutButton.text = "No Furniture To Check Out"
+                getActivity()?.runOnUiThread {
+                    cartItemAdapter.notifyDataSetChanged()
+                }
+            }
+        }
     }
 
     private fun goProductDetail(uid: String) {

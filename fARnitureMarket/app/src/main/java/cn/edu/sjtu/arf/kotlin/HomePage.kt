@@ -64,8 +64,16 @@ class HomePage : Fragment() {
     }
 
     private val propertyObserver = object: ObservableList.OnListChangedCallback<ObservableArrayList<Int>>() {
-        override fun onChanged(sender: ObservableArrayList<Int>?) { }
-        override fun onItemRangeChanged(sender: ObservableArrayList<Int>?, positionStart: Int, itemCount: Int) { }
+        override fun onChanged(sender: ObservableArrayList<Int>?) {
+            getActivity()?.runOnUiThread {
+                homeItemAdapter.notifyDataSetChanged()
+            }
+        }
+        override fun onItemRangeChanged(sender: ObservableArrayList<Int>?, positionStart: Int, itemCount: Int) {
+            getActivity()?.runOnUiThread {
+                homeItemAdapter.notifyDataSetChanged()
+            }
+        }
         override fun onItemRangeInserted(
             sender: ObservableArrayList<Int>?,
             positionStart: Int,
@@ -77,8 +85,16 @@ class HomePage : Fragment() {
             }
         }
         override fun onItemRangeMoved(sender: ObservableArrayList<Int>?, fromPosition: Int, toPosition: Int,
-                                      itemCount: Int) { }
-        override fun onItemRangeRemoved(sender: ObservableArrayList<Int>?, positionStart: Int, itemCount: Int) { }
+                                      itemCount: Int) {
+            getActivity()?.runOnUiThread {
+                homeItemAdapter.notifyDataSetChanged()
+            }
+        }
+        override fun onItemRangeRemoved(sender: ObservableArrayList<Int>?, positionStart: Int, itemCount: Int) {
+            getActivity()?.runOnUiThread {
+                homeItemAdapter.notifyDataSetChanged()
+            }
+        }
     }
 
 
