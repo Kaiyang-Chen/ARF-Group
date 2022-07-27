@@ -43,7 +43,9 @@ INSTALLED_APPS = [
     'usersystem',
     'browser',
     'publisher',
-    'cart'
+    'cart',
+    'ar',
+    'payment'
 ]
 
 MIDDLEWARE = [

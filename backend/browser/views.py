@@ -225,6 +225,13 @@ def fetch_product_detailed(request: HttpRequest):
                     url = fs.url(
                         f"static/{username}/{prod.name}/picture/{pic}")
                     res[pic.strip(".jpg")] = str(url)
+            if os.path.isdir(f"static/{username}/{prod.name}/video"):
+                fs = FileSystemStorage()
+                vids = os.listdir(f"static/{username}/{prod.name}/video")
+                for vid in vids:
+                    url = fs.url(
+                        f"static/{username}/{prod.name}/video/{vid}")
+                    res[vid.strip(".MOV")] = str(url)
             if request.user.is_authenticated:
                 hist = {"UID": res["UID"], "primary_class": res["primary_class"],
                         "secondary_class": res["secondary_class"],
