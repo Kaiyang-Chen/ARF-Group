@@ -241,7 +241,7 @@ class postpicActivityv : AppCompatActivity() {
     fun enterar(context: Context, uid: String?, name: String?){
 
         var jsonObj = mapOf(
-            "uid" to uid,
+            "UID" to uid,
             "name" to name,
         )
 
