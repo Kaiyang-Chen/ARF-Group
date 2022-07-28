@@ -246,6 +246,8 @@ Weikai Zhou
 
 # Individual Contributions
 
+#### We would kindly ask you to look at the next section to see contributions instead of focusing on Github commit numbers. The backend server has only one account logged in so that after we migrated our project into the server, the pushes have been done by only one account. The commited lines also include "env" files that are not our work.
+
 #### Kaiyang Chen
 
 Backend server maintainess and service configuration
