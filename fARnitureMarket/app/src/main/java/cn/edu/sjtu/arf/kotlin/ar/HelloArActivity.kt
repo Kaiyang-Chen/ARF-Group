@@ -23,6 +23,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import cn.edu.sjtu.arf.R
 import cn.edu.sjtu.arf.kotlin.common.helpers.*
+import cn.edu.sjtu.arf.kotlin.ar.ARModelStore.getARModel
+
 import com.google.ar.core.*
 import com.google.ar.core.Config.InstantPlacementMode
 import com.google.ar.sceneform.AnchorNode
@@ -39,6 +41,10 @@ import kotlinx.android.synthetic.main.activity_ar.*
  * ARCore API. The application will display any detected planes and will allow the user to tap on a
  * plane to place a 3D model.
  */
+class ARModelDisplay(var UID: String? = null,
+                      var name: String? = null,
+                      var textureUrl: String? = null,
+                      var modelUrl: String? = null)
 class HelloArActivity : AppCompatActivity() {
   companion object {
     private const val TAG = "HelloArActivity"
@@ -65,7 +71,7 @@ class HelloArActivity : AppCompatActivity() {
     btn_back.setOnClickListener {
       onBackPressed()
     }
-
+    getARModel("1fdfcbb0-0b67-11ed-b33d-533d074af204")
   }
   override fun onSupportNavigateUp(): Boolean {
     onBackPressed()
