@@ -36,11 +36,14 @@ object ARModelStore {
             override fun onResponse(call: Call, response: Response) {
                 if (response.isSuccessful) {
                     val arModelreceived = try { JSONObject(response.body?.string() ?: "") } catch (e: JSONException) { JSONObject() }
-                    Log.e("getARModel", arModelreceived.getString("name"))
-                    arModelDisplay.UID = UID
-                    arModelDisplay.name = arModelreceived.getString("name")
-                    arModelDisplay.textureUrl =  arModelreceived.getString("texture")
-                    arModelDisplay.modelUrl =  arModelreceived.getString("ar_model")
+                    if (arModelreceived.toString().contains("name")) {
+                        Log.e("getARModel", arModelreceived.getString("name"))
+                        arModelDisplay.UID = UID
+                        arModelDisplay.name = arModelreceived.getString("name")
+                        arModelDisplay.textureUrl =  arModelreceived.getString("texture")
+                        arModelDisplay.modelUrl =  arModelreceived.getString("ar_model")
+                    }
+
                 }
             }
         })

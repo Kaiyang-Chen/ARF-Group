@@ -15,6 +15,7 @@
  */
 package cn.edu.sjtu.arf.kotlin.ar
 
+import android.graphics.ColorSpace
 import android.net.Uri
 import android.os.Bundle
 import android.view.Gravity
@@ -22,9 +23,8 @@ import android.view.MotionEvent
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import cn.edu.sjtu.arf.R
-import cn.edu.sjtu.arf.kotlin.common.helpers.*
 import cn.edu.sjtu.arf.kotlin.ar.ARModelStore.getARModel
-
+import cn.edu.sjtu.arf.kotlin.common.helpers.*
 import com.google.ar.core.*
 import com.google.ar.core.Config.InstantPlacementMode
 import com.google.ar.sceneform.AnchorNode
@@ -66,7 +66,8 @@ class HelloArActivity : AppCompatActivity() {
     arFragment = supportFragmentManager.findFragmentById(R.id.ux_fragment) as ArFragment
     arFragment.setOnTapArPlaneListener { hitResult: HitResult, plane: Plane, motionEvent: MotionEvent ->
       val anchor = hitResult.createAnchor()
-      placeObject(arFragment, anchor, Uri.parse("saucepan.sfb"))
+      // placeObject(arFragment, anchor, Uri.parse("saucepan.sfb"))
+      placeObjectRuntime(arFragment, anchor, Uri.parse("https://poly.googleusercontent.com/downloads/0BnDT3T1wTE/85QOHCZOvov/Mesh_Beagle.gltf"))
     }
     btn_back.setOnClickListener {
       onBackPressed()
@@ -77,9 +78,25 @@ class HelloArActivity : AppCompatActivity() {
     onBackPressed()
     return true
   }
+  private fun placeObjectRuntime(fragment: ArFragment, anchor: Anchor, model: Uri) {
+    ModelRenderable.builder()
+      .setSource(fragment.context, RenderableSource.builder().setSource(
+        fragment.context,
+        model,
+        RenderableSource.SourceType.GLTF2).build())
+      .setRegistryId(model)
+      .build()
+      .thenAccept {
+        addNodeToScene(fragment, anchor, it)
+      }
+      .exceptionally {
+        Toast.makeText(this, "Could not fetch model from $model", Toast.LENGTH_SHORT).show()
+        return@exceptionally null
+      }
+  }
   private fun placeObject(arFragment: ArFragment, anchor: Anchor, uri: Uri) {
     ModelRenderable.builder()
-      .setSource(arFragment.context, uri)
+      .setSource(arFragment.context, Uri.parse(GLTF_ASSET))
       .build()
       .thenAccept({ modelRenderable -> addNodeToScene(arFragment, anchor, modelRenderable) })
       .exceptionally { throwable ->
