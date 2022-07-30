@@ -12,6 +12,8 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Environment
+import android.os.Handler
+import android.os.Looper
 import android.provider.MediaStore
 import android.util.Log
 import android.view.LayoutInflater
@@ -20,6 +22,7 @@ import android.view.MenuItem
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
+import android.widget.Toast
 import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -260,11 +263,19 @@ class postpicActivityv : AppCompatActivity() {
 
         client.newCall(req).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
+                Handler(Looper.getMainLooper()).post(Runnable {
+                    Toast.makeText(this@postpicActivityv,
+                        "It is generating now!", Toast.LENGTH_SHORT).show()
+                })
                 Log.e("load", " failed")
             }
 
             override fun onResponse(call: Call, response: Response) {
                 if (response.isSuccessful) {
+                    Handler(Looper.getMainLooper()).post(Runnable {
+                        Toast.makeText(this@postpicActivityv,
+                            "It is generating now!", Toast.LENGTH_SHORT).show()
+                    })
                     Log.e("load", " successfully")
                     val responseReceived =
                         try{
