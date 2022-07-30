@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".kotlin.uploadhelper.postpicActivity">
+    tools:context=".kotlin.uploadhelper.postpicActivityv">
 
     <TextView
-        android:id="@+id/UploadPage"
+        android:id="@+id/UploadPage_video"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="22dp"
-        android:text="Please upload some pictures then"
+        android:text="Please upload the video then"
         android:layout_gravity="center"
         android:textSize="23sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -29,7 +29,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" >
         <ImageButton
-            android:id="@+id/albumButton"
+            android:id="@+id/albumButton_video"
             android:contentDescription="@string/album"
             android:layout_width="40dp"
             android:layout_height="40dp"
@@ -41,13 +41,13 @@
             app:srcCompat="@android:drawable/ic_menu_gallery" />
 
         <ImageButton
-            android:id="@+id/cameraButton"
+            android:id="@+id/cameraButton_video"
             android:contentDescription="@string/camera"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginEnd="12dp"
             android:layout_marginTop="16dp"
-            app:layout_constraintEnd_toStartOf="@+id/albumButton"
+            app:layout_constraintEnd_toStartOf="@+id/albumButton_video"
             app:layout_constraintTop_toBottomOf="@+id/description"
             android:background="@drawable/border"
             app:srcCompat="@android:drawable/ic_menu_camera" />
@@ -66,16 +66,26 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" >
     <Button
-        android:id="@+id/publish_pic"
-        android:layout_marginTop="50dp"
+        android:id="@+id/publish_video"
+        android:layout_marginTop="30dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginRight="30dp"
         android:layout_marginLeft="30dp"
-        android:text="Add some video!"
+        android:text="Publish video!"
         android:layout_gravity="center"
         >
-
+    </Button>
+        <Button
+            android:id="@+id/getar"
+            android:layout_marginTop="30dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="30dp"
+            android:layout_marginLeft="30dp"
+            android:text="Generate AR model here!"
+            android:layout_gravity="center"
+            >
     </Button>
     </LinearLayout>
     <LinearLayout
@@ -91,7 +101,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@+id/previewImage"
+            android:id="@+id/previewImage_video"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginStart="20dp"
