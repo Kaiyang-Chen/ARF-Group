@@ -68,7 +68,7 @@ class MainActivity : AppCompatActivity() {
         RegUsername_main = findViewById<EditText>(R.id.et_account_main)
         RegPassword_main = findViewById<EditText>(R.id.et_password_main)
         Reglogin_main = findViewById<Button>(R.id.Button01_main)
-        enterhomepage = findViewById<Button>(R.id.Buttonenterhomepage)
+        //enterhomepage = findViewById<Button>(R.id.Buttonenterhomepage)
         loginBtn = findViewById<Button>(R.id.Button03)
     }
 //    fun maybeEnableArButton() {
