@@ -82,21 +82,5 @@
         </Button>
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="64dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginRight="30dp"
-        android:orientation="vertical">
-    <Button
-        android:id="@+id/Button01_main"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_weight="1"
-        android:onClick="SA"
-        android:text="AR Test"></Button>
-    </LinearLayout>
 
 </LinearLayout>
