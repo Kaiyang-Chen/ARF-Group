@@ -15,6 +15,7 @@ import androidx.lifecycle.lifecycleScope
 import cn.edu.sjtu.arf.App
 import cn.edu.sjtu.arf.BuildConfig
 import cn.edu.sjtu.arf.R
+import cn.edu.sjtu.arf.kotlin.ar.HelloArActivity
 import cn.edu.sjtu.arf.networkUrl
 import com.chuangsheng.face.utils.ToastUtil
 import okhttp3.*
@@ -55,6 +56,7 @@ class ProductDetailActivity:  AppCompatActivity() {
             String(err.networkResponse.data)
             ToastUtil.show(this@ProductDetailActivity, err.message ?: "网络异常")
         }){ pro ->
+            Log.i("initView","${pro.toString()}")
             titleTV.text = pro.name
             contentTV.text = pro.description
             println(pro.ic0)
@@ -63,6 +65,8 @@ class ProductDetailActivity:  AppCompatActivity() {
             pro.phone?.also { contactPhoneTV.text = it }
             pro.email?.also { contactEmailTV.text = it }
         }
+
+        getProductARModel()
     }
 
     private fun initView(){
@@ -84,9 +88,12 @@ class ProductDetailActivity:  AppCompatActivity() {
         sellerBtn.isEnabled = false
     }
 
+    //模型地址
+    private var arModelUrl:String?=null
     private fun onClick(view: View){
         when(view){
             sellerBtn ->{
+
                 Toast.makeText(this@ProductDetailActivity,"Contact Seller",Toast.LENGTH_SHORT).show()
             }
             addCartBtn ->{
@@ -94,11 +101,37 @@ class ProductDetailActivity:  AppCompatActivity() {
                 Toast.makeText(this@ProductDetailActivity,"Add to Cart Successfully",Toast.LENGTH_SHORT).show()
             }
             arIV ->{
-                Toast.makeText(this@ProductDetailActivity,"AR icon click",Toast.LENGTH_SHORT).show()
+                arModelUrl?.let {
+                    startActivity(Intent(this, HelloArActivity::class.java))
+                }
+                //Toast.makeText(this@ProductDetailActivity,"AR icon click",Toast.LENGTH_SHORT).show()
             }
         }
     }
 
+    private fun getProductARModel(){
+        productstore.getProductARModel(uid = "f38b919c-1085-11ed-8be4-df44420a944c" , scope = lifecycleScope,errorListener = { err ->
+            if (BuildConfig.DEBUG){
+                err.printStackTrace()
+            }
+            //失败回调
+//            String(err.networkResponse.data)
+            arIV.post {
+                arIV.visibility=View.GONE
+            }
+//            ToastUtil.show(this@ProductDetailActivity, err.message ?: "网络异常")
+        }){ pro ->
+            // 成功回调
+            arModelUrl =pro.ar_model
+            if (arModelUrl==null){
+                arIV.post {
+                    arIV.visibility=View.GONE
+                }
+            }
+            ToastUtil.show(this@ProductDetailActivity, "模型地址：${arModelUrl}")
+
+        }
+    }
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
             android.R.id.home -> finish()
@@ -111,6 +144,7 @@ class ProductDetailActivity:  AppCompatActivity() {
         const val UID:String = "uid"
 
         fun start(context: Context, uid: String){
+            Log.i("initView","${uid.toString()}")
             context.startActivity(Intent(context,ProductDetailActivity::class.java).putExtra(UID,uid))
         }
     }

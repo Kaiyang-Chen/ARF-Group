@@ -20,3 +20,10 @@ data class Product(
     var ic0:String? = null,
     var title:String? = null
     ):Parcelable
+
+@Parcelize
+data class ProductArModel(
+    var name: String? = null,
+    var texture: String? = null,
+    var ar_model: String? = null,
+):Parcelable
