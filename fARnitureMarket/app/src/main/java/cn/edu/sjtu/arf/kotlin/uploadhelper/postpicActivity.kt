@@ -16,7 +16,9 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
+
 import android.view.View
+
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
@@ -25,6 +27,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.core.content.ContextCompat.startActivity
+
 import androidx.lifecycle.ViewModel
 import cn.edu.sjtu.arf.R
 import cn.edu.sjtu.arf.databinding.ActivityArBinding.inflate
@@ -36,12 +39,14 @@ import cn.edu.sjtu.arf.kotlin.uploadhelper.picstore.postpic
 class PostViewState: ViewModel() {
     var enableSend = true
     var imageUri: Uri? = null
+
     var videoUri: Uri? = null
     var videoIcon = android.R.drawable.presence_video_online
 }
 
 class postpicActivity : AppCompatActivity() {
     var here = prodstore.str
+
 
     private lateinit var view: ActivityPostpicBinding
     private var enableSend = true
@@ -53,11 +58,13 @@ class postpicActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         view = ActivityPostpicBinding.inflate(layoutInflater)
         setContentView(view.root)
+
         //setContentView(view.root)
         //view.videoButton.setImageResource(viewState.videoIcon)
         viewState.imageUri?.let { view.previewImage.display(it) }
         //println(prodstore.str)
         //println(prodstore.str)
+
         registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { results ->
             results.forEach {
                 if (!it.value) {
@@ -74,6 +81,7 @@ class postpicActivity : AppCompatActivity() {
         val forPickedResult =
             registerForActivityResult(ActivityResultContracts.GetContent(), fun(uri: Uri?) {
                 uri?.let {
+
                         val inStream = contentResolver.openInputStream(it) ?: return
                         viewState.imageUri = mediaStoreAlloc("image/jpeg")
                         viewState.imageUri?.let {
@@ -87,6 +95,7 @@ class postpicActivity : AppCompatActivity() {
                             outStream.close()
                             inStream.close()
                         }
+
                     doCrop(cropIntent)
             } ?: run { Log.d("Pick media", "failed") }
             })
@@ -129,6 +138,7 @@ class postpicActivity : AppCompatActivity() {
             viewState.imageUri = mediaStoreAlloc("image/jpeg")
             Takepicture_contract.launch(viewState.imageUri)
         }
+
         val CaptureVideo_contract =
             registerForActivityResult(ActivityResultContracts.CaptureVideo()){
                 viewState.videoIcon = android.R.drawable.presence_video_busy
@@ -139,6 +149,7 @@ class postpicActivity : AppCompatActivity() {
             viewState.videoUri = mediaStoreAlloc("video/mp4")
             CaptureVideo_contract.launch(viewState.videoUri)
         }*/
+
 
         initListener()
     }
@@ -194,11 +205,13 @@ class postpicActivity : AppCompatActivity() {
                 MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
             values)
     }
+
     fun initListener() {
         var Login_main = findViewById<Button>(R.id.publish_pic)
         //var init_str = prodstore.str.split(":")[1].split("}")[0]
         //println(init_str)
         Login_main.setOnClickListener {
+
 
             postpic(
                 applicationContext, prodstore.str, "title",viewState.imageUri, viewState.videoUri
@@ -206,6 +219,7 @@ class postpicActivity : AppCompatActivity() {
                 println(prodstore.str)
             }
                 startActivity(Intent(this, postpicActivityv::class.java))
+
         }
     }
 

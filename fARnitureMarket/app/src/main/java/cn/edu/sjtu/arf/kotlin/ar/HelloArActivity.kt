@@ -15,85 +15,132 @@
  */
 package cn.edu.sjtu.arf.kotlin.ar
 
+import android.graphics.ColorSpace
+import android.net.Uri
 import android.os.Bundle
-import android.util.Log
+import android.view.Gravity
+import android.view.MotionEvent
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.google.ar.core.Config
+import cn.edu.sjtu.arf.R
+import cn.edu.sjtu.arf.kotlin.ar.ARModelStore.arModelDisplay
+import cn.edu.sjtu.arf.kotlin.ar.ARModelStore.getARModel
+import cn.edu.sjtu.arf.kotlin.common.helpers.*
+import com.google.ar.core.*
 import com.google.ar.core.Config.InstantPlacementMode
-import com.google.ar.core.Session
-import cn.edu.sjtu.arf.common.helpers.CameraPermissionHelper
-import cn.edu.sjtu.arf.common.helpers.DepthSettings
-import cn.edu.sjtu.arf.common.helpers.FullScreenHelper
-import cn.edu.sjtu.arf.common.helpers.InstantPlacementSettings
-import cn.edu.sjtu.arf.common.samplerender.SampleRender
-import cn.edu.sjtu.arf.kotlin.common.helpers.ARCoreSessionLifecycleHelper
-import com.google.ar.core.exceptions.CameraNotAvailableException
-import com.google.ar.core.exceptions.UnavailableApkTooOldException
-import com.google.ar.core.exceptions.UnavailableDeviceNotCompatibleException
-import com.google.ar.core.exceptions.UnavailableSdkTooOldException
-import com.google.ar.core.exceptions.UnavailableUserDeclinedInstallationException
+import com.google.ar.sceneform.AnchorNode
+import com.google.ar.sceneform.assets.RenderableSource
+import com.google.ar.sceneform.rendering.ModelRenderable
+import com.google.ar.sceneform.rendering.Renderable
+import com.google.ar.sceneform.ux.ArFragment
+import com.google.ar.sceneform.ux.TransformableNode
+import kotlinx.android.synthetic.main.activity_ar.*
+
 
 /**
  * This is a simple example that shows how to create an augmented reality (AR) application using the
  * ARCore API. The application will display any detected planes and will allow the user to tap on a
  * plane to place a 3D model.
  */
+class ARModelDisplay(var UID: String? = null,
+                      var name: String? = null,
+                      var textureUrl: String? = null,
+                      var modelUrl: String? = null)
 class HelloArActivity : AppCompatActivity() {
   companion object {
     private const val TAG = "HelloArActivity"
   }
+  private lateinit var arFragment: ArFragment
 
   lateinit var arCoreSessionHelper: ARCoreSessionLifecycleHelper
-  lateinit var view: HelloArView
-  lateinit var renderer: HelloArRenderer
+
 
   val instantPlacementSettings = InstantPlacementSettings()
   val depthSettings = DepthSettings()
-
+  private val GLTF_ASSET =
+    "https://github.com/KhronosGroup/glTF-Sample-Models/raw/master/2.0/Duck/glTF/Duck.gltf"
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
+    setContentView(R.layout.activity_ar)
+    // getARModel("f38b919c-1085-11ed-8be4-df44420a944c")
 
-    // Setup ARCore session lifecycle helper and configuration.
-    arCoreSessionHelper = ARCoreSessionLifecycleHelper(this)
-    // If Session creation or Session.resume() fails, display a message and log detailed
-    // information.
-    arCoreSessionHelper.exceptionCallback =
-      { exception ->
-        val message =
-          when (exception) {
-            is UnavailableUserDeclinedInstallationException ->
-              "Please install Google Play Services for AR"
-            is UnavailableApkTooOldException -> "Please update ARCore"
-            is UnavailableSdkTooOldException -> "Please update this app"
-            is UnavailableDeviceNotCompatibleException -> "This device does not support AR"
-            is CameraNotAvailableException -> "Camera not available. Try restarting the app."
-            else -> "Failed to create AR session: $exception"
-          }
-        Log.e(TAG, "ARCore threw an exception", exception)
-        view.snackbarHelper.showError(this, message)
-      }
-
-    // Configure session features, including: Lighting Estimation, Depth mode, Instant Placement.
-    arCoreSessionHelper.beforeSessionResume = ::configureSession
-    lifecycle.addObserver(arCoreSessionHelper)
-
-    // Set up the Hello AR renderer.
-    renderer = HelloArRenderer(this)
-    lifecycle.addObserver(renderer)
-
-    // Set up Hello AR UI.
-    view = HelloArView(this)
-    lifecycle.addObserver(view)
-    setContentView(view.root)
-
-    // Sets up an example renderer using our HelloARRenderer.
-    SampleRender(view.surfaceView, renderer, assets)
-
-    depthSettings.onCreate(this)
-    instantPlacementSettings.onCreate(this)
+    supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_action_back)
+    supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    arFragment = supportFragmentManager.findFragmentById(R.id.ux_fragment) as ArFragment
+    arFragment.setOnTapArPlaneListener { hitResult: HitResult, plane: Plane, motionEvent: MotionEvent ->
+      val anchor = hitResult.createAnchor()
+      // placeObject(arFragment, anchor, Uri.parse("saucepan.sfb")) "https://poly.googleusercontent.com/downloads/0BnDT3T1wTE/85QOHCZOvov/Mesh_Beagle.gltf"
+      placeObjectRuntime(arFragment, anchor, Uri.parse("https://poly.googleusercontent.com/downloads/0BnDT3T1wTE/85QOHCZOvov/Mesh_Beagle.gltf"))
+    }
+    btn_back.setOnClickListener {
+      onBackPressed()
+    }
   }
+  override fun onSupportNavigateUp(): Boolean {
+    onBackPressed()
+    return true
+  }
+  private fun placeObjectRuntime(fragment: ArFragment, anchor: Anchor, model: Uri) {
+    ModelRenderable.builder()
+      .setSource(fragment.context, RenderableSource.builder().setScale(0.005F).setSource(
+        fragment.context,
+        model,
+        RenderableSource.SourceType.GLTF2).build()
+      )
+      .setRegistryId(model)
+      .build()
+      .thenAccept {
+        addNodeToScene(fragment, anchor, it)
+      }
+      .exceptionally {
+        Toast.makeText(this, "Could not fetch model from $model", Toast.LENGTH_SHORT).show()
+        return@exceptionally null
+      }
+  }
+  private fun placeObject(arFragment: ArFragment, anchor: Anchor, uri: Uri) {
+    ModelRenderable.builder()
+      .setSource(arFragment.context, Uri.parse(GLTF_ASSET))
+      .build()
+      .thenAccept({ modelRenderable -> addNodeToScene(arFragment, anchor, modelRenderable) })
+      .exceptionally { throwable ->
+        Toast.makeText(arFragment.context, "Error:" + throwable.message, Toast.LENGTH_LONG)
+          .show()
+        null
+      }
+/*    ModelRenderable.builder()
+      .setSource(
+        this, RenderableSource.builder().setSource(
+          this,
+          Uri.parse(GLTF_ASSET),
+          RenderableSource.SourceType.GLTF2
+        )
+          .setScale(0.5f) // Scale the original model to 50%.
+          .setRecenterMode(RenderableSource.RecenterMode.ROOT)
+          .build()
+      )
+      .setRegistryId(GLTF_ASSET)
+      .build()
+      .thenAccept { modelRenderable -> addNodeToScene(arFragment, anchor, modelRenderable)
+      }
+      .exceptionally { throwable: Throwable? ->
+        val toast = Toast.makeText(
+          this, "Unable to load renderable " +
+                  GLTF_ASSET, Toast.LENGTH_LONG
+        )
+        toast.setGravity(Gravity.CENTER, 0, 0)
+        toast.show()
+        null
+      }*/
 
+  }
+  private fun addNodeToScene(arFragment: ArFragment, anchor: Anchor, renderable: Renderable) {
+    val anchorNode = AnchorNode(anchor)
+    val node = TransformableNode(arFragment.transformationSystem)
+    node.renderable = renderable
+    node.setParent(anchorNode)
+    arFragment.arSceneView.scene.addChild(anchorNode)
+    node.select()
+  }
   // Configure the session, using Lighting Estimation, and Depth mode.
   fun configureSession(session: Session) {
     session.configure(

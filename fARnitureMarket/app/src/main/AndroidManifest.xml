@@ -7,9 +7,11 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <uses-feature
         android:name="android.hardware.camera2"
         android:required="false" />
+
     <queries>
         <intent>
             <action android:name="com.android.camera.action.CROP" />
@@ -45,6 +47,7 @@
         <activity
             android:name=".kotlin.checkouthelper.CheckoutActivity"
             android:exported="false" />
+
         <activity
             android:name=".kotlin.product.ProductDetailActivity"
             android:exported="false" />
@@ -61,6 +64,7 @@
             android:exported="false"
             android:parentActivityName=".kotlin.uploadhelper.postpicActivity" />
         <activity
+
             android:name=".kotlin.uploadhelper.postpicActivity"
             android:exported="false"
             android:parentActivityName=".kotlin.uploadhelper.UploadPage" />
@@ -72,8 +76,10 @@
             android:name=".kotlin.NavigateActivity"
             android:exported="false"
             android:parentActivityName=".kotlin.MainActivity" />
+
         <activity
             android:name=".kotlin.loginhelper.RegisterActivity"
+
             android:label="RegisterActivity"
             android:parentActivityName=".kotlin.MainActivity" />
         <activity

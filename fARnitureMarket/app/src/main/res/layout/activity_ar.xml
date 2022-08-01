@@ -13,30 +13,58 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 -->
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.google.ar.core.examples.kotlin.helloar.HelloArActivity">
+    tools:context=".kotlin.ar.HelloArActivity">
 
-  <android.opengl.GLSurfaceView
-      android:id="@+id/surfaceview"
-      android:layout_width="fill_parent"
-      android:layout_height="fill_parent"
-      android:layout_gravity="top"/>
+  <androidx.fragment.app.FragmentContainerView
+      android:id="@+id/ux_fragment"
+      android:name="com.google.ar.sceneform.ux.ArFragment"
+      android:layout_width="0dp"
+      android:layout_height="0dp"
+      app:layout_constraintBottom_toTopOf="@+id/textView"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="0.0"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintVertical_bias="1.0" />
 
-  <ImageButton
-      android:id="@+id/settings_button"
+  <com.google.android.material.floatingactionbutton.FloatingActionButton
+      android:id="@+id/btn_takePhoto"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_alignParentTop="true"
-      android:layout_alignParentEnd="true"
-      android:layout_marginStart="25dp"
-      android:layout_marginTop="25dp"
-      android:layout_marginEnd="25dp"
-      android:layout_marginBottom="25dp"
-      android:background="@android:color/transparent"
-      android:contentDescription="setting"
-      android:src="@drawable/ic_settings" />
+      android:layout_margin="10dp"
+      android:backgroundTint="#0083A9"
+      android:src="@drawable/ic_eye"
+      android:visibility="invisible"
+      app:layout_constraintBottom_toBottomOf="@+id/ux_fragment"
+      app:layout_constraintEnd_toEndOf="parent"
+      android:contentDescription="test" />
 
-</RelativeLayout>
+  <Button
+      android:id="@+id/btn_back"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="16dp"
+      android:layout_marginTop="16dp"
+      android:background="@drawable/ic_action_back"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent" />
+
+  <TextView
+      android:id="@+id/textView"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:background="#0083A9"
+      android:gravity="center"
+      android:padding="10dp"
+      android:text="Use one finger to move and two fingers to rotate"
+      android:textColor="#ffffff"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

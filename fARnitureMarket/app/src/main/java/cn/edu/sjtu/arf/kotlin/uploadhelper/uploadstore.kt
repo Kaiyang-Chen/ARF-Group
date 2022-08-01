@@ -22,7 +22,9 @@ import kotlin.reflect.full.declaredMemberProperties
 object prodstore {
     var str = "initstr"
     var uid = "inituid"
+
     var copystr = ""
+
     private val nFields = Chatt::class.declaredMemberProperties.size
     private val client = OkHttpClient()
     private lateinit var queue: RequestQueue
@@ -77,7 +79,9 @@ object prodstore {
                     println(responseReceived)
                     //str = responseReceived.toString().split(":")[1].split("}")[0]
                     str = responseReceived.getString("UID")
+
                     copystr = str
+
                     //uid = str.split(":")[1].split("}")[0]
                     println(str)
                 }

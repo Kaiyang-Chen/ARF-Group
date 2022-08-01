@@ -2,6 +2,9 @@ package cn.edu.sjtu.arf
 
 import android.app.Application
 import android.util.Log
+
+import cn.edu.sjtu.arf.kotlin.ar.ARModelStore
+
 import cn.edu.sjtu.arf.utils.FakeX509TrustManager
 import cn.edu.sjtu.arf.utils.OkHttpStack
 import com.android.volley.RequestQueue
@@ -23,6 +26,8 @@ class App : Application() {
         if (mInstance == null) {
             mInstance = this
         }
+
+        ARModelStore.getARModel("f38b919c-1085-11ed-8be4-df44420a944c")
 
         Constants.initVolleyQueue()
     }

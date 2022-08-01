@@ -1,11 +1,13 @@
 package cn.edu.sjtu.arf.kotlin.product
 
 import GsonRequest
+
 import android.util.Log
 import androidx.lifecycle.LifecycleCoroutineScope
 import cn.edu.sjtu.arf.App
 import cn.edu.sjtu.arf.Constants
 import cn.edu.sjtu.arf.kotlin.uploadhelper.prodstore.uid
+
 import cn.edu.sjtu.arf.utils.FakeX509TrustManager
 import com.android.volley.Request
 import com.android.volley.Response
@@ -46,6 +48,7 @@ object productstore {
 
         Constants.VolleyQueue.add(postRequest)
     }
+
     fun getProductARModel(
         uid: String,
         scope: LifecycleCoroutineScope,
@@ -79,4 +82,5 @@ object productstore {
 
         Constants.VolleyQueue.add(postRequest)
     }
+
 }
