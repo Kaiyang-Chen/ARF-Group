@@ -23,6 +23,7 @@ import android.view.MotionEvent
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import cn.edu.sjtu.arf.R
+import cn.edu.sjtu.arf.kotlin.ar.ARModelStore.arModelDisplay
 import cn.edu.sjtu.arf.kotlin.ar.ARModelStore.getARModel
 import cn.edu.sjtu.arf.kotlin.common.helpers.*
 import com.google.ar.core.*
@@ -61,18 +62,19 @@ class HelloArActivity : AppCompatActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_ar)
+    // getARModel("f38b919c-1085-11ed-8be4-df44420a944c")
+
     supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_action_back)
     supportActionBar?.setDisplayHomeAsUpEnabled(true)
     arFragment = supportFragmentManager.findFragmentById(R.id.ux_fragment) as ArFragment
     arFragment.setOnTapArPlaneListener { hitResult: HitResult, plane: Plane, motionEvent: MotionEvent ->
       val anchor = hitResult.createAnchor()
-      // placeObject(arFragment, anchor, Uri.parse("saucepan.sfb"))
+      // placeObject(arFragment, anchor, Uri.parse("saucepan.sfb")) "https://poly.googleusercontent.com/downloads/0BnDT3T1wTE/85QOHCZOvov/Mesh_Beagle.gltf"
       placeObjectRuntime(arFragment, anchor, Uri.parse("https://poly.googleusercontent.com/downloads/0BnDT3T1wTE/85QOHCZOvov/Mesh_Beagle.gltf"))
     }
     btn_back.setOnClickListener {
       onBackPressed()
     }
-    getARModel("1fdfcbb0-0b67-11ed-b33d-533d074af204")
   }
   override fun onSupportNavigateUp(): Boolean {
     onBackPressed()
@@ -80,10 +82,11 @@ class HelloArActivity : AppCompatActivity() {
   }
   private fun placeObjectRuntime(fragment: ArFragment, anchor: Anchor, model: Uri) {
     ModelRenderable.builder()
-      .setSource(fragment.context, RenderableSource.builder().setSource(
+      .setSource(fragment.context, RenderableSource.builder().setScale(0.005F).setSource(
         fragment.context,
         model,
-        RenderableSource.SourceType.GLTF2).build())
+        RenderableSource.SourceType.GLTF2).build()
+      )
       .setRegistryId(model)
       .build()
       .thenAccept {

@@ -37,7 +37,7 @@ object ARModelStore {
                 if (response.isSuccessful) {
                     val arModelreceived = try { JSONObject(response.body?.string() ?: "") } catch (e: JSONException) { JSONObject() }
                     if (arModelreceived.toString().contains("name")) {
-                        Log.e("getARModel", arModelreceived.getString("name"))
+                        Log.e("getARModel", arModelreceived.getString("ar_model"))
                         arModelDisplay.UID = UID
                         arModelDisplay.name = arModelreceived.getString("name")
                         arModelDisplay.textureUrl =  arModelreceived.getString("texture")
