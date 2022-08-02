@@ -261,9 +261,11 @@ Assisted in other backend features.
 
 Developed the frontend parts for the following features:
 
-User system: register, part of login, update user profile, check user profiles
+Login system: register account, part of login
 
-Publish furniture: post products, post pictures of the product
+User system: check user profiles, update user profile
+
+Publish furniture: post products information, post pictures of products, post videos of products and generate AR model based on videos
 
 
 
