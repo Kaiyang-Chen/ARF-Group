@@ -302,6 +302,14 @@ Helped with frontend debugging.
 
 Developed the frontend parts for the following features:
 
-Home, Search, Publish, Cart and Me nevigation structure of the APP
+The navigator of Home, Search, Publish, Cart and Me pages of the APP
 
-Implementation of HomePage and connection between HomePage and DetailPage
+Implementation of HomePage, where people can view a large number of current furniture with some brief information about the furniture.
+
+Implementation of Search page, where people can enter keywords to search for certain furniture.
+
+Implementation of Cart page, where people can view the items in the cart and delete items from the cart.
+
+Implementation of Checkout page, where people can enter address and pay via external Alipay website.
+
+Helped with fronted debugging.
