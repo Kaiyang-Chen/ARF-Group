@@ -304,7 +304,7 @@ Developed the frontend parts for the following features:
 
 The navigator of Home, Search, Publish, Cart and Me pages of the APP
 
-Implementation of HomePage, where people can view a large number of current furniture with some brief information about the furniture.
+Implementation of HomePage, where people can view a large number of current furniture with some brief information.
 
 Implementation of Search page, where people can enter keywords to search for certain furniture.
 
