@@ -43,7 +43,7 @@ def video_crop(input_video, output_dir):
 def generate_ar(request: HttpRequest):
     # send: {"UID": uuid, "name": video_name}
     if not request.user.is_authenticated:
-        return HttpResponse("failed: login first")
+        return JsonResponse({"msg": "failed: login first"})
     if request.method == "POST":
         user = request.user.username
         try:
@@ -51,34 +51,38 @@ def generate_ar(request: HttpRequest):
             assert "UID" in data.keys()
             assert "name" in data.keys()
         except:
-            return HttpResponse("failed: invalid format")
+            return JsonResponse({"msg": "failed: invalid format"})
         id = uuid.UUID(data["UID"])
         video = data["name"]
-        if not video.endswith(".MOV"):
-            video = f"{video}.MOV"
+        if not video.endswith(".mp4"):
+            video = f"{video}.mp4"
         prod = ProductInfo.objects.filter(UID=id)
         if prod.exists():
             prod = prod[0]
             if prod.owner.username != user:
-                return HttpResponse("failed: permission denied")
+                return JsonResponse({"msg": "failed: permission denied"})
             if not os.path.isfile(f"static/{user}/{prod.name}/video/{video}"):
-                return HttpResponse("failed: video not exists")
+                return JsonResponse({"msg": "failed: video not exists"})
             else:
                 if os.path.isdir(f"static/{user}/{prod.name}/ar_pics/"):
                     for filename in os.listdir(f"static/{user}/{prod.name}/ar_pics/"):
-                        os.remove(f"static/{user}/{prod.name}/ar_pics/{filename}")
+                        os.remove(
+                            f"static/{user}/{prod.name}/ar_pics/{filename}")
                 if os.path.isdir(f"static/{user}/{prod.name}/ar_model/"):
                     for filename in os.listdir(f"static/{user}/{prod.name}/ar_model/"):
-                        os.remove(f"static/{user}/{prod.name}/ar_model/{filename}")
-                video_crop(f"static/{user}/{prod.name}/video/{video}", f"static/{user}/{prod.name}/ar_pics/")
+                        os.remove(
+                            f"static/{user}/{prod.name}/ar_model/{filename}")
+                video_crop(f"static/{user}/{prod.name}/video/{video}",
+                           f"static/{user}/{prod.name}/ar_pics/")
                 cmd = f"export LD_LIBRARY_PATH=/root/AliceVision/install/lib && export PYTHONPATH=/root/meshroom && export PATH=/root/cmake-3.22.5-linux-x86_64/bin:/root/miniconda3/bin:/root/miniconda3/condabin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/root/AliceVision/install/bin:/root/meshroom && echo $PATH && systemd-run --scope python /root/meshroom/bin/meshroom_batch --input static/{user}/{prod.name}/ar_pics/  -o static/{user}/{prod.name}/ar_model/"
-                f = open(f"static/{user}/{prod.name}/ar_model/generation_log", 'w')
+                f = open(
+                    f"static/{user}/{prod.name}/ar_model/generation_log", 'w')
                 subprocess.Popen(cmd, shell=True, stdin=f, stdout=f,
                                  stderr=f, close_fds=True, start_new_session=True)
-                return HttpResponse("AR model is generating...")
+                return JsonResponse({"msg": "AR model is generating..."})
         else:
-            return HttpResponse("failed: product not exists.")
-    return HttpResponse("failed")
+            return JsonResponse({"msg": "failed: product not exists."})
+    return JsonResponse({"msg": "failed"})
 
 
 @csrf_exempt
@@ -105,13 +109,13 @@ def fetch_ar_model(request: HttpRequest):
                 os.system(cmd)
                 # subprocess.Popen(cmd, shell=True, stdin=None,
                 #                  stdout=None, stderr=None, close_fds=True)
-            if os.path.isfile(f"static/{username}/{prod.name}/ar_model/texture_1001.png") and os.path.isfile(f"static/{username}/{prod.name}/ar_model/texturedMesh.obj"):
+            if os.path.isfile(f"static/{username}/{prod.name}/ar_model/texture_1001.png") and os.path.isfile(f"static/{username}/{prod.name}/ar_model/texturedMesh.gltf"):
                 fs = FileSystemStorage()
                 url_texture = fs.url(
                     f"static/{username}/{prod.name}/ar_model/texture_1001.png")
                 res["texture"] = str(url_texture)
                 url_model = fs.url(
-                    f"static/{username}/{prod.name}/ar_model/texturedMesh.obj")
+                    f"static/{username}/{prod.name}/ar_model/texturedMesh.gltf")
                 res["ar_model"] = str(url_model)
                 return JsonResponse(res)
             else:

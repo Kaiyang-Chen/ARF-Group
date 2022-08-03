@@ -242,7 +242,7 @@ def check_other(request: HttpRequest):
         return HttpResponse('failed: no such username')
     userprofile = UserProfile.objects.get(user=user)
     for key in result.keys():
-        if key != 'password':
+        if key != 'password' and key != 'money':
             if hasattr(user, key):
                 result[key] = getattr(user, key)
             elif hasattr(userprofile, key):

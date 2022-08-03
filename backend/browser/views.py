@@ -28,7 +28,8 @@ def fetch_home_products(request: HttpRequest):
                 idx += 1
         else:
             samples = random.sample(range(count), 64)
-            prods = [ProductInfo.filter(sold_state=False)[i] for i in samples]
+            _prods = ProductInfo.objects.filter(sold_state=False)
+            prods = [_prods[i] for i in samples]
             for prod in prods:
                 result[f"{idx}"] = f'{getattr(prod,"UID")}'
                 idx += 1
@@ -36,6 +37,7 @@ def fetch_home_products(request: HttpRequest):
 
     if request.method == 'GET':
         user = request.user
+        # return JsonResponse({"0": "a895ec14-fd5c-11ec-bb19-5770a50bebb5"})
         if not user.is_authenticated:
             return JsonResponse(get_random())
         else:
@@ -231,7 +233,7 @@ def fetch_product_detailed(request: HttpRequest):
                 for vid in vids:
                     url = fs.url(
                         f"static/{username}/{prod.name}/video/{vid}")
-                    res[vid.strip(".MOV")] = str(url)
+                    res[vid.strip(".mp4")] = str(url)
             if request.user.is_authenticated:
                 hist = {"UID": res["UID"], "primary_class": res["primary_class"],
                         "secondary_class": res["secondary_class"],

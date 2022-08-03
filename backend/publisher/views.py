@@ -123,13 +123,13 @@ def post_video(request: HttpRequest):
         user = request.user.username
         try:
             video = request.POST.get("name")
-            id = request.POST.get("UID")
-            id = uuid.UUID(id)
-        except:
-            return JsonResponse({"msg": "get info failed"})
-        if not video.endswith(".MOV"):
-            video = f"{video}.MOV"
-        prod = ProductInfo.objects.filter(UID=id)
+            uid = request.POST.get("UID")
+            uid = uuid.UUID(uid)
+        except Exception as e:
+            return JsonResponse({"msg": str(e)})
+        if not video.endswith(".mp4"):
+            video = f"{video}.mp4"
+        prod = ProductInfo.objects.filter(UID=uid)
         if prod.exists():
             prod = prod[0]
             if prod.owner.username != user:
@@ -165,8 +165,8 @@ def delete_video(request: HttpRequest):
             return HttpResponse("failed: invalid format")
         id = uuid.UUID(data["UID"])
         video = data["name"]
-        if not video.endswith(".MOV"):
-            video = f"{video}.MOV"
+        if not video.endswith(".mp4"):
+            video = f"{video}.mp4"
         prod = ProductInfo.objects.filter(UID=id)
         if prod.exists():
             prod = prod[0]

@@ -83,25 +83,25 @@ def get_message(request: HttpRequest):
     if last_idx:
         records = ChatMessages.objects.filter(
             idx__gt=int(last_idx), seller=user)
-        as_seller = {record.idx: {"seller": f"{record.seller.username}",
-                                  "buyer": f"{record.buyer.username}", "is_picture": str(record.is_picture),
-                                  "content": str(record.content)} for record in records}
+        as_seller = {f"{record.idx}": {"seller": f"{record.seller.username}",
+                                       "buyer": f"{record.buyer.username}", "is_picture": str(record.is_picture),
+                                       "content": str(record.content)} for record in records}
         records = ChatMessages.objects.filter(
             idx__gt=int(last_idx), buyer=user)
-        as_buyer = {record.idx: {"seller": f"{record.seller.username}",
-                                 "buyer": f"{record.buyer.username}", "is_picture": str(record.is_picture),
-                                 "content": str(record.content)} for record in records}
+        as_buyer = {f"{record.idx}": {"seller": f"{record.seller.username}",
+                                      "buyer": f"{record.buyer.username}", "is_picture": str(record.is_picture),
+                                      "content": str(record.content)} for record in records}
         result["as_seller"] = as_seller
         result["as_buyer"] = as_buyer
     else:
         records = ChatMessages.objects.filter(seller=user)
-        as_seller = {record.idx: {"seller": f"{record.seller.username}",
-                                  "buyer": f"{record.buyer.username}", "is_picture": str(record.is_picture),
-                                  "content": str(record.content)} for record in records}
+        as_seller = {f"{record.idx}": {"seller": f"{record.seller.username}",
+                                       "buyer": f"{record.buyer.username}", "is_picture": str(record.is_picture),
+                                       "content": str(record.content)} for record in records}
         records = ChatMessages.objects.filter(buyer=user)
-        as_buyer = {record.idx: {"seller": f"{record.seller.username}",
-                                 "buyer": f"{record.buyer.username}", "is_picture": str(record.is_picture),
-                                 "content": str(record.content)} for record in records}
+        as_buyer = {f"{record.idx}": {"seller": f"{record.seller.username}",
+                                      "buyer": f"{record.buyer.username}", "is_picture": str(record.is_picture),
+                                      "content": str(record.content)} for record in records}
         result["as_seller"] = as_seller
         result["as_buyer"] = as_buyer
     return JsonResponse(result)
