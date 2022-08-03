@@ -70,7 +70,7 @@ class HelloArActivity : AppCompatActivity() {
     arFragment.setOnTapArPlaneListener { hitResult: HitResult, plane: Plane, motionEvent: MotionEvent ->
       val anchor = hitResult.createAnchor()
       // placeObject(arFragment, anchor, Uri.parse("saucepan.sfb")) "https://poly.googleusercontent.com/downloads/0BnDT3T1wTE/85QOHCZOvov/Mesh_Beagle.gltf"
-      placeObjectRuntime(arFragment, anchor, Uri.parse("https://poly.googleusercontent.com/downloads/0BnDT3T1wTE/85QOHCZOvov/Mesh_Beagle.gltf"))
+      placeObjectRuntime(arFragment, anchor, Uri.parse(arModelDisplay.modelUrl))
     }
     btn_back.setOnClickListener {
       onBackPressed()
