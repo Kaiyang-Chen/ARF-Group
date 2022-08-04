@@ -1,7 +1,7 @@
 # AR-enabled-furniture-trading-plateform
 Capstone project (VE441 App Dev for Entrepreneurs) for SJTU-UM Joint Institute
 
-## Build
+## Getting Started
 
 Backend
 - Django 4.0.4
@@ -11,7 +11,8 @@ Frontend
 - Android API level 30
 - Andriod Studio
 - ARCore SDK for Android 1.31.0
-- Android Emulator Pixel 4 API 29 (The app may not work on other emulators)
+- OKHttp dependency for server communication
+- Android Emulator Pixel 4 API 29 on Windows x86 platform (The app may not work properly on other emulators)
 
 ## Model and Engine
 
@@ -232,21 +233,9 @@ For Shopping Cart, this the page where users can check out. It shows the furnitu
 
 # Team Roster
 
-Kaiyang Chen
-
-Fan Chen
-
-Xinmiao Yu
-
-Zhengyang Zhu
-
-Xingyuan Wang
-
-Weikai Zhou
-
-# Individual Contributions
-
 #### We would kindly ask you to look at the next section to see contributions instead of focusing on Github commit numbers. The backend server has only one account logged in so that after we migrated our project into the server, the pushes have been done by only one account. The commited lines also include "env" files that are not our work.
+
+
 
 #### Kaiyang Chen
 
@@ -255,6 +244,8 @@ Backend server maintainess and service configuration
 Developed the AR-related backend including 3d-model generation
 
 Assisted in other backend features.
+
+
 
 
 #### Fan Chen
@@ -272,6 +263,8 @@ Publish furniture: post products information, post pictures of products, post vi
 #### Xinmiao Yu
 
 Developed the AR view part. User could enter AR view and virtually put one default model in the environment.
+
+
 
 
 #### Zhengyang Zhu
@@ -310,5 +303,3 @@ Implementation of Search page, where people can enter keywords to search for cer
 Implementation of Cart page, where people can view the items in the cart and delete items from the cart.
 
 Implementation of Checkout page, where people can enter address and pay via external Alipay website.
-
-Helped with fronted debugging.
