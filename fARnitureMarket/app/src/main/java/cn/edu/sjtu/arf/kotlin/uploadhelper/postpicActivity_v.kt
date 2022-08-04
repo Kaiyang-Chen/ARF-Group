@@ -225,7 +225,7 @@ class postpicActivityv : AppCompatActivity() {
                 applicationContext, prodstore.copystr, "title",viewState.imageUri, viewState.videoUri
             ){ msg ->
                 runOnUiThread {
-                    println(msg)
+                    toast("Video posted")
                 }
                 //finish()
             }
