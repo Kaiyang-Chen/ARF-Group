@@ -11,6 +11,8 @@ import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
+
+import com.bumptech.glide.util.ByteBufferUtil.toFile
 import com.eclipsesource.json.Json
 import com.google.ar.core.dependencies.e
 import okhttp3.*
@@ -32,6 +34,8 @@ object picstore {
         uid: String?,
         pic_name: String?,
         imageUri: Uri?,
+
+        videoUri: Uri?,
         completion: (String) -> Unit
     ){
         val mpFD = MultipartBody.Builder().setType(MultipartBody.FORM)
@@ -45,6 +49,12 @@ object picstore {
             } ?: context.toast("Unsupported image format")
         }
 
+        /*videoUri?.run {
+            toFile(context)?.let {
+                mpFD.addFormDataPart("video", "chattVideo",
+                    it.asRequestBody("video/mp4".toMediaType()))
+            } ?: context.toast("Unsupported video format")
+        }*/
         println(mpFD)
         //println(mpFD.build())
         val request = okhttp3.Request.Builder()
