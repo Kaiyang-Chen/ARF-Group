@@ -276,8 +276,7 @@ Developed the AR view part. User could enter AR view and virtually put one defau
 
 #### Zhengyang Zhu
 
-Developed the frontend ProductDetail page.
-
+Developed the frontend ProductDetail page, where user is presented with detailed information of the furniture, including the 3D model and AR view.
 
 
 
