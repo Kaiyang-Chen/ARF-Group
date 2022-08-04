@@ -51,7 +51,7 @@ object videostore {
             toFile(context)?.let {
                 mpFD_v.addFormDataPart("video", "chattVideo",
                     it.asRequestBody("video/mp4".toMediaType()))
-            } ?: context.toast("Unsupported video format")
+            } ?: context.toast("checking video format...")
         }
 
         println(mpFD_v)
