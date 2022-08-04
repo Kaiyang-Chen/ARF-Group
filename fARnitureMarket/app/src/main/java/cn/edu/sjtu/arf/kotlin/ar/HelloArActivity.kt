@@ -69,8 +69,11 @@ class HelloArActivity : AppCompatActivity() {
     arFragment = supportFragmentManager.findFragmentById(R.id.ux_fragment) as ArFragment
     arFragment.setOnTapArPlaneListener { hitResult: HitResult, plane: Plane, motionEvent: MotionEvent ->
       val anchor = hitResult.createAnchor()
-      // placeObject(arFragment, anchor, Uri.parse("saucepan.sfb")) "https://poly.googleusercontent.com/downloads/0BnDT3T1wTE/85QOHCZOvov/Mesh_Beagle.gltf"
-      placeObjectRuntime(arFragment, anchor, Uri.parse(arModelDisplay.modelUrl))
+      // "https://poly.googleusercontent.com/downloads/0BnDT3T1wTE/85QOHCZOvov/Mesh_Beagle.gltf"
+      // placeObject(arFragment, anchor, Uri.parse("saucepan.sfb"))
+      // https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/SheenChair/glTF/SheenChair.gltf
+      // https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/Duck/glTF/Duck.gltf
+      placeObjectRuntime(arFragment, anchor, Uri.parse("https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/SheenChair/glTF/SheenChair.gltf"))
     }
     btn_back.setOnClickListener {
       onBackPressed()
@@ -82,7 +85,7 @@ class HelloArActivity : AppCompatActivity() {
   }
   private fun placeObjectRuntime(fragment: ArFragment, anchor: Anchor, model: Uri) {
     ModelRenderable.builder()
-      .setSource(fragment.context, RenderableSource.builder().setScale(0.005F).setSource(
+      .setSource(fragment.context, RenderableSource.builder().setScale(0.5F).setSource(
         fragment.context,
         model,
         RenderableSource.SourceType.GLTF2).build()
@@ -99,7 +102,7 @@ class HelloArActivity : AppCompatActivity() {
   }
   private fun placeObject(arFragment: ArFragment, anchor: Anchor, uri: Uri) {
     ModelRenderable.builder()
-      .setSource(arFragment.context, Uri.parse(GLTF_ASSET))
+      .setSource(arFragment.context, uri)
       .build()
       .thenAccept({ modelRenderable -> addNodeToScene(arFragment, anchor, modelRenderable) })
       .exceptionally { throwable ->
@@ -107,30 +110,6 @@ class HelloArActivity : AppCompatActivity() {
           .show()
         null
       }
-/*    ModelRenderable.builder()
-      .setSource(
-        this, RenderableSource.builder().setSource(
-          this,
-          Uri.parse(GLTF_ASSET),
-          RenderableSource.SourceType.GLTF2
-        )
-          .setScale(0.5f) // Scale the original model to 50%.
-          .setRecenterMode(RenderableSource.RecenterMode.ROOT)
-          .build()
-      )
-      .setRegistryId(GLTF_ASSET)
-      .build()
-      .thenAccept { modelRenderable -> addNodeToScene(arFragment, anchor, modelRenderable)
-      }
-      .exceptionally { throwable: Throwable? ->
-        val toast = Toast.makeText(
-          this, "Unable to load renderable " +
-                  GLTF_ASSET, Toast.LENGTH_LONG
-        )
-        toast.setGravity(Gravity.CENTER, 0, 0)
-        toast.show()
-        null
-      }*/
 
   }
   private fun addNodeToScene(arFragment: ArFragment, anchor: Anchor, renderable: Renderable) {
