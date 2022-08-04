@@ -2,7 +2,9 @@ package cn.edu.sjtu.arf
 
 import android.app.Application
 import android.util.Log
+
 import cn.edu.sjtu.arf.kotlin.ar.ARModelStore
+
 import cn.edu.sjtu.arf.utils.FakeX509TrustManager
 import cn.edu.sjtu.arf.utils.OkHttpStack
 import com.android.volley.RequestQueue
@@ -24,10 +26,12 @@ class App : Application() {
         if (mInstance == null) {
             mInstance = this
         }
+
         // sofa f38b919c-1085-11ed-8be4-df44420a944c
         // chair b0d77fca-1277-11ed-882f-1bfe3d2c9a29
         // table f05a7fcc-133e-11ed-804b-19edd526ea3e
         ARModelStore.getARModel("b0d77fca-1277-11ed-882f-1bfe3d2c9a29")
+
         Constants.initVolleyQueue()
     }
 
