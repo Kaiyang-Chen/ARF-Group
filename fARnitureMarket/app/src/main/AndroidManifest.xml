@@ -7,9 +7,11 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <uses-feature
         android:name="android.hardware.camera2"
         android:required="false" />
+
     <queries>
         <intent>
             <action android:name="com.android.camera.action.CROP" />
@@ -29,6 +31,7 @@
         android:required="true" />
 
     <application
+
         android:name=".App"
         android:allowBackup="true"
         android:supportsRtl="true"
@@ -56,6 +59,7 @@
             android:name=".kotlin.mehelper.meorig"
             android:exported="false"
             android:parentActivityName=".kotlin.NavigateActivity" />
+
         <activity
             android:name=".kotlin.uploadhelper.postpicActivityv"
             android:exported="false"
@@ -72,6 +76,7 @@
             android:name=".kotlin.NavigateActivity"
             android:exported="false"
             android:parentActivityName=".kotlin.MainActivity" />
+
         <activity
             android:name=".kotlin.loginhelper.RegisterActivity"
             android:label="RegisterActivity"

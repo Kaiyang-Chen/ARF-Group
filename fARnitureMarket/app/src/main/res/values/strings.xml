@@ -36,6 +36,7 @@
     <string name="album">Album</string>
     <string name="camera">Camera</string>
     <string name="preview">Image</string>
+
     <string name="video">Video</string>
     <string name="send">Send</string>
     <string name="videoView">videoView</string>

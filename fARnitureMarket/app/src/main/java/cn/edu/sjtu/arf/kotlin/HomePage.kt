@@ -20,6 +20,8 @@ import cn.edu.sjtu.arf.kotlin.homepagehelper.HomeItemUIDStore.getHomeItemUIDs
 import cn.edu.sjtu.arf.kotlin.product.ProductDetailActivity
 
 
+import android.widget.ImageView
+
 
 class HomePage : Fragment() {
     private lateinit var homeItemListView: ListView
@@ -32,7 +34,9 @@ class HomePage : Fragment() {
         val layout: View = inflater.inflate(R.layout.page_home,container,false)
 
         homeItemListView = layout.findViewById(R.id.homeItemListView)
+
         refresher = layout.findViewById(R.id.homeRefreshContainer)
+
         return layout
 
     }
@@ -64,6 +68,7 @@ class HomePage : Fragment() {
     }
 
     private val propertyObserver = object: ObservableList.OnListChangedCallback<ObservableArrayList<Int>>() {
+
         override fun onChanged(sender: ObservableArrayList<Int>?) {
             getActivity()?.runOnUiThread {
                 homeItemAdapter.notifyDataSetChanged()
@@ -74,6 +79,7 @@ class HomePage : Fragment() {
                 homeItemAdapter.notifyDataSetChanged()
             }
         }
+
         override fun onItemRangeInserted(
             sender: ObservableArrayList<Int>?,
             positionStart: Int,

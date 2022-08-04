@@ -16,6 +16,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
+
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
@@ -24,7 +25,9 @@ import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
+
 import androidx.core.content.ContextCompat.startActivity
+
 import androidx.lifecycle.ViewModel
 import cn.edu.sjtu.arf.R
 import cn.edu.sjtu.arf.databinding.ActivityArBinding.inflate
@@ -36,6 +39,7 @@ import cn.edu.sjtu.arf.kotlin.uploadhelper.picstore.postpic
 class PostViewState: ViewModel() {
     var enableSend = true
     var imageUri: Uri? = null
+
     var videoUri: Uri? = null
     var videoIcon = android.R.drawable.presence_video_online
 }
@@ -53,6 +57,7 @@ class postpicActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         view = ActivityPostpicBinding.inflate(layoutInflater)
         setContentView(view.root)
+
         //setContentView(view.root)
         //view.videoButton.setImageResource(viewState.videoIcon)
         viewState.imageUri?.let { view.previewImage.display(it) }
@@ -74,6 +79,7 @@ class postpicActivity : AppCompatActivity() {
         val forPickedResult =
             registerForActivityResult(ActivityResultContracts.GetContent(), fun(uri: Uri?) {
                 uri?.let {
+
                         val inStream = contentResolver.openInputStream(it) ?: return
                         viewState.imageUri = mediaStoreAlloc("image/jpeg")
                         viewState.imageUri?.let {
@@ -194,11 +200,13 @@ class postpicActivity : AppCompatActivity() {
                 MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
             values)
     }
+
     fun initListener() {
         var Login_main = findViewById<Button>(R.id.publish_pic)
         //var init_str = prodstore.str.split(":")[1].split("}")[0]
         //println(init_str)
         Login_main.setOnClickListener {
+
 
             postpic(
                 applicationContext, prodstore.str, "title",viewState.imageUri, viewState.videoUri

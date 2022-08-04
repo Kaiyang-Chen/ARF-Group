@@ -1,6 +1,7 @@
 package cn.edu.sjtu.arf.kotlin.product
 
 import GsonRequest
+
 import android.util.Log
 import androidx.lifecycle.LifecycleCoroutineScope
 import cn.edu.sjtu.arf.App
@@ -46,6 +47,7 @@ object productstore {
 
         Constants.VolleyQueue.add(postRequest)
     }
+
     fun getProductARModel(
         uid: String,
         scope: LifecycleCoroutineScope,

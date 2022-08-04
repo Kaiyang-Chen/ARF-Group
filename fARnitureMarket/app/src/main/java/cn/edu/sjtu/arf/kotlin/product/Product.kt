@@ -27,3 +27,4 @@ data class ProductArModel(
     var texture: String? = null,
     var ar_model: String? = null,
 ):Parcelable
+

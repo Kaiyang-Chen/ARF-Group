@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+
 import android.widget.AdapterView
 import android.widget.ListView
 import android.widget.SearchView
@@ -26,13 +27,16 @@ class SearchPage : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val layout: View = inflater.inflate(R.layout.page_search,container,false)
         searchView = layout.findViewById(R.id.search)
+
         searchItemListView = layout.findViewById(R.id.searchListView)
+
         return layout
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         searchView.setIconifiedByDefault(false)
+
 
         val context = context as NavigateActivity
         searchItemAdapter = SearchItemAdapter(context, searchitemdisplays)

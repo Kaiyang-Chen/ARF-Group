@@ -21,6 +21,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="64dp"
+
         android:layout_marginLeft="230dp"
         android:layout_marginRight="30dp"
         android:layout_marginTop="320dp"
@@ -72,6 +73,7 @@
         android:layout_height="wrap_content"
         android:layout_marginRight="30dp"
         android:layout_marginLeft="30dp"
+
         android:text="Add some video!"
         android:layout_gravity="center"
         >

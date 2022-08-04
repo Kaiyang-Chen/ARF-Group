@@ -23,6 +23,7 @@ import okhttp3.MediaType.Companion.toMediaType
 import org.json.JSONObject
 import java.io.IOException
 
+
 class ProductDetailActivity:  AppCompatActivity() {
     private lateinit var topIV: ImageView
     private lateinit var arIV: ImageView
@@ -34,7 +35,9 @@ class ProductDetailActivity:  AppCompatActivity() {
 
     private lateinit var sellerBtn: LinearLayout
     private lateinit var addCartBtn: LinearLayout
+
     private lateinit var uid: String
+
 
 
 
@@ -48,7 +51,9 @@ class ProductDetailActivity:  AppCompatActivity() {
 
         initView()
 
+
         uid = intent.getStringExtra(UID)?:""
+
         productstore.getProductDetail(uid = uid, scope = lifecycleScope,errorListener = { err ->
             if (BuildConfig.DEBUG){
                 err.printStackTrace()
@@ -56,6 +61,7 @@ class ProductDetailActivity:  AppCompatActivity() {
             String(err.networkResponse.data)
             ToastUtil.show(this@ProductDetailActivity, err.message ?: "网络异常")
         }){ pro ->
+
             Log.i("initView","${pro.toString()}")
             titleTV.text = pro.name
             contentTV.text = pro.description
@@ -88,6 +94,7 @@ class ProductDetailActivity:  AppCompatActivity() {
         sellerBtn.isEnabled = false
     }
 
+
     //模型地址
     private var arModelUrl:String?=null
     private fun onClick(view: View){
@@ -108,6 +115,7 @@ class ProductDetailActivity:  AppCompatActivity() {
             }
         }
     }
+
 
     private fun getProductARModel(){
         productstore.getProductARModel(uid = "f38b919c-1085-11ed-8be4-df44420a944c" , scope = lifecycleScope,errorListener = { err ->
@@ -144,6 +152,7 @@ class ProductDetailActivity:  AppCompatActivity() {
         const val UID:String = "uid"
 
         fun start(context: Context, uid: String){
+
             Log.i("initView","${uid.toString()}")
             context.startActivity(Intent(context,ProductDetailActivity::class.java).putExtra(UID,uid))
         }
