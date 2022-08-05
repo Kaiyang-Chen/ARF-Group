@@ -215,7 +215,7 @@ For User System, user should be able to click "Me" and check their basic infroma
 
 ![Usersystem](readme_graphs/usersystem.png)
 
-For Publish System, the user can click on the "+" button and add basic information, upload pictures. With the pictures uploaded, our app will generated 3D model and the user can preview the model in AR view before publish.
+For Publish System, the user can click on the "+" button and add basic information, upload pictures and videos. With the video uploaded, users can choose to generate 3D model and AR model based on the video.
 
 ![publish](readme_graphs/publish.png)
 
@@ -227,7 +227,7 @@ For Searching Product, the users can click on the search icon and enter the keyw
 
 ![search](readme_graphs/search.png)
 
-For Shopping Cart, this the page where users can check out. It shows the furniture users want to buy and provide the payment function to pay the bill.
+For Shopping Cart, this the page where users can check out. It shows the furniture users want to buy and provide the payment function to pay the bill(Alipay in our project).
 
 ![shop](readme_graphs/shop.png)
 
