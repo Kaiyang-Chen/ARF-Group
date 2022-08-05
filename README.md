@@ -334,3 +334,7 @@ Implementation of Search page, where people can enter keywords to search for cer
 Implementation of Cart page, where people can view the items in the cart and delete items from the cart.
 
 Implementation of Checkout page, where people can enter address and pay via external Alipay website.
+
+### Challenges
+
+Configuring Alipay SDK for Python environment is difficult since the official documentation is of low quality and this SDK is unofficial. One week to spend in configuration and running test cases. Designing the fetching homepage is difficult since we are make recommendations based on user's browsing history. Several days were spent in designing the algorithm and adding necessary user history generation helper functions. Generating AR is difficult since the generation usually cause low-quality models. Several weeks were spent before the model is as good as the current status.
