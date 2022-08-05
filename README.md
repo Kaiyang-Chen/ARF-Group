@@ -262,7 +262,13 @@ Publish furniture: post products information, post pictures of products, post vi
 
 #### Xinmiao Yu
 
-Developed the AR view part. User could enter AR view and virtually put one default model in the environment.
+Developed the AR view page. 
+
+Retrieved model from the server. Use url as source to load the model during runtime. 
+
+User could enter AR view and virtually put models. The model could be moved and rotated.
+
+User could adjust the size of the model and place multiple models. 
 
 
 
