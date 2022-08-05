@@ -11,7 +11,7 @@ Backend
 Frontend
 - Android API level 30
 - Andriod Studio
-- ARCore SDK for Android 1.31.0
+- ARCore SDK for Android 1.31.0, follow the link to setup emulator https://developers.google.com/ar/develop/java/emulator
 - OKHttp dependency for server communication
 - Android Emulator Pixel 4 API 29 on Windows x86 platform (The app may not work properly on other emulators)
 
