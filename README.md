@@ -2,11 +2,22 @@
 Capstone project (VE441 App Dev for Entrepreneurs) for SJTU-UM Joint Institute
 
 ## Getting Started
+Get the source code and install runtime requirements:
+```
+git clone --recursive https://github.com/Kaiyang-Chen/ARF-Group.git
+cd ARF-Group
+pip install -r requirements.txt
+```
+To build AR model, We use Meshroom, that relies on the [AliceVision](https://github.com/alicevision/AliceVision) framework. AliceVision's binaries must
+be in the path while running Meshroom. To build AliceVision, follow this [guide].(https://github.com/alicevision/AliceVision/blob/develop/INSTALL.md)
+If you have question building Meshroom, see [here](https://github.com/alicevision/meshroom/blob/develop/INSTALL.md) to setup the Meshroom project and its pre-requisites.
 
 Backend
+
 - Django 4.0.4
 - PostgreSQL 14.3
 - Alipay SDK: python-alipay-sdk, install with [pip install python-alipay-sdk]. To set up the sandbox environment and get priavet and public keys, check https://open.alipay.com/
+- Meshroom v2021.1.0
 
 Frontend
 - Android API level 30
@@ -337,4 +348,6 @@ Implementation of Checkout page, where people can enter address and pay via exte
 
 ### Challenges
 
-Configuring Alipay SDK for Python environment is difficult since the official documentation is of low quality and this SDK is unofficial. One week was spent in configuration and running test cases. Designing the fetching homepage is difficult since we are make recommendations based on user's browsing history. Several days were spent in designing the algorithm and adding necessary user history generation helper functions. Generating AR is difficult since the generation usually cause low-quality models. Several weeks were spent before the model is as good as the current status. Integrating the Django's user authentication is also a little difficult before we learned how to use it. The frontend ARcore is also difficult to use as it has strict requirements for the version of Android SDK. We have one member handling the frontend AR function alone.
+Configuring Alipay SDK for Python environment is difficult since the official documentation is of low quality and this SDK is unofficial. One week was spent in configuration and running test cases. Designing the fetching homepage is difficult since we are make recommendations based on user's browsing history. Several days were spent in designing the algorithm and adding necessary user history generation helper functions. Generating AR is difficult since the generation of 3D models requires a high quality of the input images. Finally, through continuous exploration, we adopted the method of cutting video to generate a large number of images to improve the modeling quality. The final modeling effect of the sofa bed can be achieved as shown in the figure below. 
+<img src="readme_graphs/sofa_bed.png" alt="sofa_bed" style="zoom:50%;" />
+Several weeks were spent before the model is as good as the current status. Integrating the Django's user authentication is also a little difficult before we learned how to use it. The frontend ARcore is also difficult to use as it has strict requirements for the version of Android SDK. We have one member handling the frontend AR function alone.
