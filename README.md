@@ -213,7 +213,7 @@ The picture below shows our static flow of UIUX.
 
 For User System, user should be able to click "Me" and check their basic infromation on the Me page. They can also update their information as needed. All the personal information gathered together can make it easier for users to check and update.
 
-![Usersystem](readme_graphs/Usersystem.png)
+![Usersystem](readme_graphs/usersystem.png)
 
 For Publish System, the user can click on the "+" button and add basic information, upload pictures. With the pictures uploaded, our app will generated 3D model and the user can preview the model in AR view before publish.
 
@@ -252,12 +252,13 @@ Assisted in other backend features.
 
 Developed the frontend parts for the following features:
 
-Login system: register account, part of login
+Implementation of Login system, including account login and registration
 
-User system: check user profiles, update user profile
+Implementation of User system, where users can check latest user profiles and update user profile
 
-Publish furniture: post products information, post pictures of products, post videos of products and generate AR model based on videos
+Implementation of Publish furniture, where users can post products information, pictures of products, videos of products and generate AR model based on videos uploaded
 
+Helped with backend debugging.
 
 
 #### Xinmiao Yu
