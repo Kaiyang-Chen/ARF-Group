@@ -9,7 +9,7 @@ cd ARF-Group
 pip install -r requirements.txt
 ```
 To build AR model, We use Meshroom, that relies on the [AliceVision](https://github.com/alicevision/AliceVision) framework. AliceVision's binaries must
-be in the path while running Meshroom. To build AliceVision, follow this [guide](https://github.com/alicevision/AliceVision/blob/develop/INSTALL.md)
+be in the path while running Meshroom. To build AliceVision, follow this [guide](https://github.com/alicevision/AliceVision/blob/develop/INSTALL.md). 
 If you have question building Meshroom, see [here](https://github.com/alicevision/meshroom/blob/develop/INSTALL.md) to setup the Meshroom project and its pre-requisites.
 
 Backend
