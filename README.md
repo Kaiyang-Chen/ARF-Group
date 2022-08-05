@@ -64,21 +64,31 @@ SERVER_IP/check/
 
 Get the user's information. A GET request with a body containing the required fields. E.g., {"username":"", "gender":""}
 
+
+
 SERVER_IP/update/
 
 Update the user's information. A POST request with a body containing the required fields. E.g., {"username":"new_name", "gender":"male"}
+
+
 
 SERVER_IP/login/
 
 Try to log in a session with user name and password. E.g., {"username":"cky", "password":"1234567"}
 
+
+
 SERVER_IP/register/
 
 Try register a new user with user name and password. Additional fields may be provided. Otherwise, these fields will be default values. E.g., {"username":"cky", "password":"1234567", "address":"xxx"}
 
+
+
 SERVER_IP/logout/
 
 Log out.
+
+
 
 SERVER_IP/delete/
 
@@ -94,6 +104,8 @@ send: anything
 
 receive: {"0": "13233412-34xewrcr", "1": "7645ytewerg-vewegf"}
 
+
+
 SERVER_IP/fetch_searched_products/
 
 Get at most 64 uids by searching.
@@ -104,6 +116,8 @@ starts_from: for example, if you have checked 64 results and want to see more re
 
 receive: {"0": "13233412-34xewrcr", "1": "7645ytewerg-vewegf"}
 
+
+
 SERVER_IP/fetch_product_brief/
 
 Get the brief info by UID.
@@ -113,6 +127,8 @@ send: {"UID": "afrtr-43gtwwf"}
 receive: {"name": "good sofa", "description": "this is a sofa", "price": 200, "picture": "some url"}
 
 picture is the url of the title page, the name of this picture is title.jpg in FS
+
+
 
 SERVER_IP/fetch_product_detailed/
 
@@ -145,6 +161,8 @@ send: {"name": prod.name, "description": prod.description, "primary_class": prod
 
 receive: HttpResponse starts with failed or {"UID": "tw5y65we3t4sdv"}
 
+
+
 SERVER_IP/post_picture/
 
 Post a picture.
@@ -161,6 +179,8 @@ name it "title" if you want it as the result picture in fetch_product_brief
 
 if "pic_name.jpg" exists, it will be overwritten
 
+
+
 SERVER_IP/delete_picture/
 
 Delete a picture.
@@ -170,9 +190,39 @@ POST method
 
 send: {"UID": "wdefargstrdtyu", "picture": "pic_name"}
 
+
+
+SERVER_IP/post_video/
+
+Post a video.
+
+must login first with cookie in the request, you must be the owner
+
+send: {"UID": "wdefargstrdtyu", "name": "video_name", "video": video_file}
+
+like lab2 request.FILES["video"] has the file
+
+on FS, the new picture will be named as “video_name.mp4”
+
+if "video_name.mp4" exists, it will be overwritten
+
+
+
+SERVER_IP/delete_video/
+
+Delete a video.
+
+must login first with cookie in the request, you must be the owner POST method
+
+send: {"UID": "wdefargstrdtyu", "name": “video_name"}
+
+
+
 SERVER_IP/update_product/
 
 Refer to post_product, except UID must be provided.
+
+
 
 SERVER_IP/delete_product/
 
@@ -191,6 +241,8 @@ Post a chatting message.
 Indicate "seller" or "buyer" in the sending message, and the other field will be your username.
 
 send: {"seller":"wxy", "content":"hello"}
+
+
 
 SERVER_IP/post_chat_picture/
 
@@ -212,9 +264,23 @@ if is_picture, content will be picture url
 
 ### AR
 
-SERVER_IP/get_ar_model/
+SERVER_IP/fetch_ar_model/
 
-Get the AR model of the product. Refer to SERVER_IP/fetch_product/. Returns the AR model is possible. Returns a failure response if not finding the product or no available AR model.
+Get the ar model and its texture
+
+send: {"UID": “uuid"}
+
+Return {"name": "prodcut name", "texture": "a url of png", "ar_model": "a url of gltf file”} if succeeded. 
+
+
+
+SERVER_IP/generate_ar/
+
+Crop the video and send the result pictures to model generation pipeline
+
+send: {"UID": “uuid”, "name": “video_name"}
+
+Returns an HttpResponse indicating success or failure.
 
 ### Purchase
 
