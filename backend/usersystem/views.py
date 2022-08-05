@@ -218,6 +218,7 @@ def delete(request: HttpRequest):
     return HttpResponse('successful')
 
 def check_other(request: HttpRequest):
+
     if request.method == 'GET':
         user = request.user
         try:

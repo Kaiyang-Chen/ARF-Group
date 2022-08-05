@@ -40,7 +40,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'usersystem',
     'browser',
-    'publisher'
+    'publisher',
+    'cart',
+    'ar',
+    'payment'
 ]
 
 MIDDLEWARE = [

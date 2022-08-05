@@ -63,6 +63,10 @@ def post_product(request: HttpRequest):
             os.mkdir(f"static/{user.username}/{name}/picture")
         if not os.path.isdir(f"static/{user.username}/{name}/ar_model"):
             os.mkdir(f"static/{user.username}/{name}/ar_model")
+        if not os.path.isdir(f"static/{user.username}/{name}/ar_pics"):
+            os.mkdir(f"static/{user.username}/{name}/ar_pics")
+        if not os.path.isdir(f"static/{user.username}/{name}/video"):
+            os.mkdir(f"static/{user.username}/{name}/video")
         return JsonResponse({"UID": str(prod.UID)})
     return HttpResponse("failed")
 
@@ -105,6 +109,73 @@ def post_picture(request: HttpRequest):
             fs = FileSystemStorage()
             ret = fs.save(f"{user}/{prod.name}/picture/{pic}", content)
             return HttpResponse("successful. filename:%s\n"%ret)
+    return HttpResponse("failed")
+
+
+@csrf_exempt
+def post_video(request: HttpRequest):
+    # send: {"UID": uuid, "name": video_name}
+    # one video a time
+    # you must be the owner of this product
+    # overwrites the picture with the same name
+    if not request.user.is_authenticated:
+        return HttpResponse("failed: login first")
+    if request.method == "POST":
+        user = request.user.username
+        try:
+            video = request.POST.get("name")
+            uid = request.POST.get("UID")
+            uid = uuid.UUID(uid)
+        except Exception as e:
+            return JsonResponse({"msg": str(e)})
+        if not video.endswith(".mp4"):
+            video = f"{video}.mp4"
+        prod = ProductInfo.objects.filter(UID=uid)
+        if prod.exists():
+            prod = prod[0]
+            if prod.owner.username != user:
+                return HttpResponse("failed: permission denied")
+            try:
+                assert os.path.isdir(f"static/{user}/{prod.name}/video")
+            except:
+                return HttpResponse("failed: internal error")
+            if not request.FILES.get("video"):
+                return HttpResponse("failed: no video found")
+            if os.path.isfile(f"static/{user}/{prod.name}/video/{video}"):
+                os.remove(f"static/{user}/{prod.name}/video/{video}")
+            # will be removed first
+            content = request.FILES['video']
+            fs = FileSystemStorage()
+            fs.save(f"static/{user}/{prod.name}/video/{video}", content)
+            return JsonResponse({})
+    return JsonResponse({"msg": "failed: wrong request method."})
+
+
+@csrf_exempt
+def delete_video(request: HttpRequest):
+    # send: {"UID": uuid, "name": video_name}
+    if not request.user.is_authenticated:
+        return HttpResponse("failed: login first")
+    if request.method == "POST":
+        user = request.user.username
+        try:
+            data = json.loads(request.body)
+            assert "UID" in data.keys()
+            assert "name" in data.keys()
+        except:
+            return HttpResponse("failed: invalid format")
+        id = uuid.UUID(data["UID"])
+        video = data["name"]
+        if not video.endswith(".mp4"):
+            video = f"{video}.mp4"
+        prod = ProductInfo.objects.filter(UID=id)
+        if prod.exists():
+            prod = prod[0]
+            if prod.owner.username != user:
+                return HttpResponse("failed: permission denied")
+            if os.path.isfile(f"static/{user}/{prod.name}/video/{video}"):
+                os.remove(f"static/{user}/{prod.name}/video/{video}")
+            return HttpResponse("successful")
     return HttpResponse("failed")
 
 
