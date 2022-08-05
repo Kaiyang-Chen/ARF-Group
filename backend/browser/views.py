@@ -7,13 +7,10 @@ from django.contrib.auth.models import User
 from usersystem.models import UserProfile
 from django.core.files.storage import FileSystemStorage
 from django.http import HttpRequest, JsonResponse
-from django.views.decorators.csrf import csrf_exempt
 
 from browser.models import ProductInfo
 # Create your views here.
 
-
-@csrf_exempt
 def fetch_home_products(request: HttpRequest):
     '''
     get at most 64 uids
@@ -34,7 +31,7 @@ def fetch_home_products(request: HttpRequest):
                 result[f"{idx}"] = f'{getattr(prod,"UID")}'
                 idx += 1
         return result
-
+    
     if request.method == 'GET':
         user = request.user
         # return JsonResponse({"0": "a895ec14-fd5c-11ec-bb19-5770a50bebb5"})
@@ -116,12 +113,11 @@ def fetch_home_products(request: HttpRequest):
     return JsonResponse({})
 
 
-@csrf_exempt
 def fetch_searched_products(request: HttpRequest):
     '''
     get at most 64 uids
     '''
-    if request.method == 'POST':
+    if request.method == 'GET':
         try:
             conditions = json.loads(request.body)
             assert type(conditions) == dict and conditions != {}
@@ -163,15 +159,13 @@ def fetch_searched_products(request: HttpRequest):
         return JsonResponse(res)
     return JsonResponse({})
 
-
-@csrf_exempt
 def fetch_product_brief(request: HttpRequest):
     '''
     get the brief info
     send: {"UID": "afrtr-43gtwwf"}
     receive: {"name": "good sofa", "description": "this is a sofa", "price": 200, "picture": "some url"}
     '''
-    if request.method == "POST":
+    if request.method == "GET":
         try:
             req = json.loads(request.body)
             id = req["UID"]
@@ -186,15 +180,13 @@ def fetch_product_brief(request: HttpRequest):
                    "price": f"{prod.price}"}
             if os.path.isfile(f"static/{username}/{prod.name}/picture/title.jpg"):
                 fs = FileSystemStorage()
-                url = fs.url(
-                    f"static/{username}/{prod.name}/picture/title.jpg")
+                url = fs.url(f"{username}/{prod.name}/picture/title.jpg")
                 res["picture"] = str(url)
             return JsonResponse(res)
     return JsonResponse({})
 
 
-@csrf_exempt
-def fetch_product_detailed(request: HttpRequest):
+def fetch_product_detailed(request:HttpRequest):
     '''
     literately get every bit of information except ar model
     send: {"UID": "er43t5y6juyki"}
@@ -204,13 +196,13 @@ def fetch_product_detailed(request: HttpRequest):
     "price": prod.price, "sold_state": prod.sold_state,
     "picture_0": url0, "picture_1": url1}
     '''
-    if request.method == "POST":
+    if request.method == "GET":
         try:
             req = json.loads(request.body)
             id = req["UID"]
             id = uuid.UUID(id)
         except Exception as e:
-            return JsonResponse("%s" % e)
+            return JsonResponse("%s"%e)
         prod = ProductInfo.objects.filter(UID=id)
         if prod.exists():
             prod = prod[0]
@@ -223,9 +215,8 @@ def fetch_product_detailed(request: HttpRequest):
             if os.path.isdir(f"static/{username}/{prod.name}/picture"):
                 fs = FileSystemStorage()
                 pics = os.listdir(f"static/{username}/{prod.name}/picture")
-                for pic in pics:
-                    url = fs.url(
-                        f"static/{username}/{prod.name}/picture/{pic}")
+                for pic in pics: 
+                    url= fs.url(f"{username}/{prod.name}/picture/{pic}")
                     res[pic.strip(".jpg")] = str(url)
             if os.path.isdir(f"static/{username}/{prod.name}/video"):
                 fs = FileSystemStorage()
@@ -235,24 +226,24 @@ def fetch_product_detailed(request: HttpRequest):
                         f"static/{username}/{prod.name}/video/{vid}")
                     res[vid.strip(".mp4")] = str(url)
             if request.user.is_authenticated:
-                hist = {"UID": res["UID"], "primary_class": res["primary_class"],
-                        "secondary_class": res["secondary_class"],
-                        "color_style": res["color_style"]}
+                hist = {"UID":res["UID"],"primary_class":res["primary_class"],
+                        "secondary_class":res["secondary_class"],
+                        "color_style":res["color_style"]}
                 if not os.path.isdir(f"static/{request.user.username}"):
                     os.mkdir(f"static/{request.user.username}")
                 if not os.path.isfile(f"static/{request.user.username}/history"):
-                    file = open(f"static/{request.user.username}/history", "w")
+                    file = open(f"static/{request.user.username}/history","w")
                     file.write(json.dumps([hist]))
                     file.close()
                 else:
-                    file = open(f"static/{request.user.username}/history", "r")
+                    file = open(f"static/{request.user.username}/history","r")
                     hists = json.loads(file.read())
                     file.close()
-                    if len(hists) > 63:
+                    if len(hists)>63:
                         hists = hists[-63:]
                         # only keep 64 records
                     hists.append(hist)
-                    with open(f"static/{request.user.username}/history", "w") as file:
+                    with open(f"static/{request.user.username}/history","w") as file:
                         file.write(json.dumps(hists))
             return JsonResponse(res)
     return JsonResponse({})

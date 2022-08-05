@@ -13,8 +13,6 @@ from django.views.decorators.csrf import csrf_exempt
 from usersystem.models import UserProfile
 
 # Create your views here.
-
-
 @csrf_exempt
 def login(request: HttpRequest):
     '''
@@ -59,7 +57,6 @@ def check(request: HttpRequest):
                     result[key] = getattr(userprofile, key)
         return JsonResponse(result)
     return HttpResponse('failed')
-
 
 @csrf_exempt
 def update(request: HttpRequest):
@@ -207,8 +204,6 @@ def logout(request: HttpRequest):
         return HttpResponse("successful")
     return HttpResponse("failed")
 
-
-@csrf_exempt
 def delete(request: HttpRequest):
     '''
     Delete the current user
@@ -222,29 +217,30 @@ def delete(request: HttpRequest):
     _logout(request)
     return HttpResponse('successful')
 
-
-@csrf_exempt
 def check_other(request: HttpRequest):
-    user = request.user
-    try:
-        result = json.loads(request.body)
-    except:
-        return HttpResponse('failed: invalid text')
-    if not user.is_authenticated:
-        return HttpResponse('failed: login first')
-    if "username" not in result.keys():
-        return HttpResponse('failed: try api check')
-    username = result['username']
-    user = None
-    try:
-        user = User.objects.get(username=username)
-    except:
-        return HttpResponse('failed: no such username')
-    userprofile = UserProfile.objects.get(user=user)
-    for key in result.keys():
-        if key != 'password' and key != 'money':
-            if hasattr(user, key):
-                result[key] = getattr(user, key)
-            elif hasattr(userprofile, key):
-                result[key] = getattr(userprofile, key)
-    return JsonResponse(result)
+
+    if request.method == 'GET':
+        user = request.user
+        try:
+            result = json.loads(request.body)
+        except:
+            return HttpResponse('failed: invalid text')
+        if not user.is_authenticated:
+            return HttpResponse('failed: login first')
+        if "username" not in result.keys():
+            return HttpResponse('failed: try api check')
+        username = result['username']
+        user = None
+        try:
+            user = User.objects.get(username=username)
+        except:
+            return HttpResponse('failed: no such username')
+        userprofile = UserProfile.objects.get(user=user)
+        for key in result.keys():
+            if key != 'password':
+                if hasattr(user, key):
+                    result[key] = getattr(user, key)
+                elif hasattr(userprofile, key):
+                    result[key] = getattr(userprofile, key)
+        return JsonResponse(result)
+    return HttpResponse('failed')

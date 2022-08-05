@@ -24,6 +24,7 @@ from ar import views as ar_views
 from payment import views as payment_views
 
 
+
 urlpatterns = [
     # admin
     path('admin/', admin.site.urls),
@@ -68,4 +69,5 @@ urlpatterns = [
     # payment
     path('buy_product/', payment_views.buy_product, name='buy_product'),
     path('pay_notify/', payment_views.pay_notify, name='pay_notify')
+
 ]

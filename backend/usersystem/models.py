@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 class UserProfile(models.Model):
     user = models.OneToOneField(User, models.CASCADE, related_name='profile')
     gender = models.CharField(max_length=32, default='unknown')
-    modified_time = models.DateTimeField(auto_now=True)
+    modified_time = models.DateTimeField(auto_now_add=True)
     phone = models.CharField(max_length=32, default='unknown')
     address = models.CharField(max_length=256, default='unknown')
     money = models.FloatField(default=0)

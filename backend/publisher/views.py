@@ -83,11 +83,12 @@ def post_picture(request: HttpRequest):
     if request.method == "POST":
         user = request.user.username
         try:
-            pic = request.POST.get("picture")
-            id = request.POST.get("UID")
+            pic = request.FILES["picture"].read().decode()
+            id = request.FILES["UID"].read().decode()
             id = uuid.UUID(id)
-        except:
-            return JsonResponse({"msg": "1"})
+
+        except Exception as e:
+            return HttpResponse("%s"%e)
         if not pic.endswith(".jpg"):
             pic = f"{pic}.jpg"
         prod = ProductInfo.objects.filter(UID=id)
@@ -106,9 +107,9 @@ def post_picture(request: HttpRequest):
             # will be removed first
             content = request.FILES['image']
             fs = FileSystemStorage()
-            fs.save(f"static/{user}/{prod.name}/picture/{pic}", content)
-            return JsonResponse({})
-    return JsonResponse({"msg": "2"})
+            ret = fs.save(f"{user}/{prod.name}/picture/{pic}", content)
+            return HttpResponse("successful. filename:%s\n"%ret)
+    return HttpResponse("failed")
 
 
 @csrf_exempt
