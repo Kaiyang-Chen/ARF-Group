@@ -6,6 +6,7 @@ Capstone project (VE441 App Dev for Entrepreneurs) for SJTU-UM Joint Institute
 Backend
 - Django 4.0.4
 - PostgreSQL 14.3
+- Alipay SDK: python-alipay-sdk, install with [pip install python-alipay-sdk]. To set up the sandbox environment and get priavet and public keys, check https://open.alipay.com/
 
 Frontend
 - Android API level 30
@@ -27,9 +28,9 @@ Frontend
 ### Data and Control Blocks
 ![graph](readme_graphs/block.png "Sellers")
 
-The primary functional blocks of the app include Dashboard, Product Publisher (and Model Generator), Product Browser and Chatting Manager. Payment module will be likely to be done with AliPay or Wechat Pay api.
+The primary functional blocks of the app include AR, Publisher, Browser, Usersystem, Cart, Payment and Chatting.
 
-Dashboard is used to manage user information, which supports pre-defined information fields such as user name, email address, phone number, age, gender, address, etc. Dashboard supports logging in/out, registering and deleting users. In addition, this module is responsible for use authentication, whose service is provided by Django. When the user wants to update user information, the front-end sends a GET request to the Dashboard module, and the module requests Authentication and User Profile Database for the required information and sends back to the front-end. When updating fields, the front-end sends a POST request to the Dashboard and the Dashboard updates the database.
+User system. The user system provides a user the opportunity to register, log in, log out and delete his account. Users can also input, check and update his personal information on the system. Besides, our app relies on the user system to provide contact information between sellers and buyers. This system further lays the foundation for product ownership management and access control.
 
 Product Browser is used to search for existing products. The front-end sends a GET request to Product Browser with reqired fields. If the request wants a specific product with its UID, all information about this product is fetched and sent back to the front-end. If the request wants some products that satisfiy the searching criterial, Product Browser sends 5-10 results that are wanted to the front-end. Front-end may indicate specific fields that should be returned in this case. All the product information not including the AR model is stored in one seperate Product Database that is not the same as User Profile Database. This database also includes the file location of the corresponding AR model. To require an AR model for a specific product, its UID will be provided by the front-end and Browser searches for the targeted file. All user will have browsing history stored, so that the front-end can request for user recommendation on the welcoming homepage without providing any additional information. Product Browser is connected and managing two parts of storage: basic product information database and AR model files.
 
@@ -37,7 +38,12 @@ Porduct Publisher is for buyers to publish new products. The front-end sends a P
 
 Chatting Manager supports establishing chats between buyers and sellers. After the buyer searches for a product and gets the owner's username, the front-end sends the username to Chatting Manager so that this module creates a chatting session between the buyer and the seller. Each side of the chatting session may choose to create/post chat/get chat/delete session.
 
-The display of the AR model is done through ARCore SDK for Android which is handled by the front-end device.
+Cart. The cart is used as shopping carts for users. Users can add products into their shopping cart and check out from there. Alipay SDK is used.
+
+Payment. The payment system is used to pay for products. For now, it will provide a sandbox Alipay link which cannot be paid for real if the account does not have enough money remaining. The current system is simply a prototype, considering that real payment via Alipay requires examination and approval from Alibaba.
+
+
+AR. The AR system is used to generate and display AR models of products. The model generation is based on the uploaded video, and the display of AR models is implemented using Android AR Core.The display of the AR model is done through ARCore SDK for Android which is handled by the front-end device.
 
 ## APIs and Controller
 
@@ -203,7 +209,21 @@ Get the AR model of the product. Refer to SERVER_IP/fetch_product/. Returns the 
 
 SERVER_IP/buy_product/
 
-Try to buy the product. Send a GET request with a body including its UID. E.g., {"UID":"12323"} Returns an HttpResponse indicating success or failure.
+Try to buy the product. Send a GET request with a body including its UID. E.g., {"UID":"12323"} If the user account has enough money, it will be automatically paid. If not, an Alipay trade link is returned. Open it with web browser to pay the bill and come back to the app.
+
+### Cart
+
+SERVER_IP/add_to_cart/
+
+Add a product into the user's cart. Send {"UID":"12323"}.
+
+SERVER_IP/delete_from_cart/
+
+Delete a product from the user's cart. Send {"UID":"12323"}.
+
+SERVER_IP/get_cart/
+
+Get the user's shopping cart. The returned records are ordered from latest from earliest.
 
 # View UI/UX
 
@@ -291,6 +311,10 @@ Browse furniture: search for furniture, get homepage recommendation, get the bre
 Publish furniture: post products, post pictures of the product, delete the product, update the product information, get the product picture
 
 Chatting system (only available in the backend for now): post text chats, post pictures, get messages
+
+Payment system: simulate the payment functions using Alipay sandbox environment
+
+Cart: add, get and delete products from user's shopping cart
 
 Helped with frontend debugging.
 
